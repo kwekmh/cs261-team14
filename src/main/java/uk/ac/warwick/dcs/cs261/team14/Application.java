@@ -29,13 +29,16 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
+
     @Bean
     public TaskExecutor taskExecutor() {
         return new SimpleAsyncTaskExecutor(); // Or use another one of your liking
     }
 
+
     @Bean
-    public CommandLineRunner init(TaskExecutor taskExecutor) {
-        return (args) -> taskExecutor.execute(ingestorController.getLiveStreamTask());
+    public CommandLineRunner init() {
+        return (args) -> taskExecutor().execute(ingestorController.getLiveStreamTask());
     }
+
 }

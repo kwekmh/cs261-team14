@@ -1,22 +1,17 @@
 package uk.ac.warwick.dcs.cs261.team14.data.pipeline;
 
+import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
-import uk.ac.warwick.dcs.cs261.team14.data.transformers.DataTransformer;
-import uk.ac.warwick.dcs.cs261.team14.learning.LearningModel;
+import org.springframework.stereotype.Component;
+
+import java.io.Serializable;
 
 /**
  * Created by Ming on 2/12/2017.
  */
-public class DataPipelineModel {
-    private DataTransformer dataTransformer;
-    private LearningModel learningModel;
-
-    public void process(Dataset<Row> input) {
-
-    }
-
-    public void processLine(String input) {
-
-    }
+@Component
+public interface DataPipelineModel extends Serializable {
+    Dataset<Row> processRDD(JavaRDD<Row> rdd);
+    Row processLine(String input);
 }
