@@ -37,8 +37,8 @@ public class Application {
 
 
     @Bean
-    public CommandLineRunner init() {
-        return (args) -> taskExecutor().execute(ingestorController.getLiveStreamTask());
+    public CommandLineRunner init(TaskExecutor taskExecutor) {
+        return (args) -> taskExecutor.execute(ingestorController.getLiveStreamTask());
     }
 
 }
