@@ -12,6 +12,7 @@ import org.apache.spark.sql.types.StructType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,8 +87,8 @@ public class IndividualTradeLearningModel implements LearningModel {
     }
 
     private String getModelPath(String modelsDirectory) {
-        if (modelsDirectory.indexOf(modelsDirectory.length() - 1) != '\\') {
-            return modelsDirectory + "\\gbt_model_individual_trades";
+        if (modelsDirectory.indexOf(modelsDirectory.length() - 1) != File.separatorChar) {
+            return modelsDirectory + File.separator + "gbt_model_individual_trades";
         } else {
             return modelsDirectory + "gbt_model_individual_trades";
         }
