@@ -1,0 +1,62 @@
+<svg width="67" height="118" viewBox="0 0 67 118" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:figma="http://www.figma.com/figma/ns">
+<title>LOGO</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(666 461)" figma:type="canvas">
+<g id="LOGO" style="mix-blend-mode:normal;" filter="url(#filter0_d)" figma:type="frame">
+<g id="Canvas" style="mix-blend-mode:normal;" figma:type="frame">
+<g id="Group" style="mix-blend-mode:normal;isolation:isolate;" figma:type="frame">
+<g id="Subtract" style="mix-blend-mode:normal;isolation:isolate;" figma:type="frame">
+<g id="Vector" style="mix-blend-mode:normal;isolation:isolate;" figma:type="vector">
+<use xlink:href="#path0_fill" transform="translate(-658.953 -455.946)" fill="#FFFFFF" style="mix-blend-mode:normal;"/>
+</g>
+</g>
+<g id="Rectangle" style="mix-blend-mode:normal;isolation:isolate;" figma:type="frame">
+<mask id="mask0_alpha" mask-type="alpha">
+<g id="mask0 outline ins" style="mix-blend-mode:normal;isolation:isolate;" figma:type="frame">
+<g id="Vector" style="mix-blend-mode:normal;isolation:isolate;" figma:type="vector">
+<use xlink:href="#path1_fill" transform="translate(-653.97 -377.438)" fill="#FFFFFF" style="mix-blend-mode:normal;"/>
+</g>
+</g>
+</mask>
+<g id="Group" style="mix-blend-mode:normal;isolation:isolate;" mask="url(#mask0_alpha)" figma:type="frame">
+<g id="Vector" style="mix-blend-mode:normal;isolation:isolate;" figma:type="vector">
+<use xlink:href="#path2_fill" transform="translate(-656.464 -379.714)" fill="#FFFFFF" style="mix-blend-mode:normal;"/>
+</g>
+</g>
+</g>
+<g id="Rectangle" style="mix-blend-mode:normal;isolation:isolate;" figma:type="frame">
+<mask id="mask1_alpha" mask-type="alpha">
+<g id="mask1 outline ins" style="mix-blend-mode:normal;isolation:isolate;" figma:type="frame">
+<g id="Vector" style="mix-blend-mode:normal;isolation:isolate;" figma:type="vector">
+<use xlink:href="#path3_fill" transform="translate(-661.505 -460.724)" fill="#FFFFFF" style="mix-blend-mode:normal;"/>
+</g>
+</g>
+</mask>
+<g id="Group" style="mix-blend-mode:normal;isolation:isolate;" mask="url(#mask1_alpha)" figma:type="frame">
+<g id="Vector" style="mix-blend-mode:normal;isolation:isolate;" figma:type="vector">
+<use xlink:href="#path4_fill" transform="translate(-664 -463)" fill="#FFFFFF" style="mix-blend-mode:normal;"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<filter id="filter0_d" filterUnits="userSpaceOnUse" x="-666" y="-461" width="67" height="118" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<desc>type="dropShadow" x="0" y="4" size="4" spread="0" color="0,0,0,0.25" blend="normal"</desc>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 0"/>
+<feOffset dx="0" dy="4"/>
+<feGaussianBlur stdDeviation="2"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+</filter>
+<path id="path0_fill" fill-rule="evenodd" d="M 3.84104 67.1294L 4.52608 67.1294L 4.52608 7.05428L 0 7.05428L 0 23.9302L 3.84104 67.1294ZM 7.26624 104.221L 9.50887 104.221L 9.50887 91.8586L 6.38532 89.3971L 5.92511 89.119L 7.26624 104.221ZM 5.67539 86.3068L 4.98277 78.5073L 9.50887 78.5073L 9.50887 88.9574L 7.74611 87.5682L 7.69048 87.5245L 7.62983 87.4879L 5.67539 86.3068ZM 9.90245 92.1687L 9.90245 104.221L 14.4285 104.221L 14.4285 97.0594L 11.4811 93.413L 9.90245 92.1687ZM 14.4285 93.4319L 13.179 91.8861L 13.0986 91.7864L 12.9981 91.7072L 9.90245 89.2676L 9.90245 78.5073L 14.4285 78.5073L 14.4285 93.4319ZM 14.8221 97.5463L 14.8221 104.221L 19.3482 104.221L 19.3482 96.8685L 18.0776 99.0949L 17.2483 100.548L 16.196 99.2462L 14.8221 97.5463ZM 19.3482 92.2657L 16.922 96.5167L 14.8221 93.9189L 14.8221 78.5073L 19.3482 78.5073L 19.3482 92.2657ZM 19.7418 96.179L 19.7418 104.221L 24.2677 104.221L 24.2677 89.5771L 22.5648 91.2325L 19.7418 96.179ZM 24.2677 86.3983L 20.8549 89.7156L 20.7394 89.8281L 20.6596 89.9678L 19.7418 91.5759L 19.7418 78.5073L 24.2677 78.5073L 24.2677 86.3983ZM 24.6614 89.1945L 24.6614 103.084L 29.1875 103.084L 29.1875 85.7671L 27.5336 86.4029L 24.6614 89.1945ZM 29.1875 83.3279L 26.493 84.3639L 26.2745 84.4479L 26.1069 84.6108L 24.6614 86.0158L 24.6614 78.5073L 29.1875 78.5073L 29.1875 83.3279ZM 29.6442 85.5914L 29.6442 103.084L 34.2111 103.084L 34.2111 87.6615L 31.6121 84.8348L 29.6442 85.5914ZM 34.2111 84.2932L 32.7695 82.7251L 32.2432 82.153L 31.5166 82.4324L 29.6442 83.1522L 29.6442 78.5073L 34.2111 78.5073L 34.2111 84.2932ZM 34.5009 87.9764L 34.5009 104.221L 39.0269 104.221L 39.0269 93.309L 35.6328 89.2075L 34.5009 87.9764ZM 39.0269 89.7325L 37.3755 87.7368L 37.3566 87.7138L 37.3365 87.692L 34.5009 84.6081L 34.5009 78.5073L 39.0269 78.5073L 39.0269 89.7325ZM 39.4206 93.7846L 39.4206 104.221L 43.9466 104.221L 43.9466 91.8927L 42.2831 94.8166L 41.4647 96.255L 40.4091 94.9793L 39.4206 93.7846ZM 43.9466 87.2787L 41.1149 92.2559L 39.4206 90.2081L 39.4206 78.5073L 43.9466 78.5073L 43.9466 87.2787ZM 44.3401 91.2009L 44.3401 103.084L 45.7296 103.084L 47.2335 86.1473L 47.1999 86.1744L 44.3401 91.2009ZM 47.5134 82.9956L 45.5958 84.5405L 45.4272 84.6764L 45.3204 84.8643L 44.3401 86.587L 44.3401 78.5073L 47.9119 78.5073L 47.5134 82.9956ZM 49.2598 64.8109L 53.7859 13.9071L 53.7859 0L 49.2598 0L 49.2598 64.8109ZM 44.3401 67.1294L 48.8661 67.1294L 48.8661 7.05428L 44.3401 7.05428L 44.3401 67.1294ZM 43.9466 21.3904L 43.9466 67.1294L 39.4206 67.1294L 39.4206 21.3904L 43.9466 21.3904ZM 39.0269 11.6054L 39.0269 67.1294L 34.5009 67.1294L 34.5009 11.6054L 39.0269 11.6054ZM 34.2111 4.09603L 34.2111 67.1294L 29.6442 67.1294L 29.6442 4.09603L 34.2111 4.09603ZM 29.1875 7.05428L 29.1875 67.1294L 24.6614 67.1294L 24.6614 7.05428L 29.1875 7.05428ZM 24.2677 15.4739L 24.2677 67.1294L 19.7418 67.1294L 19.7418 15.4739L 24.2677 15.4739ZM 19.3482 28.4447L 19.3482 67.1294L 14.8221 67.1294L 14.8221 28.4447L 19.3482 28.4447ZM 14.4285 18.6597L 14.4285 67.1294L 9.90245 67.1294L 9.90245 18.6597L 14.4285 18.6597ZM 9.50887 11.833L 9.50887 67.1294L 4.98277 67.1294L 4.98277 11.833L 9.50887 11.833Z"/>
+<path id="path1_fill" d="M 42.9291 0L 0 0L 2.28346 25.714L 40.6457 25.714L 42.9291 0Z"/>
+<path id="path2_fill" d="M 2.49446 2.27557L 2.49446 0L 4.87801e-08 0L 0.219882 2.47617L 2.49446 2.27557ZM 45.4236 2.27557L 47.6981 2.47617L 47.918 0L 45.4236 0L 45.4236 2.27557ZM 43.1401 27.9896L 43.1401 30.2651L 45.2304 30.2651L 45.4147 28.1903L 43.1401 27.9896ZM 4.77792 27.9896L 2.50335 28.1903L 2.68761 30.2651L 4.77792 30.2651L 4.77792 27.9896ZM 2.49446 4.55115L 45.4236 4.55115L 45.4236 0L 2.49446 0L 2.49446 4.55115ZM 43.149 2.07498L 40.8656 27.7889L 45.4147 28.1903L 47.6981 2.47617L 43.149 2.07498ZM 43.1401 25.714L 4.77792 25.714L 4.77792 30.2651L 43.1401 30.2651L 43.1401 25.714ZM 7.0525 27.7889L 4.76903 2.07498L 0.219882 2.47617L 2.50335 28.1903L 7.0525 27.7889Z"/>
+<path id="path3_fill" d="M 58 0L 0 0L 6.3937 71.9081L 51.6063 71.9081L 58 0Z"/>
+<path id="path4_fill" d="M 2.49475 2.27557L 2.49475 0L 8.1184e-08 0L 0.220201 2.47642L 2.49475 2.27557ZM 60.4948 2.27557L 62.7693 2.47642L 62.9894 0L 60.4948 0L 60.4948 2.27557ZM 54.1011 74.1837L 54.1011 76.4593L 56.1911 76.4593L 56.3756 74.3847L 54.1011 74.1837ZM 8.88845 74.1837L 6.6139 74.3847L 6.79838 76.4593L 8.88845 76.4593L 8.88845 74.1837ZM 2.49475 4.55115L 60.4948 4.55115L 60.4948 0L 2.49475 0L 2.49475 4.55115ZM 58.2202 2.07473L 51.8265 73.9828L 56.3756 74.3847L 62.7693 2.47642L 58.2202 2.07473ZM 54.1011 71.9081L 8.88845 71.9081L 8.88845 76.4593L 54.1011 76.4593L 54.1011 71.9081ZM 11.163 73.9828L 4.76931 2.07473L 0.220201 2.47642L 6.6139 74.3847L 11.163 73.9828Z"/>
+</defs>
+</svg>

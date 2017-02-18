@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:figma="http://www.figma.com/figma/ns"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="150"
+   height="172"
+   viewBox="0 0 150 172"
+   version="1.1"
+   id="svg24"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="PLAY.svg">
+  <metadata
+     id="metadata39">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="640"
+     inkscape:window-height="480"
+     id="namedview37"
+     showgrid="false"
+     inkscape:zoom="1.372093"
+     inkscape:cx="91.762712"
+     inkscape:cy="86"
+     inkscape:window-x="20"
+     inkscape:window-y="42"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="PLAY" />
+  <title
+     id="title26">PLAY</title>
+  <desc
+     id="desc28">Created using Figma</desc>
+  <g
+     id="Canvas"
+     transform="translate(121 112)"
+     figma:type="canvas">
+    <g
+       id="PLAY"
+       style="mix-blend-mode:normal;"
+       figma:type="regular-polygon">
+      <use
+         xlink:href="#path0_fill"
+         transform="matrix(0.866025 -0.5 0.5 0.866025 -206 -62.2948)"
+         style="mix-blend-mode:normal;fill:#ffffff"
+         id="use32" />
+    </g>
+  </g>
+  <defs
+     id="defs34">
+    <path
+       id="path0_fill"
+       d="M 99.1592 0L 185.034 148.739L 13.2848 148.739L 99.1592 0Z" />
+  </defs>
+</svg>

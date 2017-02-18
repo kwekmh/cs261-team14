@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:figma="http://www.figma.com/figma/ns"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="313"
+   height="313"
+   viewBox="0 0 313 313"
+   version="1.1"
+   id="svg2"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="allTrades.svg">
+  <metadata
+     id="metadata50">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="640"
+     inkscape:window-height="480"
+     id="namedview48"
+     showgrid="false"
+     inkscape:zoom="0.75399361"
+     inkscape:cx="156.5"
+     inkscape:cy="156.5"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <title
+     id="title4">viewTradesIcon</title>
+  <desc
+     id="desc6">Created using Figma</desc>
+  <g
+     id="Canvas"
+     transform="translate(164 164)"
+     figma:type="canvas"
+     style="fill:#ffffff">
+    <g
+       id="Group"
+       style="mix-blend-mode:normal;fill:#ffffff"
+       figma:type="frame">
+      <g
+         id="g10"
+         style="mix-blend-mode:normal;fill:#ffffff"
+         figma:type="frame">
+        <g
+           id="Rectangle"
+           style="mix-blend-mode:normal;fill:#ffffff"
+           figma:type="vector">
+          <use
+             xlink:href="#path0_fill"
+             transform="matrix(-0.707107 0.707107 -0.707107 -0.707107 148.492 111.723)"
+             style="mix-blend-mode:normal;fill:#ffffff"
+             id="use13" />
+        </g>
+        <g
+           id="g15"
+           style="mix-blend-mode:normal;fill:#ffffff"
+           figma:type="vector">
+          <use
+             xlink:href="#path1_fill"
+             transform="matrix(-0.707107 0.707107 -0.707107 -0.707107 57.9828 45.9619)"
+             style="mix-blend-mode:normal;fill:#ffffff"
+             id="use17" />
+        </g>
+        <g
+           id="Ellipse"
+           style="mix-blend-mode:normal;fill:#ffffff"
+           figma:type="ellipse">
+          <mask
+             id="mask0_outline_ins">
+            <use
+               xlink:href="#path2_fill"
+               fill="white"
+               transform="matrix(0.707107 0.707107 -0.707107 0.707107 -50.2046 -210.011)"
+               id="use21" />
+          </mask>
+          <g
+             mask="url(#mask0_outline_ins)"
+             id="g23"
+             style="fill:#ffffff">
+            <use
+               xlink:href="#path3_stroke_2x"
+               transform="matrix(0.707107 0.707107 -0.707107 0.707107 -50.2046 -210.011)"
+               style="mix-blend-mode:normal;fill:#ffffff"
+               id="use25" />
+          </g>
+        </g>
+      </g>
+      <g
+         id="BarChart"
+         style="mix-blend-mode:normal;fill:#ffffff"
+         figma:type="frame">
+        <g
+           id="Line"
+           style="mix-blend-mode:normal;fill:#ffffff"
+           figma:type="line">
+          <use
+             xlink:href="#path4_stroke"
+             transform="matrix(0 -1 1 0 -74 8.79541)"
+             style="mix-blend-mode:normal;fill:#ffffff"
+             id="use29" />
+        </g>
+        <g
+           id="g31"
+           style="mix-blend-mode:normal;fill:#ffffff"
+           figma:type="vector">
+          <use
+             xlink:href="#path5_stroke"
+             transform="matrix(0 -1 1 0 -49 8.79541)"
+             style="mix-blend-mode:normal;fill:#ffffff"
+             id="use33" />
+        </g>
+        <g
+           id="g35"
+           style="mix-blend-mode:normal;fill:#ffffff"
+           figma:type="vector">
+          <use
+             xlink:href="#path6_stroke"
+             transform="matrix(0 -1 1 0 -14 8.79541)"
+             style="mix-blend-mode:normal;fill:#ffffff"
+             id="use37" />
+        </g>
+      </g>
+    </g>
+  </g>
+  <defs
+     id="defs39">
+    <path
+       id="path0_fill"
+       d="M 0 0L 52 0L 41 132L 11 132L 0 0Z" />
+    <path
+       id="path1_fill"
+       d="M 0 0L 17 0L 13.4038 43L 3.59615 43L 0 0Z" />
+    <path
+       id="path2_fill"
+       d="M 226 113C 226 175.408 175.408 226 113 226C 50.5918 226 0 175.408 0 113C 0 50.5918 50.5918 0 113 0C 175.408 0 226 50.5918 226 113Z" />
+    <path
+       id="path3_stroke_2x"
+       d="M 206 113C 206 164.362 164.362 206 113 206L 113 246C 186.454 246 246 186.454 246 113L 206 113ZM 113 206C 61.6375 206 20 164.362 20 113L -20 113C -20 186.454 39.5461 246 113 246L 113 206ZM 20 113C 20 61.6375 61.6375 20 113 20L 113 -20C 39.5461 -20 -20 39.5461 -20 113L 20 113ZM 113 20C 164.362 20 206 61.6375 206 113L 246 113C 246 39.5461 186.454 -20 113 -20L 113 20Z" />
+    <path
+       id="path4_stroke"
+       d="M 0 0L 118 0L 118 -20L 0 -20L 0 0Z" />
+    <path
+       id="path5_stroke"
+       d="M -1.83978e-07 10L 64.7954 10L 64.7954 -10L 1.83978e-07 -10L -1.83978e-07 10Z" />
+    <path
+       id="path6_stroke"
+       d="M -2.31935e-08 10L 102.795 10L 102.795 -10L 2.31935e-08 -10L -2.31935e-08 10Z" />
+  </defs>
+</svg>
