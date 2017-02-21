@@ -9,202 +9,202 @@
 </head>
 
 <body>
-<div class="sidebar allTrades">
-    <div id="logo">
-        <div id="logoHook" class="hook"></div>
-        <img src="../../static/images/icons/logoImageWhiteShadow.svg" id="logoImage" alt="Logo" th:attr="src=@{/images/icons/logoImageWhiteShadow.svg}">
-    </div> <!-- #logo -->
-    <div id="titleHook" class="hook">
-        <div id="titleText">Dashboard</div>
-    </div> <!-- #titleHook.hook -->
-    <div id="backHook" class="hook">
-        <a href="/">
-            <img src="../../static/images/icons/arrow.svg" id="backIcon" title="Back to Dashboard" th:attr="src=@{/images/icons/arrow.svg}">
-        </a>
-    </div> <!-- #backHook.hook -->
-    <div id="dataButtons">
-        <div id="streamHook" class="hook">
-            <div class="dataContainer">
-                <img src="../../static/images/icons/PLAY.svg" id="streamIcon" alt="Stream Data Icon" th:attr="src=@{/images/icons/PLAY.svg}">
-                <div id="streamText">Stream Data</div>
-            </div> <!-- .dataContainer -->
-        </div> <!-- #streamHook.hook -->
-        <div id="uploadHook" class="hook">
-            <div class="dataContainer">
-                <img src="../../static/images/icons/ADD.svg" id="uploadIcon" alt="Upload Data Icon" th:attr="src=@{/images/icons/ADD.svg}">
-                <div id="uploadText">Upload Data</div>
-            </div> <!-- .dataContainer -->
-        </div> <!-- #uploadHook.hook -->
-    </div> <!-- #dataButtons -->
-</div> <!-- .sidebar.allTrades -->
-<div class="main">
-    <div id="allTradeDataFrame">
-        <div id="allTradeDataTitle">
-            <div class="dataContainer notCentre">
-                Trading Activity
-            </div> <!-- .dataContainer.notCentre -->
-            <div id="orderByDropdown">
-                <select name="orderBy">
-                    <option value="default">Order By:</option>
-                    <option value="time">Time</option>
-                    <option value="type">Type</option>
-                    <option value="price">Price</option>
-                </select>
-            </div> <!-- #orderByDropdown -->
-        </div> <!-- #allTradeDataTitle -->
-        <div id="allTradeDataTable">
-            <table>
-                <thead>
-                <tr>
-                    <th>Time</th>
-                    <th>Type</th>
-                    <th>Symbol</th>
-                    <th>Sector</th>
-                    <th>Price</th>
-                    <th>Size</th>
-                    <th>Buyer</th>
-                    <th>Seller</th>
-                    <th>Bid Price</th>
-                    <th>Ask Price</th>
-                    <th>Details</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>01:03:34</td>
-                    <td>unknown</td>
-                    <td>symb</td>
-                    <td>sect</td>
-                    <td>5254.46</td>
-                    <td>325</td>
-                    <td>Bob</td>
-                    <td>Charles</td>
-                    <td>3424.15</td>
-                    <td>534.24</td>
-                    <td><a href="./details.html" class="detailsIcon" title="View Details"></a></td>
-                </tr>
-                <tr>
-                    <td>01:03:34</td>
-                    <td>unknown</td>
-                    <td>symb</td>
-                    <td>sect</td>
-                    <td>5254.46</td>
-                    <td>325</td>
-                    <td>Bob</td>
-                    <td>Charles</td>
-                    <td>3424.15</td>
-                    <td>534.24</td>
-                    <td><a href="./details.html" class="detailsIcon" title="View Details"></a></td>
-                </tr>
-                <tr>
-                    <td>01:03:34</td>
-                    <td>unknown</td>
-                    <td>symb</td>
-                    <td>sect</td>
-                    <td>5254.46</td>
-                    <td>325</td>
-                    <td>Bob</td>
-                    <td>Charles</td>
-                    <td>3424.15</td>
-                    <td>534.24</td>
-                    <td><a href="./details.html" class="detailsIcon" title="View Details"></a></td>
-                </tr>
-                <tr>
-                    <td>01:03:34</td>
-                    <td>unknown</td>
-                    <td>symb</td>
-                    <td>sect</td>
-                    <td>5254.46</td>
-                    <td>325</td>
-                    <td>Bob</td>
-                    <td>Charles</td>
-                    <td>3424.15</td>
-                    <td>534.24</td>
-                    <td><a href="./details.html" class="detailsIcon" title="View Details"></a></td>
-                </tr>
-                <tr>
-                    <td>01:03:34</td>
-                    <td>unknown</td>
-                    <td>symb</td>
-                    <td>sect</td>
-                    <td>5254.46</td>
-                    <td>325</td>
-                    <td>Bob</td>
-                    <td>Charles</td>
-                    <td>3424.15</td>
-                    <td>534.24</td>
-                    <td><a href="./details.html" class="detailsIcon" title="View Details"></a></td>
-                </tr>
-                <tr>
-                    <td>01:03:34</td>
-                    <td>unknown</td>
-                    <td>symb</td>
-                    <td>sect</td>
-                    <td>5254.46</td>
-                    <td>325</td>
-                    <td>Bob</td>
-                    <td>Charles</td>
-                    <td>3424.15</td>
-                    <td>534.24</td>
-                    <td><a href="./details.html" class="detailsIcon" title="View Details"></a></td>
-                </tr>
-                <tr>
-                    <td>01:03:34</td>
-                    <td>unknown</td>
-                    <td>symb</td>
-                    <td>sect</td>
-                    <td>5254.46</td>
-                    <td>325</td>
-                    <td>Bob</td>
-                    <td>Charles</td>
-                    <td>3424.15</td>
-                    <td>534.24</td>
-                    <td><a href="./details.html" class="detailsIcon" title="View Details"></a></td>
-                </tr>
-                <tr>
-                    <td>01:03:34</td>
-                    <td>unknown</td>
-                    <td>symb</td>
-                    <td>sect</td>
-                    <td>5254.46</td>
-                    <td>325</td>
-                    <td>Bob</td>
-                    <td>Charles</td>
-                    <td>3424.15</td>
-                    <td>534.24</td>
-                    <td><a href="./details.html" class="detailsIcon" title="View Details"></a></td>
-                </tr>
-                <tr>
-                    <td>01:03:34</td>
-                    <td>unknown</td>
-                    <td>symb</td>
-                    <td>sect</td>
-                    <td>5254.46</td>
-                    <td>325</td>
-                    <td>Bob</td>
-                    <td>Charles</td>
-                    <td>3424.15</td>
-                    <td>534.24</td>
-                    <td><a href="./details.html" class="detailsIcon" title="View Details"></a></td>
-                </tr>
-                <tr>
-                    <td>01:03:34</td>
-                    <td>unknown</td>
-                    <td>symb</td>
-                    <td>sect</td>
-                    <td>5254.46</td>
-                    <td>325</td>
-                    <td>Bob</td>
-                    <td>Charles</td>
-                    <td>3424.15</td>
-                    <td>534.24</td>
-                    <td><a href="./details.html" class="detailsIcon" title="View Details"></a></td>
-                </tr>
-                </tbody>
-            </table>
-        </div> <!-- #allTradeDataTable -->
-    </div> <!-- #allTradeDataFrame -->
-</div> <!-- .main -->
+    <div class="sidebar allTrades">
+        <div id="logo">
+            <div id="logoHook" class="hook"></div>
+            <img src="../../static/images/icons/logoImageWhiteShadow.svg" id="logoImage" alt="Logo" th:attr="src=@{/images/icons/logoImageWhiteShadow.svg}">
+        </div> <!-- #logo -->
+        <div id="titleHook" class="hook">
+            <div id="titleText">All Trades</div>
+        </div> <!-- #titleHook.hook -->
+        <div id="backHook" class="hook">
+            <a href="/">
+                <img src="../../static/images/icons/arrow.svg" id="backIcon" title="Back to Dashboard" th:attr="src=@{/images/icons/arrow.svg}">
+            </a>
+        </div> <!-- #backHook.hook -->
+        <div id="dataButtons">
+            <div id="streamHook" class="hook">
+                <div class="dataContainer">
+                    <img src="../../static/images/icons/PLAY.svg" id="streamIcon" alt="Stream Data Icon" th:attr="src=@{/images/icons/PLAY.svg}">
+                    <div id="streamText">Stream Data</div>
+                </div> <!-- .dataContainer -->
+            </div> <!-- #streamHook.hook -->
+            <div id="uploadHook" class="hook">
+                <div class="dataContainer">
+                    <img src="../../static/images/icons/ADD.svg" id="uploadIcon" alt="Upload Data Icon" th:attr="src=@{/images/icons/ADD.svg}">
+                    <div id="uploadText">Upload Data</div>
+                </div> <!-- .dataContainer -->
+            </div> <!-- #uploadHook.hook -->
+        </div> <!-- #dataButtons -->
+    </div> <!-- .sidebar.allTrades -->
+    <div class="main">
+        <div id="allTradeDataFrame">
+            <div id="allTradeDataTitle">
+                <div class="dataContainer notCentre">
+                    Trading Activity
+                </div> <!-- .dataContainer.notCentre -->
+                <div id="orderByDropdown">
+                    <select name="orderBy">
+                        <option value="default">Order By:</option>
+                        <option value="time">Time</option>
+                        <option value="type">Type</option>
+                        <option value="price">Price</option>
+                    </select>
+                </div> <!-- #orderByDropdown -->
+            </div> <!-- #allTradeDataTitle -->
+            <div id="allTradeDataTable">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Type</th>
+                        <th>Symbol</th>
+                        <th>Sector</th>
+                        <th>Price</th>
+                        <th>Size</th>
+                        <th>Buyer</th>
+                        <th>Seller</th>
+                        <th>Bid Price</th>
+                        <th>Ask Price</th>
+                        <th>Details</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>01:03:34</td>
+                        <td>unknown</td>
+                        <td>symb</td>
+                        <td>sect</td>
+                        <td>5254.46</td>
+                        <td>325</td>
+                        <td>Bob</td>
+                        <td>Charles</td>
+                        <td>3424.15</td>
+                        <td>534.24</td>
+                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
+                    </tr>
+                    <tr>
+                        <td>01:03:34</td>
+                        <td>unknown</td>
+                        <td>symb</td>
+                        <td>sect</td>
+                        <td>5254.46</td>
+                        <td>325</td>
+                        <td>Bob</td>
+                        <td>Charles</td>
+                        <td>3424.15</td>
+                        <td>534.24</td>
+                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
+                    </tr>
+                    <tr>
+                        <td>01:03:34</td>
+                        <td>unknown</td>
+                        <td>symb</td>
+                        <td>sect</td>
+                        <td>5254.46</td>
+                        <td>325</td>
+                        <td>Bob</td>
+                        <td>Charles</td>
+                        <td>3424.15</td>
+                        <td>534.24</td>
+                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
+                    </tr>
+                    <tr>
+                        <td>01:03:34</td>
+                        <td>unknown</td>
+                        <td>symb</td>
+                        <td>sect</td>
+                        <td>5254.46</td>
+                        <td>325</td>
+                        <td>Bob</td>
+                        <td>Charles</td>
+                        <td>3424.15</td>
+                        <td>534.24</td>
+                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
+                    </tr>
+                    <tr>
+                        <td>01:03:34</td>
+                        <td>unknown</td>
+                        <td>symb</td>
+                        <td>sect</td>
+                        <td>5254.46</td>
+                        <td>325</td>
+                        <td>Bob</td>
+                        <td>Charles</td>
+                        <td>3424.15</td>
+                        <td>534.24</td>
+                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
+                    </tr>
+                    <tr>
+                        <td>01:03:34</td>
+                        <td>unknown</td>
+                        <td>symb</td>
+                        <td>sect</td>
+                        <td>5254.46</td>
+                        <td>325</td>
+                        <td>Bob</td>
+                        <td>Charles</td>
+                        <td>3424.15</td>
+                        <td>534.24</td>
+                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
+                    </tr>
+                    <tr>
+                        <td>01:03:34</td>
+                        <td>unknown</td>
+                        <td>symb</td>
+                        <td>sect</td>
+                        <td>5254.46</td>
+                        <td>325</td>
+                        <td>Bob</td>
+                        <td>Charles</td>
+                        <td>3424.15</td>
+                        <td>534.24</td>
+                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
+                    </tr>
+                    <tr>
+                        <td>01:03:34</td>
+                        <td>unknown</td>
+                        <td>symb</td>
+                        <td>sect</td>
+                        <td>5254.46</td>
+                        <td>325</td>
+                        <td>Bob</td>
+                        <td>Charles</td>
+                        <td>3424.15</td>
+                        <td>534.24</td>
+                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
+                    </tr>
+                    <tr>
+                        <td>01:03:34</td>
+                        <td>unknown</td>
+                        <td>symb</td>
+                        <td>sect</td>
+                        <td>5254.46</td>
+                        <td>325</td>
+                        <td>Bob</td>
+                        <td>Charles</td>
+                        <td>3424.15</td>
+                        <td>534.24</td>
+                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
+                    </tr>
+                    <tr>
+                        <td>01:03:34</td>
+                        <td>unknown</td>
+                        <td>symb</td>
+                        <td>sect</td>
+                        <td>5254.46</td>
+                        <td>325</td>
+                        <td>Bob</td>
+                        <td>Charles</td>
+                        <td>3424.15</td>
+                        <td>534.24</td>
+                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div> <!-- #allTradeDataTable -->
+        </div> <!-- #allTradeDataFrame -->
+    </div> <!-- .main -->
 </body>
 
 </html>
