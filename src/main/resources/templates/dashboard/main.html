@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" media="all" href="../../css/main.css" th:href="@{/css/main.css}">
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/main.css}">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400" rel="stylesheet">
     <title>Dashboard</title>
 </head>
@@ -12,7 +12,7 @@
 <div class="sidebar dashboard">
     <div id="logo">
         <div id="logoHook" class="hook"></div>
-        <img src="../../static/images/icons/logoImageWhiteShadow.svg" id="logoImage" alt="Logo" th:attr="src=@{/images/icons/logoImageWhiteShadow.svg},alt=#{Logo}">
+        <img src="../../static/images/icons/logoImageWhiteShadow.svg" id="logoImage" alt="Logo" th:attr="src=@{/images/icons/logoImageWhiteShadow.svg}">
     </div> <!-- #logo -->
     <div id="titleHook" class="hook">
         <div id="titleText">Dashboard</div>
@@ -20,25 +20,19 @@
     <div id="dataButtons">
         <div id="streamHook" class="hook">
             <div class="dataContainer">
-                <img src="../../static/images/icons/PLAY.svg" id="streamIcon" alt="Stream Data Icon" th:attr="src=@{/images/icons/PLAY.svg},alt=#{Stream Data Icon}">
+                <img src="../../static/images/icons/PLAY.svg" id="streamIcon" alt="Stream Data Icon" th:attr="src=@{/images/icons/PLAY.svg}">
                 <div id="streamText">Stream Data</div>
             </div> <!-- .dataContainer -->
         </div> <!-- #streamHook.hook -->
         <div id="uploadHook" class="hook">
             <div class="dataContainer">
-                <img src="../../static/images/icons/ADD.svg" id="uploadIcon" alt="Upload Data Icon" th:attr="src=@{/images/icons/ADD.svg},alt=#{Upload Data Icon}">
+                <img src="../../static/images/icons/ADD.svg" id="uploadIcon" alt="Upload Data Icon" th:attr="src=@{/images/icons/ADD.svg}">
                 <div id="uploadText">Upload Data</div>
             </div> <!-- .dataContainer -->
         </div> <!-- #uploadHook.hook -->
     </div> <!-- #dataButtons -->
 </div> <!-- .sidebar.dashboard -->
 <div class="main">
-    <!-- <a href="./details.html">
-        <img src="./images/icons/details.svg">
-    </a>
-    <a href="./allTrades.html">
-        <img src="./images/icons/allTrades.svg">
-    </a> -->
     <div id="dashboardFrame">
         <div id="anomalyFrame">
             <div id="anomalyTitle">
