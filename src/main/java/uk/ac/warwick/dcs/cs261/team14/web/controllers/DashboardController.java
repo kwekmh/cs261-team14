@@ -18,4 +18,18 @@ public class DashboardController {
 
         return mv;
     }
+
+    @RequestMapping("/allTrades")
+    public ModelAndView allTrades() {
+        ModelAndView mv = new ModelAndView("allTrades/main");
+
+        return mv;
+    }
+
+    @RequestMapping("/details")
+    public ModelAndView details() {
+        ModelAndView mv = new ModelAndView("details/main");
+
+        return mv;
+    }
 }
