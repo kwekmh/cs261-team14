@@ -271,7 +271,7 @@ body {
     overflow: hidden;
     background-color: #5E5E5E;
     position: relative;
-    text-indent: 0px;
+    text-indent: 0;
 }
 
 #orderByDropdown:after, #catDropdown:after {
@@ -373,6 +373,17 @@ body {
     display: inline-block;
 }
 
+.detailDataTitle {
+    font-weight: 400;
+    font-size: 18px;
+    font-size: 2.2vh;
+    text-indent: 20px;
+    height: 9.1%;
+    width: 100%;
+    background-color: #1A1A1A;
+    display: table;
+}
+
 #detailTradeData, #detailVisualisation {
     text-indent: 20px;
     margin-top: 1.5%;
@@ -404,6 +415,6 @@ body {
 
 #detailDataText {
     padding: 1%;
-    font-family: "Courier New";
+    font-family: "Courier New", monospace;
     font-size: 1.5vh;
 }
