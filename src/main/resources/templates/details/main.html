@@ -1,10 +1,243 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Anomaly Details</title>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/main.css}">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400" rel="stylesheet">
+    <title>Details</title>
 </head>
+
 <body>
- DETAILS
+<div th:replace="fragments/sidebar :: sidebar('details')">
+
+</div> <!-- .sidebar.details -->
+<div class="main">
+    <div id="detailsFrame">
+        <div id="detailTopBar">
+            <p id="detailTitle">Anomalous Event:</p>
+            <div id="falsePositive">Mark as false positive</div>
+        </div> <!-- #detailTopBar -->
+        <div id="detailMainFrame">
+            <div id="timeCatBar">
+                <div id="timeBar" class="dataContainer notCentre">
+                    <img src="../../static/images/icons/timeIcon.svg" id="timeIcon" alt="Time Icon" th:attr="src=@{/images/icons/timeIcon.svg}">
+                    <div id="timeText">18:28:44</div>
+                </div> <!-- #timeBar.dataContainer.notCentre -->
+                <div id="catDropdown">
+                    <select name="categorise">
+                        <option value="default">Categorise</option>
+                        <option value="time">Fat Finger</option>
+                        <option value="type">Pump and Dump</option>
+                        <option value="price">Volume Spike</option>
+                    </select>
+                </div> <!-- #catDropdown -->
+            </div> <!-- #timeCatBar -->
+            <div id="detailTradeData">
+                <div id="tradeDataTitle">
+                    <div class="dataContainer notCentre">
+                        Trading Activity
+                    </div> <!-- .dataContainer.notCentre -->
+                </div> <!-- #tradeDataTitle -->
+                <div id="anomalyTable">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Symbol</th>
+                            <th>Sector</th>
+                            <th>Price</th>
+                            <th>Size</th>
+                            <th>Buyer</th>
+                            <th>Seller</th>
+                            <th>Bid Price</th>
+                            <th>Ask Price</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>01:03:34</td>
+                            <td>symb</td>
+                            <td>sect</td>
+                            <td>5254.46</td>
+                            <td>325</td>
+                            <td>Bob</td>
+                            <td>Charles</td>
+                            <td>3424.15</td>
+                            <td>534.24</td>
+                        </tr>
+                        <tr>
+                            <td>01:03:34</td>
+                            <td>symb</td>
+                            <td>sect</td>
+                            <td>5254.46</td>
+                            <td>325</td>
+                            <td>Bob</td>
+                            <td>Charles</td>
+                            <td>3424.15</td>
+                            <td>534.24</td>
+                        </tr>
+                        <tr>
+                            <td>01:03:34</td>
+                            <td>symb</td>
+                            <td>sect</td>
+                            <td>5254.46</td>
+                            <td>325</td>
+                            <td>Bob</td>
+                            <td>Charles</td>
+                            <td>3424.15</td>
+                            <td>534.24</td>
+                        </tr>
+                        <tr>
+                            <td>01:03:34</td>
+                            <td>symb</td>
+                            <td>sect</td>
+                            <td>5254.46</td>
+                            <td>325</td>
+                            <td>Bob</td>
+                            <td>Charles</td>
+                            <td>3424.15</td>
+                            <td>534.24</td>
+                        </tr>
+                        <tr>
+                            <td>01:03:34</td>
+                            <td>symb</td>
+                            <td>sect</td>
+                            <td>5254.46</td>
+                            <td>325</td>
+                            <td>Bob</td>
+                            <td>Charles</td>
+                            <td>3424.15</td>
+                            <td>534.24</td>
+                        </tr>
+                        <tr>
+                            <td>01:03:34</td>
+                            <td>symb</td>
+                            <td>sect</td>
+                            <td>5254.46</td>
+                            <td>325</td>
+                            <td>Bob</td>
+                            <td>Charles</td>
+                            <td>3424.15</td>
+                            <td>534.24</td>
+                        </tr>
+                        <tr>
+                            <td>01:03:34</td>
+                            <td>symb</td>
+                            <td>sect</td>
+                            <td>5254.46</td>
+                            <td>325</td>
+                            <td>Bob</td>
+                            <td>Charles</td>
+                            <td>3424.15</td>
+                            <td>534.24</td>
+                        </tr>
+                        <tr>
+                            <td>01:03:34</td>
+                            <td>symb</td>
+                            <td>sect</td>
+                            <td>5254.46</td>
+                            <td>325</td>
+                            <td>Bob</td>
+                            <td>Charles</td>
+                            <td>3424.15</td>
+                            <td>534.24</td>
+                        </tr>
+                        <tr>
+                            <td>01:03:34</td>
+                            <td>symb</td>
+                            <td>sect</td>
+                            <td>5254.46</td>
+                            <td>325</td>
+                            <td>Bob</td>
+                            <td>Charles</td>
+                            <td>3424.15</td>
+                            <td>534.24</td>
+                        </tr>
+                        <tr>
+                            <td>01:03:34</td>
+                            <td>symb</td>
+                            <td>sect</td>
+                            <td>5254.46</td>
+                            <td>325</td>
+                            <td>Bob</td>
+                            <td>Charles</td>
+                            <td>3424.15</td>
+                            <td>534.24</td>
+                        </tr>
+                        <tr>
+                            <td>01:03:34</td>
+                            <td>symb</td>
+                            <td>sect</td>
+                            <td>5254.46</td>
+                            <td>325</td>
+                            <td>Bob</td>
+                            <td>Charles</td>
+                            <td>3424.15</td>
+                            <td>534.24</td>
+                        </tr>
+                        <tr>
+                            <td>01:03:34</td>
+                            <td>symb</td>
+                            <td>sect</td>
+                            <td>5254.46</td>
+                            <td>325</td>
+                            <td>Bob</td>
+                            <td>Charles</td>
+                            <td>3424.15</td>
+                            <td>534.24</td>
+                        </tr>
+                        <tr>
+                            <td>01:03:34</td>
+                            <td>symb</td>
+                            <td>sect</td>
+                            <td>5254.46</td>
+                            <td>325</td>
+                            <td>Bob</td>
+                            <td>Charles</td>
+                            <td>3424.15</td>
+                            <td>534.24</td>
+                        </tr>
+                        <tr>
+                            <td>01:03:34</td>
+                            <td>symb</td>
+                            <td>sect</td>
+                            <td>5254.46</td>
+                            <td>325</td>
+                            <td>Bob</td>
+                            <td>Charles</td>
+                            <td>3424.15</td>
+                            <td>534.24</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div> <!-- #anomalyTable -->
+            </div> <!-- #detailTradeData -->
+            <div id="detailVisualisation">
+                <div id="tradeDataTitle">
+                    <div class="dataContainer notCentre">
+                        Data Visualisation
+                    </div> <!-- .dataContainer.notCentre -->
+                </div> <!-- #tradeDataTitle -->
+                <div id="tradeData">
+                    <div id="detailGraph">
+                        GRAPH
+                    </div> <!-- #detailGraph -->
+                    <div id="detailData">
+                        <div id="detailDataText">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </div> <!-- #detailDataText -->
+                    </div> <!-- #detailData -->
+                </div> <!-- #tradeData -->
+            </div> <!-- #tradeDataFrame -->
+        </div> <!-- #detailVisulaisation -->
+    </div> <!-- #detailsFrame -->
+</div> <!-- .main -->
 </body>
+
 </html>
