@@ -9,33 +9,8 @@
 </head>
 
 <body>
-    <div class="sidebar allTrades">
-        <div id="logo">
-            <div id="logoHook" class="hook"></div>
-            <img src="../../static/images/icons/logoImageWhiteShadow.svg" id="logoImage" alt="Logo" th:attr="src=@{/images/icons/logoImageWhiteShadow.svg}">
-        </div> <!-- #logo -->
-        <div id="titleHook" class="hook">
-            <div id="titleText">All Trades</div>
-        </div> <!-- #titleHook.hook -->
-        <div id="backHook" class="hook">
-            <a href="/">
-                <img src="../../static/images/icons/arrow.svg" id="backIcon" title="Back to Dashboard" th:attr="src=@{/images/icons/arrow.svg}">
-            </a>
-        </div> <!-- #backHook.hook -->
-        <div id="dataButtons">
-            <div id="streamHook" class="hook">
-                <div class="dataContainer">
-                    <img src="../../static/images/icons/PLAY.svg" id="streamIcon" alt="Stream Data Icon" th:attr="src=@{/images/icons/PLAY.svg}">
-                    <div id="streamText">Stream Data</div>
-                </div> <!-- .dataContainer -->
-            </div> <!-- #streamHook.hook -->
-            <div id="uploadHook" class="hook">
-                <div class="dataContainer">
-                    <img src="../../static/images/icons/ADD.svg" id="uploadIcon" alt="Upload Data Icon" th:attr="src=@{/images/icons/ADD.svg}">
-                    <div id="uploadText">Upload Data</div>
-                </div> <!-- .dataContainer -->
-            </div> <!-- #uploadHook.hook -->
-        </div> <!-- #dataButtons -->
+    <div th:replace="fragments/sidebar :: sidebar('allTrades')">
+
     </div> <!-- .sidebar.allTrades -->
     <div class="main">
         <div id="allTradeDataFrame">

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/main.css}">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400" rel="stylesheet">
+</head>
+
+<body>
+<div class="sidebar" th:classappend="${page=='dashboard'} ? 'dashboard' : (${page=='allTrades'} ? 'allTrades' : 'details')" th:fragment="sidebar(page)">
+    <div id="logo">
+        <div id="logoHook" class="hook"></div>
+        <img src="../../static/images/icons/logoImageWhiteShadow.svg" id="logoImage" alt="Logo" th:attr="src=@{/images/icons/logoImageWhiteShadow.svg}">
+    </div> <!-- #logo -->
+    <div id="titleHook" class="hook">
+        <div id="titleText" th:switch="${page}">
+            <th:block th:case="'dashboard'">Dashboard</th:block>
+            <th:block th:case="'allTrades'">All Trades</th:block>
+            <th:block th:case="'details'">Details</th:block>
+        </div> <!-- #titleText -->
+    </div> <!-- #titleHook.hook -->
+    <div id="backHook" class="hook" th:if="${page!='dashboard'}">
+        <a href="/">
+            <img src="../../static/images/icons/arrow.svg" id="backIcon" title="Back to Dashboard" th:attr="src=@{/images/icons/arrow.svg}">
+        </a>
+    </div> <!-- #backHook.hook -->
+    <div id="dataButtons">
+        <div id="streamHook" class="hook">
+            <div class="dataContainer">
+                <img src="../../static/images/icons/PLAY.svg" id="streamIcon" alt="Stream Data Icon" th:attr="src=@{/images/icons/PLAY.svg}">
+                <div id="streamText">Stream Data</div>
+            </div> <!-- .dataContainer -->
+        </div> <!-- #streamHook.hook -->
+        <div id="uploadHook" class="hook">
+            <div class="dataContainer">
+                <img src="../../static/images/icons/ADD.svg" id="uploadIcon" alt="Upload Data Icon" th:attr="src=@{/images/icons/ADD.svg}">
+                <div id="uploadText">Upload Data</div>
+            </div> <!-- .dataContainer -->
+        </div> <!-- #uploadHook.hook -->
+    </div> <!-- #dataButtons -->
+</div> <!-- .sidebar -->
+</body>
+
+</html>
