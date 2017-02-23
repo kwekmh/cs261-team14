@@ -1,1 +1,1 @@
-$('#selectFile').bind('change', function() { var fileName = $(this).val(); $('#fileSelected').html(fileName); })
+$('#selectFile').bind('change', function() { var fileName = $(this).val().split('\\').pop(); $('#fileSelected').html(fileName); })
