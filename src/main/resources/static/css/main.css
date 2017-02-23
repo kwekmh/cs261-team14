@@ -85,6 +85,10 @@ body {
 
 #backIcon:hover {
     opacity: 0.5;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 #dataButtons {
@@ -119,6 +123,143 @@ body {
     line-height: 100%;
     margin-left: 11px;
     display: inline-block;
+}
+#streamHook:hover, #uploadHook:hover {
+    background-color: #5E5E5E;
+    cursor: pointer;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+
+/* MODAL BACKGROUND */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 200; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+}
+
+
+/* MODAL CONTENT FRAME */
+.modal-content {
+    position: relative;
+    background-color: white;
+    margin: auto;
+    padding: 0;
+    width: 46%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+
+/* MODAL ANIMATION */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+
+/* MODAL CLOSE */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+}
+
+.close:hover,
+.close:focus {
+    color: #B6B6B6;
+    text-decoration: none;
+    cursor: pointer;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+
+/* MODAL CONTENT */
+.modal-header {
+    padding: 2px 16px;
+    height: 32px;
+    background-color: #3A3A3A;
+    color: white;
+}
+
+.modal-body {
+    text-align: center;
+    color: black;
+}
+
+.modal-body h2 {
+    text-align: left;
+    padding: 2px 16px;
+    border-bottom: 1px solid #B7B7B7;
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.modal-footer {
+    text-align: center;
+    border-top: 1px solid #B7B7B7;
+    padding: 2px 16px;
+    color: white;
+    font-size: 16px;
+}
+
+.modal p {
+    color: #484848;
+    font-size: 16px;
+}
+
+.modal button, .modal label {
+    background-color: #C4C4C4;
+    border: 0;
+    border-radius: 0;
+    height: 2.5em;
+    line-height: 2.5;
+    margin: 0.25em;
+    padding: 0 1em;
+    width: 14em;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.modal button:hover, .modal label:hover {
+    background-color: #3A3A3A;
+    color: white;
+    cursor: pointer;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.modal label {
+    padding: 0.5em 2em;
+}
+
+input[type="file"] {
+    display: none;
 }
 
 
@@ -168,6 +309,10 @@ body {
 
 #viewTradesIcon:hover{
     background-color: #484848;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .detailsIcon {
@@ -178,6 +323,10 @@ body {
 
 .detailsIcon:hover {
     opacity: 0.5;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .notCentre {

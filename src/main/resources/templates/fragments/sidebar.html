@@ -38,7 +38,30 @@
                 <div id="uploadText">Upload Data</div>
             </div> <!-- .dataContainer -->
         </div> <!-- #uploadHook.hook -->
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                </div> <!-- .modal-header -->
+                <div class="modal-body">
+                    <h2>Upload Data File</h2>
+                    <label id="selectFileLabel">
+                        <input type="file" id="selectFile"/>
+                        Select File
+                    </label>
+                    <p id="fileSelected">No file selected</p>
+                </div> <!-- .modal-body -->
+                <div class="modal-footer">
+                    <button>Upload and Analyse</button>
+                </div> <!-- .modal-footer -->
+            </div> <!-- .modal-content -->
+        </div> <!-- #myModal.modal -->
     </div> <!-- #dataButtons -->
+    <script th:src="@{/scripts/modal.js}"></script>
+    <script th:src="@{http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js}"></script>
+    <script th:src="@{/scripts/selectFile.js}"></script>
 </div> <!-- .sidebar -->
 </body>
 

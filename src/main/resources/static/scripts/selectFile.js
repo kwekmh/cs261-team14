@@ -1,0 +1,1 @@
+$('#selectFile').bind('change', function() { var fileName = $(this).val(); $('#fileSelected').html(fileName); })
