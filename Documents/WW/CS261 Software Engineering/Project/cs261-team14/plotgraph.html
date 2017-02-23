@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Plot Graph</title>
+</head>
+
+<body> 
+<canvas id="canvas" width="700" height="300"></canvas>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
+<script>
+var ctx = document.getElementById('canvas');
+
+function plot(x, y) {
+  var data = [];
+
+  for (var i = 0; i < x.length; i += 1) {
+    data.push({
+      x: x[i],
+      y: y[i],
+    });
+  }
+
+  return new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: x,
+      datasets: [{
+        label: 'Plot',
+        data: data,
+      }]
+    },
+    options: {
+      legend: {
+        display: false
+      },
+      responsive: false,
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+}
+
+var x = [1, 5, 10, 15];
+var y = [0.1, 0.3, 0.6, 0.8];
+
+plot(x, y);
+
+</script>
+
+</body>
+
+</html>
+<!-- Testing -->
