@@ -5,45 +5,41 @@
 </head>
 
 <body> 
-<canvas id="canvas" width="700" height="300"></canvas>
+<div id="chart" height="300" width="500">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
 <script>
-var ctx = document.getElementById('canvas');
-
 function plot(x, y) {
   var data = [];
 
-  for (var i = 0; i < x.length; i += 1) {
+  x.forEach(function(xData, index) {
     data.push({
-      x: x[i],
-      y: y[i],
+      x: xData,
+      y: y[index],
+      color: 'black',
     });
-  }
-
-  return new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: x,
-      datasets: [{
-        label: 'Plot',
-        data: data,
-      }]
-    },
-    options: {
-      legend: {
-        display: false
-      },
-      responsive: false,
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
-          }
-        }]
-      }
-    }
   });
+
+  var chart = new CanvasJS.Chart('chart', {
+    title: {
+      text: 'Title',
+    },
+    animationEnabled: true,
+    axisX: {
+      title: 'X',
+    },
+    axisY: {
+      title: 'Y',
+      gridThickness: 0,
+    },
+    data: [{
+      type: 'scatter',
+      dataPoints: data
+    }]
+  });
+
+  chart.render();
+  document.getElementsByClassName('canvasjs-chart-credit')[0].style.display = 'none';
 }
 
 var x = [1, 5, 10, 15];
