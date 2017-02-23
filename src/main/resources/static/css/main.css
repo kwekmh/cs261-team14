@@ -263,6 +263,19 @@ input[type="file"] {
 }
 
 
+/* ALERT ICON */
+#alertIcon {
+    display: none;
+    width: 20px;
+    height: 20px;
+    z-index: 201;
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 10px;
+}
+
+
 /* DASHBOARD */
 #dashboardFrame {
     position: absolute;
