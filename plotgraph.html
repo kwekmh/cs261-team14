@@ -2,12 +2,12 @@
 <html>
 <head>
 <title>Plot Graph</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
 </head>
 
 <body> 
 <canvas id="canvas" width="700" height="300"></canvas>
-
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
 <script>
 var ctx = document.getElementById('canvas');
 
@@ -23,7 +23,7 @@ function plot(x, y) {
 
   return new Chart(ctx, {
     type: 'line',
-    data: {gg
+    data: {
       labels: x,
       datasets: [{
         label: 'Plot',
