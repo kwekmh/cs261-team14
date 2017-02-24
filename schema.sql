@@ -105,6 +105,57 @@ CREATE TABLE `trade` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `aggregate_data_type`
+--
+
+DROP TABLE IF EXISTS `aggregate_data_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `aggregate_data_type` (
+  `aggregate_data_type_id` int(11) NOT NULL AUTO_INCREMENT,
+  `type_name` varchar(45) NOT NULL,
+  PRIMARY KEY (`aggregate_data_type_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `aggregate_data`
+--
+CREATE TABLE `aggregate_data` (
+  `aggregate_data_id` int(11) NOT NULL AUTO_INCREMENT,
+  `type_id` int(11) NOT NULL,
+  `symbol_id` int(11) NOT NULL,
+  `value` double NOT NULL,
+  `generated_date` datetime NOT NULL,
+  `is_anomalous` int(11) NOT NULL,
+  PRIMARY KEY (`aggregate_data_id`),
+  KEY `type_id_idx` (`type_id`),
+  KEY `symbol_id_idx` (`symbol_id`),
+  CONSTRAINT `aggregate_data_symbol_id` FOREIGN KEY (`symbol_id`) REFERENCES `symbol` (`symbol_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `type_id` FOREIGN KEY (`type_id`) REFERENCES `aggregate_data_type` (`aggregate_data_type_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `aggregate_data_trade`
+--
+
+DROP TABLE IF EXISTS `aggregate_data_trade`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `aggregate_data_trade` (
+  `aggregate_data_trade_id` int(11) NOT NULL AUTO_INCREMENT,
+  `aggregate_data_id` int(11) NOT NULL,
+  `trade_id` int(11) NOT NULL,
+  PRIMARY KEY (`aggregate_data_trade_id`),
+  KEY `aggregate_data_id_idx` (`aggregate_data_id`),
+  KEY `trade_id_idx` (`trade_id`),
+  CONSTRAINT `aggregate_data_id` FOREIGN KEY (`aggregate_data_id`) REFERENCES `aggregate_data` (`aggregate_data_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `trade_id` FOREIGN KEY (`trade_id`) REFERENCES `trade` (`trade_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `sector`
 --
 
@@ -143,6 +194,25 @@ LOCK TABLES `category` WRITE;
 INSERT INTO `category` VALUES (1,'Default');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping data for table `aggregate_data_type`
+--
+
+LOCK TABLES `aggregate_data_type` WRITE;
+/*!40000 ALTER TABLE `aggregate_data_type` DISABLE KEYS */;
+INSERT INTO `aggregate_data_type` VALUES (1,'Exponential Moving Average over 5 periods');
+/*!40000 ALTER TABLE `aggregate_data_type` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

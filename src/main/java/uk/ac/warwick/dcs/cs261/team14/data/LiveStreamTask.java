@@ -2,6 +2,8 @@ package uk.ac.warwick.dcs.cs261.team14.data;
 
 import org.apache.spark.sql.Row;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import uk.ac.warwick.dcs.cs261.team14.data.pipeline.InputController;
 import uk.ac.warwick.dcs.cs261.team14.data.transformers.DataTransformerMapping;
@@ -20,14 +22,16 @@ import java.time.format.DateTimeFormatter;
  * Created by Ming on 2/12/2017.
  */
 @Component
-public class LiveStreamTask implements Runnable {
+public class LiveStreamTask {
     @Autowired
     InputController inputController;
     @Autowired
     DataTransformerMapping dataTransformerMapping;
     @Autowired
     TradeRepository tradeRepository;
-    @Override
+
+    @Async
+    @Scheduled(cron = "0 10 1 * * *", zone = "Europe/London")
     public void run() {
         try {
             dataTransformerMapping.init();
