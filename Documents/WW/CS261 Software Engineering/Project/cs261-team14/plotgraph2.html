@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Plot Graph</title>
+</head>
+
+<body> 
+<div id="myDiv" style="width: 480px; height: 400px;"></div>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+<script>
+var anomalous = {
+  x: [1, 2, 3, 4],
+  y: [10, 15, 13, 17],
+  mode: 'markers',
+  type: 'scatter',
+  name: 'Anomalous'
+};
+
+var normal = {
+  x: [2, 3, 4, 5],
+  y: [16, 5, 11, 9],
+  mode: 'lines',
+  type: 'scatter',
+  name: 'Normal'
+};
+/*
+var trace3 = {
+  x: [1, 2, 3, 4],
+  y: [12, 9, 15, 12],
+  mode: 'lines+markers',
+  type: 'scatter'
+};
+*/
+var data = [normal, anomalous];
+
+Plotly.newPlot('myDiv', data);
+
+document.getElementsByClassName('modebar')[0].style.display = "none";
+</script>
+
+</body>
+
+</html>
+
