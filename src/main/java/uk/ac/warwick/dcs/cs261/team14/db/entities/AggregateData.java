@@ -31,6 +31,10 @@ public class AggregateData {
     @NotNull
     private int isAnomalous;
 
+    public AggregateData() {
+
+    }
+
     public AggregateData(int typeId) {
         this.typeId = typeId;
     }
