@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "trade")
-public class Trade {
+public class Trade implements AnomalousEvent {
     @Id
     private int tradeId;
 
@@ -177,5 +177,10 @@ public class Trade {
 
     public void setIsAnomalous(int isAnomalous) {
         this.isAnomalous = isAnomalous;
+    }
+
+    public int getAnomalousEventType()
+    {
+        return 1;
     }
 }

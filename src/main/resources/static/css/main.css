@@ -365,14 +365,18 @@ input[type="file"] {
 }
 
 #anomalyTable thead, #tradeDataTable thead, #allTradeDataTable thead {
-    display: none;
+    background-color: #2A2A2A;
+}
+
+#anomalyTable th, #tradeDataTable th, #allTradeDataTable th {
+    border-bottom: 0 none #2A2A2A;
 }
 
 #anomalyTable tr:nth-child(even), #tradeDataTable tr:nth-child(even), #allTradeDataTable tr:nth-child(even) {
     background-color: #494949;
 }
 
-#anomalyTable th, #anomalyTable td, #tradeDataTable th, #tradeDataTable td, #allTradeDataTable th, #allTradeDataTable td {
+#anomalyTable td, #tradeDataTable td, #allTradeDataTable td {
     border-bottom: 1px solid #5E5E5E;
 }
 

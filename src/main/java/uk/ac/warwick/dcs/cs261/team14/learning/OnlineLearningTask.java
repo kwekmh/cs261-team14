@@ -57,7 +57,7 @@ public class OnlineLearningTask {
         LocalDateTime today = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
         LocalDateTime yesterday = today.minusDays(1);
 
-        SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
 
         ArrayList<Row> rows = new ArrayList<Row>();
 

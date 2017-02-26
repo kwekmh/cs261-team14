@@ -25,6 +25,26 @@
                     <thead>
                     <tr>
                         <th>Time</th>
+                        <th>Symbol</th>
+                        <th>Sector</th>
+                        <th>Type</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="anomalousEvent : ${anomalousEvents}" th:with="symbol=${symbolRepository.findOne(anomalousEvent.getSymbolId())}">
+                        <td th:text="${#dates.format(anomalousEvent.getTime(), 'yyyy-MM-dd HH:mm:ss')}">Time</td>
+                        <td th:text="${symbol.getSymbolName()}">Symbol</td>
+                        <td th:text="${sectorRepository.findOne(symbol.getSectorId()).getSectorName()}">Sector</td>
+                        <td th:if="${anomalousEvent.getAnomalousEventType() == 1}">Individual Trade</td>
+                        <td th:if="${anomalousEvent.getAnomalousEventType() == 2}">EMA over 5 periods</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!--
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Time</th>
                         <th>Type</th>
                         <th>Symbol</th>
                         <th>Sector</th>
@@ -170,6 +190,7 @@
                     </tr>
                     </tbody>
                 </table>
+                -->
             </div> <!-- #anomalyTable -->
         </div> <!-- #anomalyFrame -->
         <div id="tradeDataFrame">

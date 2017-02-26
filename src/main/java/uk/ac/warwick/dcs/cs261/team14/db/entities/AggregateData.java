@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "aggregate_data")
-public class AggregateData {
+public class AggregateData implements AnomalousEvent {
     @Id
     private int aggregateDataId;
 
@@ -93,5 +93,13 @@ public class AggregateData {
 
     public void setIsAnomalous(int isAnomalous) {
         this.isAnomalous = isAnomalous;
+    }
+
+    public Timestamp getTime() {
+        return getGeneratedDate();
+    }
+
+    public int getAnomalousEventType() {
+        return 2;
     }
 }
