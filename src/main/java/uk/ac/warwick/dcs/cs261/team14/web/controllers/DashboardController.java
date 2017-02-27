@@ -5,7 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import uk.ac.warwick.dcs.cs261.team14.db.entities.*;
+import uk.ac.warwick.dcs.cs261.team14.web.helpers.GraphHelper;
+import uk.ac.warwick.dcs.cs261.team14.web.helpers.Pair;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -31,6 +35,9 @@ public class DashboardController {
 
     @Autowired
     private CurrencyRepository currencyRepository;
+
+    @Autowired
+    private GraphHelper graphHelper;
 
     @RequestMapping("/")
     public ModelAndView main() {
@@ -59,10 +66,44 @@ public class DashboardController {
             anomalousEvents[i] = anomalousEventsList.get(i);
         }
 
+        // Preparation of values of the graphs
+
+        LocalDateTime now = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        ArrayList<Pair<LocalDateTime, Double>> graphArrayList = graphHelper.generateHourlyAverageRollingPctPriceChange(now);
+
+        String[] rollingX = new String[graphArrayList.size()];
+        double[] rollingY = new double[graphArrayList.size()];
+
+        for (int i = 0; i < graphArrayList.size(); i++) {
+            Pair<LocalDateTime, Double> pair = graphArrayList.get(i);
+            rollingX[i] = formatter.format(pair.getFirst());
+            rollingY[i] = pair.getSecond();
+        }
+
+        ArrayList<Pair<LocalDateTime, Trade>> anomalousArrayList = graphHelper.getAnomalousTradesBetweenForGraphWithHour(now);
+
+        String[] anomalousX = new String[anomalousArrayList.size()];
+        double[] anomalousY = new double[anomalousArrayList.size()];
+
+
+        for (int i = 0; i < anomalousArrayList.size(); i++) {
+            Pair<LocalDateTime, Trade> pair = anomalousArrayList.get(i);
+            anomalousX[i] = formatter.format(pair.getFirst());
+            anomalousY[i] = pair.getSecond().getPctPriceChange();
+        }
+
         mv.addObject("anomalousEvents", anomalousEvents);
         mv.addObject("symbolRepository", symbolRepository);
         mv.addObject("sectorRepository", sectorRepository);
         mv.addObject("currencyRepository", currencyRepository);
+
+        mv.addObject("rollingX", rollingX);
+        mv.addObject("rollingY", rollingY);
+        mv.addObject("anomalousX", anomalousX);
+        mv.addObject("anomalousY", anomalousY);
 
         return mv;
     }
