@@ -27,6 +27,7 @@
                         <th>Time</th>
                         <th>Symbol</th>
                         <th>Sector</th>
+                        <th>Currency</th>
                         <th>Type</th>
                     </tr>
                     </thead>
@@ -35,6 +36,7 @@
                         <td th:text="${#dates.format(anomalousEvent.getTime(), 'yyyy-MM-dd HH:mm:ss')}">Time</td>
                         <td th:text="${symbol.getSymbolName()}">Symbol</td>
                         <td th:text="${sectorRepository.findOne(symbol.getSectorId()).getSectorName()}">Sector</td>
+                        <td th:text="${currencyRepository.findOne(anomalousEvent.getCurrencyId()).getCurrencyName()}">Currency</td>
                         <td th:if="${anomalousEvent.getAnomalousEventType() == 1}">Individual Trade</td>
                         <td th:if="${anomalousEvent.getAnomalousEventType() == 2}">EMA over 5 periods</td>
                     </tr>

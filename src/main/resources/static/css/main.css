@@ -550,6 +550,20 @@ input[type="file"] {
     display: table;
 }
 
+#detailTradeInfo {
+    padding: 12px 12px 12px 12px;
+    background-color: #3A3A3A;
+}
+
+#detailTradeInfo .detailTradeInfoLine {
+    margin: 6px;
+}
+
+#detailTradeInfo .detailTradeInfoSubHeader {
+    margin: 6px;
+    font-weight: bold;
+}
+
 #detailTradeData, #detailVisualisation {
     text-indent: 20px;
     margin-top: 1.5%;

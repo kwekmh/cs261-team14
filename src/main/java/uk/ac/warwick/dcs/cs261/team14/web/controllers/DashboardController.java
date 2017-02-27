@@ -29,6 +29,9 @@ public class DashboardController {
     @Autowired
     private SectorRepository sectorRepository;
 
+    @Autowired
+    private CurrencyRepository currencyRepository;
+
     @RequestMapping("/")
     public ModelAndView main() {
         ModelAndView mv = new ModelAndView("dashboard/main");
@@ -59,6 +62,7 @@ public class DashboardController {
         mv.addObject("anomalousEvents", anomalousEvents);
         mv.addObject("symbolRepository", symbolRepository);
         mv.addObject("sectorRepository", sectorRepository);
+        mv.addObject("currencyRepository", currencyRepository);
 
         return mv;
     }
@@ -66,13 +70,6 @@ public class DashboardController {
     @RequestMapping("/allTrades")
     public ModelAndView allTrades() {
         ModelAndView mv = new ModelAndView("allTrades/main");
-
-        return mv;
-    }
-
-    @RequestMapping("/details")
-    public ModelAndView details() {
-        ModelAndView mv = new ModelAndView("details/main");
 
         return mv;
     }

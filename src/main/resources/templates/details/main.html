@@ -22,7 +22,7 @@
             <div id="timeCatBar">
                 <div id="timeBar" class="dataContainer notCentre">
                     <img src="../../static/images/icons/timeIcon.svg" id="timeIcon" alt="Time Icon" th:attr="src=@{/images/icons/timeIcon.svg}">
-                    <div id="timeText">18:28:44</div>
+                    <div id="timeText" th:text="${#dates.format(anomalousEvent.getTime(), 'yyyy-MM-dd HH:mm:ss')}">18:28:44</div>
                 </div> <!-- #timeBar.dataContainer.notCentre -->
                 <div id="catDropdown">
                     <select name="categorise">
@@ -33,6 +33,17 @@
                     </select>
                 </div> <!-- #catDropdown -->
             </div> <!-- #timeCatBar -->
+            <div id="detailTradeInfo" th:with="symbol=${symbolRepository.findOne(anomalousEvent.getSymbolId())}">
+                <div class="detailTradeInfoLine"><strong>Symbol: </strong><span th:text="${symbol.getSymbolName()}"></span></div>
+                <div class="detailTradeInfoLine"><strong>Sector: </strong><span th:text="${sectorRepository.findOne(symbol.getSectorId()).getSectorName()}"></span></div>
+                <div class="detailTradeInfoLine"><strong>Currency: </strong><span th:text="${currencyRepository.findOne(anomalousEvent.getCurrencyId()).getCurrencyName()}"></span></div>
+                <div class="detailTradeInfoLine" th:if="${anomalousEvent.getAnomalousEventType() == 1}"><strong>Type:</strong> Individual Trade</div>
+                <div class="detailTradeInfoLine" th:if="${anomalousEvent.getAnomalousEventType() == 2}"><strong>Type:</strong> EMA over 5 periods</div>
+                <br>
+                <div class="detailTradeInfoSubHeader">Indicators</div>
+                <div class="detailTradeInfoLine" th:if="${anomalousEvent instanceof T(uk.ac.warwick.dcs.cs261.team14.db.entities.Trade) && anomalousEvent.getAnomalousEventType() == 1}"><strong>Price change over past 5 trades (%): </strong><span th:text="${anomalousEvent.getPctPriceChange()}"></span></div>
+                <div class="detailTradeInfoLine" th:if="${anomalousEvent instanceof T(uk.ac.warwick.dcs.cs261.team14.db.entities.AggregateData) && anomalousEvent.getAnomalousEventType() == 2}"><strong>Exponential moving average (EMA) over 5 periods: </strong><span  th:text="${anomalousEvent.getValue()}"></span></div>
+            </div>
             <div id="detailTradeData">
                 <div class="detailDataTitle">
                     <div class="dataContainer notCentre">
