@@ -319,12 +319,16 @@
                     </div> <!-- #tradeDataTable -->
                 </div> <!-- #tradeDataTableFrame -->
                 <div id="tradeDataGraph">
-                    GRAPH
+                    <div id="tradeDataGraphPlotly"></div>
                 </div> <!-- #tradeDataGraph -->
             </div> <!-- #tradeData -->
         </div> <!-- #tradeDataFrame -->
     </div> <!-- #dashboardFrame -->
 </div> <!-- .main -->
+
+!-- PLOTLY GRAPH -->
+<script th:src="@{https://cdn.plot.ly/plotly-latest.min.js}"></script>
+<script th:src="@{/scripts/plotlyGraph.js}"></script>
 </body>
 
 </html>
