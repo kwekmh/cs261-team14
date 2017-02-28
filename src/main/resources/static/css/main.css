@@ -14,7 +14,7 @@ body {
 
 /* BASIC LAYOUT - SIDEBAR/MAIN AREA*/
 .sidebar {
-    position: absolute;
+    position: fixed;
     left: 0; top: 0; bottom: 0;
     width: 176px;
 }
@@ -37,6 +37,7 @@ body {
 .main {
     position: absolute;
     left: 176px; top: 0; bottom: 0; right: 0;
+    z-index: -10;
 }
 
 
@@ -277,8 +278,10 @@ input[type="file"] {
 
 /* DASHBOARD */
 #dashboardFrame {
-    position: absolute;
-    left: 70px; top: 52px; bottom: 52px; right: 70px;
+    /*position: absolute;*/
+    display: block;
+    margin: 52px 70px 52px 70px;
+    /*left: 70px; top: 52px; bottom: 52px; right: 70px;*/
 }
 
 #anomalyFrame {
@@ -480,8 +483,10 @@ input[type="file"] {
 
 /* DETAILS */
 #detailsFrame {
-    position: absolute;
-    left: 70px; top: 52px; bottom: 52px; right: 70px;
+    /*position: absolute;*/
+    display: block;
+    margin: 52px 70px 52px 70px;
+    /*left: 70px; top: 52px; bottom: 52px; right: 70px;*/
 }
 
 #detailTopBar {
