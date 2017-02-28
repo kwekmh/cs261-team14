@@ -1,0 +1,617 @@
+/* BODY */
+body {
+    background-color: #272727;
+    color: white;
+
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 300;
+}
+
+/*div {
+	border: 1px solid white;
+}*/
+
+
+/* BASIC LAYOUT - SIDEBAR/MAIN AREA*/
+.sidebar {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 176px;
+}
+
+.dashboard {
+    background: url("../images/SidebarDashboard.png");
+    background-size: cover;
+}
+
+.details {
+    background: url("../images/SidebarDetails.png");
+    background-size: cover;
+}
+
+.allTrades {
+    background: url("../images/SidebarAllTrades.png");
+    background-size: cover;
+}
+
+.main {
+    position: absolute;
+    left: 176px; top: 0; bottom: 0; right: 0;
+}
+
+
+/* SIDEBAR */
+#logo {
+    margin-top: 31px;
+    width: 100%;
+}
+
+.hook {
+    width: 100%;
+    background-color: #3A3A3A;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#logoHook {
+    height: 65px;
+}
+
+#logoImage {
+    width: 63px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -56px;
+    display: block;
+}
+
+#titleHook, #backHook {
+    margin-top: 14px;
+    height: 46px;
+    text-align: center;
+}
+
+#titleText {
+    font-size: 24px;
+    text-align: center;
+    line-height: 46px;
+}
+
+#backIcon {
+    width: 46px;
+    height:	27px;
+    margin-top: 10px;
+}
+
+#backIcon:hover {
+    opacity: 0.5;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+#dataButtons {
+    position: absolute;
+    bottom: 0;
+    height: 87px;
+    width: 100%;
+}
+
+#streamHook, #uploadHook {
+    margin-bottom: 9px;
+    height: 35px;
+    display: table;
+}
+
+.dataContainer {
+    display: table-cell;
+    vertical-align: middle;
+    /*padding-top: 4px;*/
+    text-align: center;
+}
+
+#streamIcon, #uploadIcon {
+    height: 14px;
+    width: 14px;
+    display: inline-block;
+}
+
+#streamText, #uploadText {
+    font-size: 16px;
+    text-align: center;
+    line-height: 100%;
+    margin-left: 11px;
+    display: inline-block;
+}
+#streamHook:hover, #uploadHook:hover {
+    background-color: #5E5E5E;
+    cursor: pointer;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+
+/* MODAL BACKGROUND */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 200; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+}
+
+
+/* MODAL CONTENT FRAME */
+.modal-content {
+    position: relative;
+    background-color: white;
+    margin: auto;
+    padding: 0;
+    width: 46%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+
+/* MODAL ANIMATION */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+
+/* MODAL CLOSE */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+}
+
+.close:hover,
+.close:focus {
+    color: #B6B6B6;
+    text-decoration: none;
+    cursor: pointer;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+
+/* MODAL CONTENT */
+.modal-header {
+    padding: 2px 16px;
+    height: 32px;
+    background-color: #3A3A3A;
+    color: white;
+}
+
+.modal-body {
+    text-align: center;
+    color: black;
+}
+
+.modal-body h2 {
+    text-align: left;
+    padding: 2px 16px;
+    border-bottom: 1px solid #B7B7B7;
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.modal-footer {
+    text-align: center;
+    border-top: 1px solid #B7B7B7;
+    padding: 2px 16px;
+    color: white;
+    font-size: 16px;
+}
+
+.modal p {
+    color: #484848;
+    font-size: 16px;
+}
+
+.modal button, .modal label {
+    background-color: #C4C4C4;
+    border: 0;
+    border-radius: 0;
+    height: 2.5em;
+    line-height: 2.5;
+    margin: 0.25em;
+    padding: 0 1em;
+    width: 14em;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.modal button:hover, .modal label:hover {
+    background-color: #3A3A3A;
+    color: white;
+    cursor: pointer;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.modal label {
+    padding: 0.5em 2em;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+
+/* ALERT ICON */
+#alertIcon {
+    display: none;
+    width: 20px;
+    height: 20px;
+    z-index: 201;
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 10px;
+}
+
+
+/* DASHBOARD */
+#dashboardFrame {
+    position: absolute;
+    left: 70px; top: 52px; bottom: 52px; right: 70px;
+}
+
+#anomalyFrame {
+    background-color: #3A3A3A;
+    height: 56.5%;
+    margin-bottom: 3%;
+}
+
+#tradeDataFrame {
+    background-color: #3A3A3A;
+    height: 40.5%;
+}
+
+#anomalyTitle, #tradeDataTitle {
+    font-weight: 400;
+    font-size: 18px;
+    font-size: 2.2vh;
+    text-indent: 20px;
+    height: 6.6%;
+    width: 100%;
+    background-color: #1A1A1A;
+    display: table;
+}
+
+#tradeDataTitle {
+    height: 9.1%;
+}
+
+
+/* LINK ICONS */
+#viewTradesIcon, .detailsIcon {
+    display: table-cell;
+    background-size: 85%;
+    width: 20px;
+    background-image: url("../images/icons/allTrades.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 10px solid transparent;
+}
+
+#viewTradesIcon:hover{
+    background-color: #484848;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.detailsIcon {
+    display: block;
+    background-image: url("../images/icons/details.svg");
+    margin: auto;
+}
+
+.detailsIcon:hover {
+    opacity: 0.5;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.notCentre {
+    text-align: initial;
+}
+
+
+/* TABLE / DATA STYLING */
+#anomalyTable, #allTradeDataTable {
+    height: 93.4%;
+    width: 100%;
+    overflow: scroll;
+}
+
+#anomalyTable table, #tradeDataTable table, #allTradeDataTable table {
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+    border-collapse: collapse;
+    font-size: 18px;
+    font-size: 2.2vh;
+    background-color: #3A3A3A;
+}
+
+#anomalyTable thead, #tradeDataTable thead, #allTradeDataTable thead {
+    background-color: #2A2A2A;
+}
+
+#anomalyTable th, #tradeDataTable th, #allTradeDataTable th {
+    border-bottom: 0 none #2A2A2A;
+}
+
+#anomalyTable tr:nth-child(even), #tradeDataTable tr:nth-child(even), #allTradeDataTable tr:nth-child(even) {
+    background-color: #494949;
+}
+
+#anomalyTable td, #tradeDataTable td, #allTradeDataTable td {
+    border-bottom: 1px solid #5E5E5E;
+}
+
+#tradeData {
+    overflow: auto;
+    width: 100%;
+    background-color: #3A3A3A;
+}
+
+#tradeDataTableFrame, #tradeDataGraph {
+    height: 100%;
+    margin: 0 auto;
+    float: left;
+}
+
+#tradeDataGraph {
+    background-color: #303030;
+    /*-webkit-box-shadow:inset 0 0 0 1px #454545;*/
+    /*-moz-box-shadow:inset 0 0 0 1px #454545;*/
+    /*box-shadow:inset 0 0 0 1px #454545;*/
+    float: right;
+}
+
+#tradeDataGraphPlotly {
+    width: 100%;
+    height: 100%;
+}
+
+#tradeDataTable {
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+}
+
+
+/* ALL TRADES */
+#allTradeDataFrame {
+    position: absolute;
+    left: 70px; top: 52px; bottom: 52px; right: 70px;
+    background-color: #3A3A3A;
+}
+
+#allTradeDataTitle {
+    font-weight: 400;
+    font-size: 18px;
+    font-size: 2.2vh;
+    text-indent: 20px;
+    height: 3.8%;
+    width: 100%;
+    background-color: #1A1A1A;
+    display: table;
+}
+
+
+/* DROPDOWN */
+#orderByDropdown, #catDropdown {
+    float: right;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    width: 120px;
+    overflow: hidden;
+    background-color: #5E5E5E;
+    position: relative;
+    text-indent: 0;
+}
+
+#orderByDropdown:after, #catDropdown:after {
+    top: 50%;
+    left: 85%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(0, 0, 0, 0);
+    border-top-color: #ffffff;
+    border-width: 5px;
+    margin-top: -2px;
+    z-index: 100;
+}
+
+#orderByDropdown select, #catDropdown select {
+    padding: 5px 8px;
+    width: 130%;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    color: white;
+    font-weight: inherit;
+    font-family: inherit;
+}
+
+#orderByDropdown select:focus, #catDropdown select:focus {
+    outline: none;
+}
+
+
+/* DETAILS */
+#detailsFrame {
+    position: absolute;
+    left: 70px; top: 52px; bottom: 52px; right: 70px;
+}
+
+#detailTopBar {
+    width: 100%;
+    border-bottom: 1px solid #5E5E5E;
+}
+
+#detailTitle {
+    font-size: 32px;
+    padding-left: 29px;
+    font-weight: 100;
+    display: inline-block;
+    margin: 0 0 5px 0;
+}
+
+#falsePositive {
+    float: right;
+    width: 50%;
+    height: 30px;
+    background-color: #1A1A1A;
+    text-align: center;
+    line-height: 30px;
+    margin-top: 5px;
+    background-image: url("../images/icons/falseposIcon.svg");
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    background-size: 18px;
+}
+
+#detailMainFrame {
+    width: 100%;
+    height: 100%;
+}
+
+#timeCatBar {
+    font-weight: 300;
+    font-size: 16px;
+    /*font-size: 2.2vh;*/
+    text-indent: 20px;
+    height: 3.8%;
+    width: 100%;
+    background-color: #1A1A1A;
+    display: table;
+    margin-top: 1%;
+    line-height: 100%;
+}
+
+#timeIcon {
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#timeText {
+    font-size: 16px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.detailDataTitle {
+    font-weight: 400;
+    font-size: 18px;
+    font-size: 2.2vh;
+    text-indent: 20px;
+    height: 9.1%;
+    width: 100%;
+    background-color: #1A1A1A;
+    display: table;
+}
+
+#detailTradeInfo {
+    padding: 12px 12px 12px 12px;
+    background-color: #3A3A3A;
+}
+
+#detailTradeInfo .detailTradeInfoLine {
+    margin: 6px;
+}
+
+#detailTradeInfo .detailTradeInfoSubHeader {
+    margin: 6px;
+    font-weight: bold;
+}
+
+#detailTradeData, #detailVisualisation {
+    text-indent: 20px;
+    margin-top: 1.5%;
+    background-color: #3A3A3A;
+    height: 40%;
+}
+
+#detailVisualisation {
+    height: 45%;
+    text-indent: 0;
+}
+
+#detailGraph, #detailData {
+    height: 100%;
+    margin: 0 auto;
+    float: right;
+    overflow: auto;
+    background-color: #303030;
+}
+
+#detailGraph {
+    background-color: #3A3A3A;
+    -webkit-box-shadow:inset 0 0 0 1px #454545;
+    -moz-box-shadow:inset 0 0 0 1px #454545;
+    box-shadow:inset 0 0 0 1px #454545;
+    float: left;
+}
+
+#detailDataText {
+    padding: 1%;
+    font-family: "Courier New", monospace;
+    font-size: 1.5vh;
+}
+
+/* COMMON */
+
+.button {
+    background-color: #1A1A1A;
+    display: inline-block;
+    padding: 4px;
+    margin: 4px;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.fullWidth {
+    width: 100%;
+}

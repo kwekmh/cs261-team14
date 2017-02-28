@@ -1,8 +1,11 @@
 package uk.ac.warwick.dcs.cs261.team14.db.entities;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -20,6 +23,10 @@ public class Symbol {
 
     @NotNull
     private int sectorId;
+
+    @Transient
+    @Autowired
+    private SectorRepository sectorRepository;
 
     public Symbol() {
 
@@ -56,5 +63,9 @@ public class Symbol {
 
     public void setSectorId(int sectorId) {
         this.sectorId = sectorId;
+    }
+
+    public Sector getSector() {
+        return sectorRepository.findOne(getSectorId());
     }
 }

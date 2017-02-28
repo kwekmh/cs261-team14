@@ -2,6 +2,7 @@ package uk.ac.warwick.dcs.cs261.team14.learning;
 
 import org.apache.spark.ml.PipelineModel;
 import org.apache.spark.ml.classification.GBTClassificationModel;
+import org.apache.spark.ml.classification.GBTClassifier;
 import org.apache.spark.ml.feature.VectorAssembler;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -84,6 +85,44 @@ public class IndividualTradeLearningModel implements LearningModel {
         Dataset<Row> transformed = model.transform(df);
 
         return transformed.first();
+    }
+
+        public void learn(Dataset<Row> df) {
+        SparkSession spark = SparkSession.builder().master("local").appName("uk.ac.warwick.dcs.cs261.team14.IndividualTradeLearningModel").getOrCreate();
+
+        df = df.withColumn("time", df.col("time").cast(TimestampType));
+        df = df.withColumn("time", df.col("time").cast(IntegerType));
+        df = df.withColumn("price", df.col("price").cast(DoubleType));
+        df = df.withColumn("size", df.col("size").cast(IntegerType));
+        df = df.withColumn("currency", df.col("currency").cast(IntegerType));
+        df = df.withColumn("symbol", df.col("symbol").cast(IntegerType));
+        df = df.withColumn("sector", df.col("sector").cast(IntegerType));
+        df = df.withColumn("bid", df.col("bid").cast(DoubleType));
+        df = df.withColumn("ask", df.col("ask").cast(DoubleType));
+        df = df.withColumn("pct_price_change", df.col("pct_price_change").cast(DoubleType));
+        df = df.withColumn("is_anomalous", df.col("is_anomalous").cast(IntegerType));
+
+        VectorAssembler assembler = new VectorAssembler()
+                .setInputCols(new String[] {"time","price","currency","symbol","sector","bid","ask","pct_price_change"})
+                .setOutputCol("features");
+
+        df = assembler.transform(df);
+
+        String modelPath = getModelPath(modelsDirectory) + "2";
+
+        GBTClassifier gbt = new GBTClassifier()
+                .setLabelCol("is_anomalous")
+                .setFeaturesCol("features")
+                .setMaxIter(100);
+
+
+        GBTClassificationModel model = gbt.fit(df);
+
+        try {
+            model.save(modelPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private String getModelPath(String modelsDirectory) {

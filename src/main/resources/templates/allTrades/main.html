@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/main.css}">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400" rel="stylesheet">
+    <title>All Trades</title>
+</head>
+
+<body>
+    <div th:replace="fragments/sidebar :: sidebar('allTrades')">
+
+    </div> <!-- .sidebar.allTrades -->
+    <div class="main">
+        <div id="allTradeDataFrame">
+            <div id="allTradeDataTitle">
+                <div class="dataContainer notCentre">
+                    Trading Activity
+                </div> <!-- .dataContainer.notCentre -->
+                <div id="orderByDropdown">
+                    <select name="orderBy">
+                        <option value="default">Order By:</option>
+                        <option value="time">Time</option>
+                        <option value="type">Type</option>
+                        <option value="price">Price</option>
+                    </select>
+                </div> <!-- #orderByDropdown -->
+            </div> <!-- #allTradeDataTitle -->
+            <div id="allTradeDataTable">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Type</th>
+                        <th>Symbol</th>
+                        <th>Sector</th>
+                        <th>Price</th>
+                        <th>Size</th>
+                        <th>Buyer</th>
+                        <th>Seller</th>
+                        <th>Bid Price</th>
+                        <th>Ask Price</th>
+                        <th>Details</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>01:03:34</td>
+                        <td>unknown</td>
+                        <td>symb</td>
+                        <td>sect</td>
+                        <td>5254.46</td>
+                        <td>325</td>
+                        <td>Bob</td>
+                        <td>Charles</td>
+                        <td>3424.15</td>
+                        <td>534.24</td>
+                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
+                    </tr>
+                    <tr>
+                        <td>01:03:34</td>
+                        <td>unknown</td>
+                        <td>symb</td>
+                        <td>sect</td>
+                        <td>5254.46</td>
+                        <td>325</td>
+                        <td>Bob</td>
+                        <td>Charles</td>
+                        <td>3424.15</td>
+                        <td>534.24</td>
+                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
+                    </tr>
+                    <tr>
+                        <td>01:03:34</td>
+                        <td>unknown</td>
+                        <td>symb</td>
+                        <td>sect</td>
+                        <td>5254.46</td>
+                        <td>325</td>
+                        <td>Bob</td>
+                        <td>Charles</td>
+                        <td>3424.15</td>
+                        <td>534.24</td>
+                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
+                    </tr>
+                    <tr>
+                        <td>01:03:34</td>
+                        <td>unknown</td>
+                        <td>symb</td>
+                        <td>sect</td>
+                        <td>5254.46</td>
+                        <td>325</td>
+                        <td>Bob</td>
+                        <td>Charles</td>
+                        <td>3424.15</td>
+                        <td>534.24</td>
+                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
+                    </tr>
+                    <tr>
+                        <td>01:03:34</td>
+                        <td>unknown</td>
+                        <td>symb</td>
+                        <td>sect</td>
+                        <td>5254.46</td>
+                        <td>325</td>
+                        <td>Bob</td>
+                        <td>Charles</td>
+                        <td>3424.15</td>
+                        <td>534.24</td>
+                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
+                    </tr>
+                    <tr>
+                        <td>01:03:34</td>
+                        <td>unknown</td>
+                        <td>symb</td>
+                        <td>sect</td>
+                        <td>5254.46</td>
+                        <td>325</td>
+                        <td>Bob</td>
+                        <td>Charles</td>
+                        <td>3424.15</td>
+                        <td>534.24</td>
+                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
+                    </tr>
+                    <tr>
+                        <td>01:03:34</td>
+                        <td>unknown</td>
+                        <td>symb</td>
+                        <td>sect</td>
+                        <td>5254.46</td>
+                        <td>325</td>
+                        <td>Bob</td>
+                        <td>Charles</td>
+                        <td>3424.15</td>
+                        <td>534.24</td>
+                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
+                    </tr>
+                    <tr>
+                        <td>01:03:34</td>
+                        <td>unknown</td>
+                        <td>symb</td>
+                        <td>sect</td>
+                        <td>5254.46</td>
+                        <td>325</td>
+                        <td>Bob</td>
+                        <td>Charles</td>
+                        <td>3424.15</td>
+                        <td>534.24</td>
+                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
+                    </tr>
+                    <tr>
+                        <td>01:03:34</td>
+                        <td>unknown</td>
+                        <td>symb</td>
+                        <td>sect</td>
+                        <td>5254.46</td>
+                        <td>325</td>
+                        <td>Bob</td>
+                        <td>Charles</td>
+                        <td>3424.15</td>
+                        <td>534.24</td>
+                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
+                    </tr>
+                    <tr>
+                        <td>01:03:34</td>
+                        <td>unknown</td>
+                        <td>symb</td>
+                        <td>sect</td>
+                        <td>5254.46</td>
+                        <td>325</td>
+                        <td>Bob</td>
+                        <td>Charles</td>
+                        <td>3424.15</td>
+                        <td>534.24</td>
+                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div> <!-- #allTradeDataTable -->
+        </div> <!-- #allTradeDataFrame -->
+    </div> <!-- .main -->
+</body>
+
+</html>

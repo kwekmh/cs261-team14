@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.core.task.TaskExecutor;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import uk.ac.warwick.dcs.cs261.team14.data.IngestorController;
 
 /**
@@ -19,6 +21,8 @@ import uk.ac.warwick.dcs.cs261.team14.data.IngestorController;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan
+@EnableScheduling
+@EnableAsync
 @PropertySource("classpath:user.properties")
 public class Application {
 
@@ -31,11 +35,6 @@ public class Application {
 
     @Bean
     public TaskExecutor taskExecutor() {
-        return new SimpleAsyncTaskExecutor(); // Or use another one of your liking
-    }
-
-    @Bean
-    public CommandLineRunner init(TaskExecutor taskExecutor) {
-        return (args) -> taskExecutor.execute(ingestorController.getLiveStreamTask());
+        return new SimpleAsyncTaskExecutor();
     }
 }

@@ -1,10 +1,123 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/main.css}">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400" rel="stylesheet">
     <title>Dashboard</title>
 </head>
+
 <body>
-<p>Dashboard here</p>
+<div th:replace="fragments/sidebar :: sidebar('dashboard')">
+    
+</div> <!-- .sidebar.dashboard -->
+<div class="main">
+    <div id="dashboardFrame">
+        <div id="anomalyFrame">
+            <div id="anomalyTitle">
+                <div class="dataContainer notCentre">
+                    Anomalies
+                </div> <!-- .dataContainer.notCentre -->
+            </div> <!-- #anomalyTitle -->
+            <div id="anomalyTable">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Symbol</th>
+                        <th>Sector</th>
+                        <th>Currency</th>
+                        <th>Type</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="anomalousEvent : ${anomalousEvents}" th:with="symbol=${symbolRepository.findOne(anomalousEvent.getSymbolId())}">
+                        <td th:text="${#dates.format(anomalousEvent.getTime(), 'yyyy-MM-dd HH:mm:ss')}">Time</td>
+                        <td th:text="${symbol.getSymbolName()}">Symbol</td>
+                        <td th:text="${sectorRepository.findOne(symbol.getSectorId()).getSectorName()}">Sector</td>
+                        <td th:text="${currencyRepository.findOne(anomalousEvent.getCurrencyId()).getCurrencyName()}">Currency</td>
+                        <td th:if="${anomalousEvent.getAnomalousEventType() == 1}">Individual Trade</td>
+                        <td th:if="${anomalousEvent.getAnomalousEventType() == 2}">EMA over 5 periods</td>
+                        <td><a class="button" th:href="@{/details/{type}/{id}(type=${anomalousEvent.getAnomalousEventType()},id=${anomalousEvent.getId()})}">Details</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div> <!-- #anomalyTable -->
+        </div> <!-- #anomalyFrame -->
+        <div id="tradeDataFrame">
+            <div id="tradeDataTitle">
+                <div class="dataContainer notCentre">
+                    Latest Trading Activity
+                </div> <!-- .dataContainer.notCentre -->
+                <a th:href="@{/allTrades}" id="viewTradesIcon" title="View All Trades"></a>
+            </div> <!-- #tradeDataTitle -->
+            <div id="tradeData">
+                <div id="tradeDataGraph" class="fullWidth">
+                    <div id="tradeDataGraphPlotly"></div>
+                </div> <!-- #tradeDataGraph -->
+            </div> <!-- #tradeData -->
+        </div> <!-- #tradeDataFrame -->
+    </div> <!-- #dashboardFrame -->
+</div> <!-- .main -->
+
+<!-- PLOTLY GRAPH -->
+<script th:src="@{https://cdn.plot.ly/plotly-latest.min.js}"></script>
+<!-- <script th:src="@{/scripts/plotlyGraph.js}"></script> -->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var x = /*[[${rollingX}]]*/ [];
+    var y = /*[[${rollingY}]]*/ [];
+
+    var anomalous_x = /*[[${anomalousX}]]*/ [];
+    var anomalous_y = /*[[${anomalousY}]]*/ [];
+
+    var anomalous = {
+        x: anomalous_x,
+        y: anomalous_y,
+        mode: 'markers',
+        type: 'scatter',
+        name: 'Anomalous'
+    };
+
+    var normal = {
+        x: x,
+        y: y,
+        mode: 'lines',
+        type: 'scatter',
+        name: 'Normal'
+    };
+
+    var data = [normal, anomalous];
+
+    var layout = {
+        margin: {
+            l: 25,
+            r: 10,
+            b: 30,
+            t: 10,
+            pad: 4
+        },
+        paper_bgcolor: 'transparent',
+        plot_bgcolor: '#494949',
+        font: {
+            family: 'Ubuntu, sans-serif',
+            color: '#fff'
+        },
+        xaxis: {
+            gridcolor: '#5E5E5E'
+        },
+        yaxis: {
+            gridcolor: '#5E5E5E'
+        }
+    };
+
+    Plotly.newPlot('tradeDataGraphPlotly', data, layout);
+
+    document.getElementsByClassName('modebar')[0].style.display = "none";
+    /*]]>*/
+</script>
 </body>
+
 </html>

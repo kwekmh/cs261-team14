@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:figma="http://www.figma.com/figma/ns"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="320"
+   height="320"
+   viewBox="0 0 320 320"
+   version="1.1"
+   id="svg2"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="alertIcon.svg">
+  <metadata
+     id="metadata35">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="640"
+     inkscape:window-height="480"
+     id="namedview33"
+     showgrid="false"
+     inkscape:zoom="0.7375"
+     inkscape:cx="29.830508"
+     inkscape:cy="160"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <title
+     id="title4">notIcon</title>
+  <desc
+     id="desc6">Created using Figma</desc>
+  <g
+     id="Canvas"
+     transform="translate(150 147)"
+     figma:type="canvas"
+     style="fill:#ffffff">
+    <g
+       id="Group"
+       style="mix-blend-mode:normal;fill:#ffffff"
+       figma:type="frame">
+      <g
+         id="Subtract"
+         style="mix-blend-mode:normal;fill:#ffffff"
+         figma:type="vector-operation">
+        <use
+           xlink:href="#path0_fill"
+           transform="matrix(1 0 0 1 -16.1939 -53.1939)"
+           style="mix-blend-mode:normal;fill:#ffffff"
+           id="use11" />
+      </g>
+      <g
+         id="Ellipse"
+         style="mix-blend-mode:normal;fill:#ffffff"
+         figma:type="ellipse">
+        <mask
+           id="mask0_outline_ins">
+          <use
+             xlink:href="#path1_fill"
+             fill="white"
+             transform="matrix(0.707107 0.707107 -0.707107 0.707107 9.80613 -147)"
+             id="use15" />
+        </mask>
+        <g
+           mask="url(#mask0_outline_ins)"
+           id="g17"
+           style="fill:#ffffff">
+          <use
+             xlink:href="#path2_stroke_2x"
+             transform="matrix(0.707107 0.707107 -0.707107 0.707107 9.80613 -147)"
+             style="mix-blend-mode:normal;fill:#ffffff"
+             id="use19" />
+        </g>
+      </g>
+      <g
+         id="Vector"
+         style="mix-blend-mode:normal;fill:#ffffff"
+         figma:type="vector">
+        <use
+           xlink:href="#path3_fill"
+           transform="matrix(1 0 0 1 52 62)"
+           style="mix-blend-mode:normal;fill:#ffffff"
+           id="use22" />
+        <use
+           xlink:href="#path4_stroke"
+           transform="matrix(1 0 0 1 52 62)"
+           style="mix-blend-mode:normal;fill:#ffffff"
+           id="use24" />
+      </g>
+    </g>
+  </g>
+  <defs
+     id="defs26">
+    <path
+       id="path0_fill"
+       fill-rule="evenodd"
+       d="M 52 0L 0 0L 7.5 90L 44.5 90L 52 0ZM 43.3333 104L 8.66667 104L 11 132L 41 132L 43.3333 104Z" />
+    <path
+       id="path1_fill"
+       d="M 226 113C 226 175.408 175.408 226 113 226C 50.5918 226 0 175.408 0 113C 0 50.5918 50.5918 0 113 0C 175.408 0 226 50.5918 226 113Z" />
+    <path
+       id="path2_stroke_2x"
+       d="M 206 113C 206 164.362 164.362 206 113 206L 113 246C 186.454 246 246 186.454 246 113L 206 113ZM 113 206C 61.6375 206 20 164.362 20 113L -20 113C -20 186.454 39.5461 246 113 246L 113 206ZM 20 113C 20 61.6375 61.6375 20 113 20L 113 -20C 39.5461 -20 -20 39.5461 -20 113L 20 113ZM 113 20C 164.362 20 206 61.6375 206 113L 246 113C 246 39.5461 186.454 -20 113 -20L 113 20Z" />
+    <path
+       id="path3_fill"
+       d="M 74 64L 0 49L 54 0L 74 64Z" />
+    <path
+       id="path4_stroke"
+       d="M 0 49L -0.335995 48.6298L -1.06776 49.2938L -0.099331 49.4901L 0 49ZM 74 64L 73.9007 64.49L 74.7295 64.658L 74.4773 63.8509L 74 64ZM 54 0L 54.4773 -0.149138L 54.2438 -0.896336L 53.664 -0.37028L 54 0ZM -0.099331 49.4901L 73.9007 64.49L 74.0994 63.51L 0.099331 48.51L -0.099331 49.4901ZM 74.4773 63.8509L 54.4773 -0.149138L 53.5228 0.149138L 73.5228 64.1491L 74.4773 63.8509ZM 53.664 -0.37028L -0.335995 48.6298L 0.335995 49.3703L 54.336 0.37028L 53.664 -0.37028Z" />
+  </defs>
+</svg>

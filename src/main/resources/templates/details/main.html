@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/main.css}">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400" rel="stylesheet">
+    <title>Details</title>
+</head>
+
+<body>
+<div th:replace="fragments/sidebar :: sidebar('details')">
+
+</div> <!-- .sidebar.details -->
+<div class="main">
+    <div id="detailsFrame">
+        <div id="detailTopBar">
+            <p id="detailTitle">Anomalous Event:</p>
+            <div id="falsePositive">Mark as false positive</div>
+        </div> <!-- #detailTopBar -->
+        <div id="detailMainFrame">
+            <div id="timeCatBar">
+                <div id="timeBar" class="dataContainer notCentre">
+                    <img src="../../static/images/icons/timeIcon.svg" id="timeIcon" alt="Time Icon" th:attr="src=@{/images/icons/timeIcon.svg}">
+                    <div id="timeText" th:text="${#dates.format(anomalousEvent.getTime(), 'yyyy-MM-dd HH:mm:ss')}">18:28:44</div>
+                </div> <!-- #timeBar.dataContainer.notCentre -->
+                <div id="catDropdown">
+                    <select name="categorise">
+                        <option value="default">Categorise</option>
+                        <option value="time">Fat Finger</option>
+                        <option value="type">Pump and Dump</option>
+                        <option value="price">Volume Spike</option>
+                    </select>
+                </div> <!-- #catDropdown -->
+            </div> <!-- #timeCatBar -->
+            <div id="detailTradeInfo" th:with="symbol=${symbolRepository.findOne(anomalousEvent.getSymbolId())}">
+                <div class="detailTradeInfoLine"><strong>Symbol: </strong><span th:text="${symbol.getSymbolName()}"></span></div>
+                <div class="detailTradeInfoLine"><strong>Sector: </strong><span th:text="${sectorRepository.findOne(symbol.getSectorId()).getSectorName()}"></span></div>
+                <div class="detailTradeInfoLine"><strong>Currency: </strong><span th:text="${currencyRepository.findOne(anomalousEvent.getCurrencyId()).getCurrencyName()}"></span></div>
+                <div class="detailTradeInfoLine" th:if="${anomalousEvent.getAnomalousEventType() == 1}"><strong>Type:</strong> Individual Trade</div>
+                <div class="detailTradeInfoLine" th:if="${anomalousEvent.getAnomalousEventType() == 1}"><strong>Size:</strong> <span th:text="${anomalousEvent.getSize()}"></span></div>
+                <div class="detailTradeInfoLine" th:if="${anomalousEvent.getAnomalousEventType() == 1}"><strong>Bid Price:</strong> <span th:text="${anomalousEvent.getBidPrice()}"></span></div>
+                <div class="detailTradeInfoLine" th:if="${anomalousEvent.getAnomalousEventType() == 1}"><strong>Ask Price:</strong> <span th:text="${anomalousEvent.getAskPrice()}"></span></div>
+                <div class="detailTradeInfoLine" th:if="${anomalousEvent.getAnomalousEventType() == 1}"><strong>Price:</strong> <span th:text="${anomalousEvent.getPrice()}"></span></div>
+                <div class="detailTradeInfoLine" th:if="${anomalousEvent.getAnomalousEventType() == 2}"><strong>Type:</strong> EMA over 5 periods</div>
+                <br>
+                <div class="detailTradeInfoSubHeader">Indicators</div>
+                <div class="detailTradeInfoLine" th:if="${anomalousEvent instanceof T(uk.ac.warwick.dcs.cs261.team14.db.entities.Trade) && anomalousEvent.getAnomalousEventType() == 1}"><strong>Price change over past 5 trades (%): </strong><span th:text="${anomalousEvent.getPctPriceChange()}"></span></div>
+                <div class="detailTradeInfoLine" th:if="${anomalousEvent instanceof T(uk.ac.warwick.dcs.cs261.team14.db.entities.AggregateData) && anomalousEvent.getAnomalousEventType() == 2}"><strong>Exponential moving average (EMA) over 5 periods: </strong><span  th:text="${anomalousEvent.getValue()}"></span></div>
+            </div>
+            <div id="detailVisualisation">
+                <div class="detailDataTitle">
+                    <div class="dataContainer notCentre">
+                        Data Visualisation
+                    </div> <!-- .dataContainer.notCentre -->
+                </div> <!-- #tradeDataTitle -->
+                <div id="tradeData">
+                    <div id="detailGraph" class="fullWidth">
+                    </div> <!-- #detailGraph -->
+                </div> <!-- #tradeData -->
+            </div> <!-- #tradeDataFrame -->
+        </div> <!-- #detailVisulaisation -->
+    </div> <!-- #detailsFrame -->
+</div> <!-- .main -->
+
+<!-- PLOTLY GRAPH -->
+<script th:src="@{https://cdn.plot.ly/plotly-latest.min.js}"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var x = /*[[${rollingX}]]*/ [];
+    var y = /*[[${rollingY}]]*/ [];
+
+    var anomalous_x = /*[[${anomalousX}]]*/ [];
+    var anomalous_y = /*[[${anomalousY}]]*/ [];
+
+    var anomalous = {
+        x: anomalous_x,
+        y: anomalous_y,
+        mode: 'markers',
+        type: 'scatter',
+        name: 'Anomalous'
+    };
+
+    var normal = {
+        x: x,
+        y: y,
+        mode: 'lines',
+        type: 'scatter',
+        name: 'Normal'
+    };
+
+    var data = [normal, anomalous];
+
+    var layout = {
+        margin: {
+            l: 25,
+            r: 10,
+            b: 30,
+            t: 10,
+            pad: 4
+        },
+        paper_bgcolor: 'transparent',
+        plot_bgcolor: '#494949',
+        font: {
+            family: 'Ubuntu, sans-serif',
+            color: '#fff'
+        },
+        xaxis: {
+            gridcolor: '#5E5E5E'
+        },
+        yaxis: {
+            gridcolor: '#5E5E5E'
+        }
+    };
+
+    Plotly.newPlot('detailGraph', data, layout);
+
+    document.getElementsByClassName('modebar')[0].style.display = "none";
+    /*]]>*/
+</script>
+</body>
+
+</html>

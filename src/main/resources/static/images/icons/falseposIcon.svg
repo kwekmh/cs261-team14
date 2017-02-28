@@ -1,0 +1,12 @@
+<svg width="227" height="227" viewBox="0 0 227 227" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:figma="http://www.figma.com/figma/ns">
+<title>falseposIcon</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(114 114)" figma:type="canvas">
+<g id="Union" style="mix-blend-mode:normal;" figma:type="vector-operation">
+<use xlink:href="#path0_fill" transform="translate(-113.205 -113.204)" fill="#FFFFFF" style="mix-blend-mode:normal;"/>
+</g>
+</g>
+<defs>
+<path id="path0_fill" fill-rule="evenodd" d="M 47.2391 178.761C 83.5578 215.08 142.442 215.08 178.761 178.761C 215.08 142.442 215.08 83.5578 178.761 47.2391C 142.442 10.9203 83.5578 10.9203 47.2391 47.2391C 10.9203 83.5578 10.9203 142.442 47.2391 178.761ZM 33.0969 192.903C 77.2262 237.032 148.774 237.032 192.903 192.903C 237.032 148.774 237.032 77.2262 192.903 33.0969C 148.774 -11.0323 77.2262 -11.0323 33.0969 33.0969C -11.0323 77.2262 -11.0323 148.774 33.0969 192.903ZM 58.0971 72.2391L 72.2392 58.097L 113.205 99.0623L 154.17 58.097L 168.312 72.2391L 127.347 113.204L 168.312 154.17L 154.17 168.312L 113.205 127.347L 72.2392 168.312L 58.0971 154.17L 99.0624 113.204L 58.0971 72.2391Z"/>
+</defs>
+</svg>

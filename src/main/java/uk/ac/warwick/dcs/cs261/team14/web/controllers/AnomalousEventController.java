@@ -2,7 +2,10 @@ package uk.ac.warwick.dcs.cs261.team14.web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import uk.ac.warwick.dcs.cs261.team14.db.entities.*;
 import uk.ac.warwick.dcs.cs261.team14.web.helpers.GraphHelper;
@@ -11,16 +14,13 @@ import uk.ac.warwick.dcs.cs261.team14.web.helpers.Pair;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 /**
- * Created by Ming on 2/11/2017.
+ * Created by kwekmh on 27/02/17.
  */
 
 @Controller
-public class DashboardController {
-
+public class AnomalousEventController {
     @Autowired
     private TradeRepository tradeRepository;
 
@@ -39,40 +39,29 @@ public class DashboardController {
     @Autowired
     private GraphHelper graphHelper;
 
-    @RequestMapping("/")
-    public ModelAndView main() {
-        ModelAndView mv = new ModelAndView("dashboard/main");
+    @RequestMapping(value = "/details/{type}/{id}", method = RequestMethod.GET)
+    public ModelAndView details(@PathVariable int id, @PathVariable int type) {
+        ModelAndView mv = new ModelAndView("details/main");
 
-        int isAnomalous = 1;
+        AnomalousEvent anomalousEvent = null;
 
-        ArrayList<AnomalousEvent> anomalousEventsList = new ArrayList<AnomalousEvent>();
-
-        for (Trade trade : tradeRepository.findTop10ByIsAnomalousOrderByTimeDesc(isAnomalous)) {
-            anomalousEventsList.add(trade);
+        if (type == 1) { // Individual Trade
+            anomalousEvent = tradeRepository.findOne(id);
+        } else if (type == 2) { // EMA over 5 periods
+            anomalousEvent = aggregateDataRepository.findOne(id);
         }
 
-        for (AggregateData aggregateData : aggregateDataRepository.findTop10ByIsAnomalousOrderByGeneratedDateDesc(isAnomalous)) {
-            anomalousEventsList.add(aggregateData);
-        }
-
-        Collections.sort(anomalousEventsList, Comparator.comparing(AnomalousEvent::getTime).reversed());
-
-        int size = anomalousEventsList.size() < 10 ? anomalousEventsList.size() : 10;
-
-        AnomalousEvent[] anomalousEvents = new AnomalousEvent[size];
-
-        // Only take up to the top 10 results of the interspersed events
-        for (int i = 0; i < size; i++) {
-            anomalousEvents[i] = anomalousEventsList.get(i);
-        }
+        // TODO: Redirect user to error page if the id or type is wrong
 
         // Preparation of values of the graphs
 
-        LocalDateTime now = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
+        int symbolId = anomalousEvent.getSymbolId();
+
+        LocalDateTime date = anomalousEvent.getTime().toLocalDateTime().withHour(0).withMinute(0).withSecond(0).withNano(0);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 
-        ArrayList<Pair<LocalDateTime, Double>> graphArrayList = graphHelper.generateHourlyAverageRollingPctPriceChange(now);
+        ArrayList<Pair<LocalDateTime, Double>> graphArrayList = graphHelper.generateHourlyAverageRollingPctPriceChangeBySymbol(symbolId, date);
 
         String[] rollingX = new String[graphArrayList.size()];
         double[] rollingY = new double[graphArrayList.size()];
@@ -83,7 +72,7 @@ public class DashboardController {
             rollingY[i] = pair.getSecond();
         }
 
-        ArrayList<Pair<LocalDateTime, Trade>> anomalousArrayList = graphHelper.getAnomalousTradesBetweenForGraphWithHour(now);
+        ArrayList<Pair<LocalDateTime, Trade>> anomalousArrayList = graphHelper.getAnomalousTradesBetweenForGraphWithHourBySymbol(symbolId, date);
 
         String[] anomalousX = new String[anomalousArrayList.size()];
         double[] anomalousY = new double[anomalousArrayList.size()];
@@ -95,7 +84,7 @@ public class DashboardController {
             anomalousY[i] = pair.getSecond().getPctPriceChange();
         }
 
-        mv.addObject("anomalousEvents", anomalousEvents);
+        mv.addObject("anomalousEvent", anomalousEvent);
         mv.addObject("symbolRepository", symbolRepository);
         mv.addObject("sectorRepository", sectorRepository);
         mv.addObject("currencyRepository", currencyRepository);
@@ -104,13 +93,6 @@ public class DashboardController {
         mv.addObject("rollingY", rollingY);
         mv.addObject("anomalousX", anomalousX);
         mv.addObject("anomalousY", anomalousY);
-
-        return mv;
-    }
-
-    @RequestMapping("/allTrades")
-    public ModelAndView allTrades() {
-        ModelAndView mv = new ModelAndView("allTrades/main");
 
         return mv;
     }

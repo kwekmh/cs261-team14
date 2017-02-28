@@ -2,12 +2,18 @@ package uk.ac.warwick.dcs.cs261.team14.data;
 
 import org.apache.spark.sql.Row;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
+import org.springframework.core.task.TaskExecutor;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import uk.ac.warwick.dcs.cs261.team14.data.pipeline.InputController;
 import uk.ac.warwick.dcs.cs261.team14.data.transformers.DataTransformerMapping;
 import uk.ac.warwick.dcs.cs261.team14.db.entities.Trade;
 import uk.ac.warwick.dcs.cs261.team14.db.entities.TradeRepository;
 
+import javax.annotation.PostConstruct;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,14 +26,26 @@ import java.time.format.DateTimeFormatter;
  * Created by Ming on 2/12/2017.
  */
 @Component
-public class LiveStreamTask implements Runnable {
+public class LiveStreamTask {
     @Autowired
     InputController inputController;
     @Autowired
     DataTransformerMapping dataTransformerMapping;
     @Autowired
     TradeRepository tradeRepository;
-    @Override
+
+    @Bean
+    public TaskExecutor taskExecutor() {
+        return new SimpleAsyncTaskExecutor();
+    }
+
+    @PostConstruct
+    public void onStartup() {
+        taskExecutor().execute(() -> this.run());
+    }
+
+    @Async
+    @Scheduled(cron = "0 10 1 * * *", zone = "Europe/London")
     public void run() {
         try {
             dataTransformerMapping.init();

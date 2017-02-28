@@ -11,4 +11,5 @@ import java.io.Serializable;
 
 @Transactional
 public interface SymbolRepository extends CrudRepository<Symbol, Integer>, Serializable {
+    Symbol findBySymbolId(int symbolId);
 }
