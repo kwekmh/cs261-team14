@@ -5,21 +5,22 @@
 </head>
 
 <body> 
-<div id="myDiv" style="width: 480px; height: 400px;"></div>
+<div id="myDiv" style="width: 600px; height: 400px;"></div>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
 <script>
+function plot(x1, y1, x2, y2) {
 var anomalous = {
-  x: [1, 2, 3, 4],
-  y: [10, 15, 13, 17],
+  x: x2,
+  y: y2,
   mode: 'markers',
   type: 'scatter',
   name: 'Anomalous'
 };
 
 var normal = {
-  x: [2, 3, 4, 5],
-  y: [16, 5, 11, 9],
+  x: x1,
+  y: y1,
   mode: 'lines',
   type: 'scatter',
   name: 'Normal'
@@ -32,10 +33,26 @@ var trace3 = {
   type: 'scatter'
 };
 */
+
+var layout = {
+   margin: {
+    l: 30,
+    r: 30,
+    b: 30,
+    t: 30
+   }
+}
 var data = [normal, anomalous];
 
-Plotly.newPlot('myDiv', data);
+Plotly.newPlot('myDiv', data, layout);
+}
 
+var x1 = [1, 2, 3, 4];
+var x2 = [2, 3, 4, 5];
+var y1 = [10, 15, 13, 17];
+var y2 = [16, 5, 11, 9];
+
+plot(x1, y1, x2, y2);
 document.getElementsByClassName('modebar')[0].style.display = "none";
 </script>
 
