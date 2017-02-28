@@ -99,6 +99,10 @@ public class AggregateData implements AnomalousEvent {
         return getGeneratedDate();
     }
 
+    public int getId() {
+        return getAggregateDataId();
+    }
+
     public int getAnomalousEventType() {
         return 2;
     }

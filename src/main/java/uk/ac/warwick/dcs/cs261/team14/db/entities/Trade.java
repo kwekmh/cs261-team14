@@ -179,6 +179,10 @@ public class Trade implements AnomalousEvent {
         this.isAnomalous = isAnomalous;
     }
 
+    public int getId() {
+        return getTradeId();
+    }
+
     public int getAnomalousEventType()
     {
         return 1;

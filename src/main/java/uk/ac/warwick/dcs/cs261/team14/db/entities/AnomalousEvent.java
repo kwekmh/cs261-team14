@@ -7,5 +7,7 @@ import java.sql.Timestamp;
  */
 public interface AnomalousEvent {
     Timestamp getTime();
+    int getId();
+    int getSymbolId();
     int getAnomalousEventType();
 }

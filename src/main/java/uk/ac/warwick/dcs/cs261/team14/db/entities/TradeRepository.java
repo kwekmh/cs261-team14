@@ -14,6 +14,8 @@ public interface TradeRepository extends CrudRepository<Trade, Integer>, Seriali
     Iterable<Trade> findTop5BySymbolIdOrderByTimeDesc(int symbolId);
     Trade findTop1BySymbolIdOrderByTimeDesc(int symbolId);
     Iterable<Trade> findByTimeBetween(Timestamp start, Timestamp end);
+    Iterable<Trade> findBySymbolIdAndTimeBetween(int symbolId, Timestamp start, Timestamp end);
     Iterable<Trade> findTop10ByIsAnomalousOrderByTimeDesc(int isAnomalous);
     Iterable<Trade> findByIsAnomalousAndTimeBetween(int isAnomalous, Timestamp start, Timestamp end);
+    Iterable<Trade> findByIsAnomalousAndSymbolIdAndTimeBetween(int isAnomalous, int symbolId, Timestamp start, Timestamp end);
 }
