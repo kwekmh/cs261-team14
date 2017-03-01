@@ -70,8 +70,7 @@
 <!-- <script th:src="@{/scripts/plotlyGraph.js}"></script> -->
 <script th:inline="javascript">
     /*<![CDATA[*/
-    function plot(chosenSymbol, x, y, anomalous_x, anomalous_y) {
-        if(chosenSymbol == 'TSCO') {alert("HELLO TESCO!");}
+    function plot(x, y, anomalous_x, anomalous_y) {
         var anomalous = {
             x: anomalous_x,
             y: anomalous_y,
@@ -114,15 +113,7 @@
         };
 
         Plotly.newPlot('tradeDataGraphPlotly', data, layout);
-    };
-    var x = /*[[${rollingX}]]*/ [];
-    var y = /*[[${rollingY}]]*/ [];
-
-    var anomalous_x = /*[[${anomalousX}]]*/ [];
-    var anomalous_y = /*[[${anomalousY}]]*/ [];
-//    Plot default graph
-    plot('All', x, y, anomalous_x, anomalous_y);
-    document.getElementsByClassName('modebar')[0].style.display = "none";
+    }
 
 //    Add symbols to dropdown
     var symbolList = ['All', 'III', 'ADN', 'ADM', 'AAL', 'ANTO', 'ARM', 'AHT', 'ABF', 'AZN', 'AV.', 'BAB', 'BA.', 'BARC', 'BDEV', 'BKG', 'BLT', 'BP', 'BATS', 'BLND', 'BT.A', 'BNZL', 'BRBY', 'CPI', 'CCL', 'CNA', 'CCH', 'CPG', 'CRH', 'DCC', 'DGE', 'DLG', 'DC.', 'EZJ', 'EXPN', 'FRES', 'GKN', 'GSK', 'GLEN', 'HMSO', 'HL', 'HIK', 'HSBA', 'IMB', 'ISAT', 'IHG', 'IAG', 'ITRK', 'INTU', 'ITV', 'JMAT', 'KGF', 'LAND', 'LGEN', 'LLOY', 'LSE', 'MKS', 'MERL', 'MNDI', 'NG', 'NXT', 'OML', 'PSON', 'PSN', 'PFG', 'PRU', 'RRS', 'RB', 'REL', 'REX', 'RIO', 'RR.', 'RBS', 'RDSA', 'RMG', 'RSA', 'SAB', 'SGE', 'SBRY', 'SDR', 'SVT', 'SHP', 'SKY', 'SN.', 'SMIN', 'SPD', 'SSE', 'STAN', 'SL', 'STJ', 'TW.', 'TSCO', 'TPK', 'TUI', 'ULVR', 'UU', 'VOD', 'WTB', 'WOS', 'WPG', 'WPP'];
@@ -138,11 +129,31 @@
 
     assignOptions(symbolList, symbolSelector);
 
+//    Obtain data for new graph
+    function get_data_by_symbol(symbol_name) {
+        var jsonObj = { "x" : [], "y"  : [], "anomalous_x" : [], "anomalous_y" : []};
+
+        if (symbol_name == 'All') {
+            jsonObj.x = /*[[${rollingX}]]*/ [];
+            jsonObj.y = /*[[${rollingY}]]*/ [];
+            jsonObj.anomalous_x = /*[[${anomalousX}]]*/ [];
+            jsonObj.anomalous_y = /*[[${anomalousY}]]*/ [];
+        }
+
+        // QUERY BACKEND FOR NEW DATA
+
+        return jsonObj;
+    }
+
 //    Update graph on symbol change
-    function updateSymbol(){
-        plot(symbolSelector.value, x, y, anomalous_x, anomalous_y);
+    function updateSymbol() {
+        var newSymbolData = get_data_by_symbol(symbolSelector.value);
+        plot(newSymbolData.x, newSymbolData.y, newSymbolData.anomalous_x,newSymbolData. anomalous_y);
         document.getElementsByClassName('modebar')[0].style.display = "none";
     }
+
+//    Plot default graph
+    updateSymbol();
 
     symbolSelector.addEventListener('change', updateSymbol, false);
     /*]]>*/
