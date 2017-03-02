@@ -3,6 +3,7 @@ package uk.ac.warwick.dcs.cs261.team14.db.entities;
 import com.esotericsoftware.kryo.NotNull;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.sql.Timestamp;
@@ -14,6 +15,7 @@ import java.sql.Timestamp;
 @Table(name = "trader_statistics")
 public class TraderStatistics {
     @Id
+    @GeneratedValue
     private int traderStatisticsId;
 
     @NotNull

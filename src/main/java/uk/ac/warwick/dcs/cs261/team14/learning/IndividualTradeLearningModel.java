@@ -80,7 +80,7 @@ public class IndividualTradeLearningModel implements LearningModel {
 
         df = assembler.transform(df);
 
-        df.withColumn("is_anomalous", org.apache.spark.sql.functions.lit(0.0));
+        df = df.withColumn("is_anomalous", org.apache.spark.sql.functions.lit(0.0));
 
         return df.first();
     }

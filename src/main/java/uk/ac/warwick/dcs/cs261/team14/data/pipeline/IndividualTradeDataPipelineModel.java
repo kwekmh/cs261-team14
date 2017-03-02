@@ -7,8 +7,11 @@ import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.types.DataTypes;
 import org.apache.spark.sql.types.StructField;
 import org.apache.spark.sql.types.StructType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import uk.ac.warwick.dcs.cs261.team14.Application;
 import uk.ac.warwick.dcs.cs261.team14.data.transformers.DataTransformerMapping;
 import uk.ac.warwick.dcs.cs261.team14.data.transformers.IndividualTradeDataTransformer;
 import uk.ac.warwick.dcs.cs261.team14.db.entities.*;
@@ -45,6 +48,8 @@ public class IndividualTradeDataPipelineModel implements DataPipelineModel {
 
     @Autowired
     private DataTransformerMapping dataTransformerMapping;
+
+    private final Logger logger = LoggerFactory.getLogger(Application.class);
 
     private String[] schemaFields = {"time", "buyer", "seller", "price", "size", "currency", "symbol", "sector", "bid", "ask" };
     private StructType schema;
@@ -107,6 +112,7 @@ public class IndividualTradeDataPipelineModel implements DataPipelineModel {
                     return null;
                 }
             } else {
+                logger.info("Unknown indexes, creating new");
                 Row row = individualTradeDataTransformer.transform(input);
                 return individualTradeLearningModel.createRow(row);
             }

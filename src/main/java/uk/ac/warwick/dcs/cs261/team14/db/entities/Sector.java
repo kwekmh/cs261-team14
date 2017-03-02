@@ -1,6 +1,7 @@
 package uk.ac.warwick.dcs.cs261.team14.db.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "sector")
 public class Sector {
     @Id
+    @GeneratedValue
     private int sectorId;
 
     @NotNull

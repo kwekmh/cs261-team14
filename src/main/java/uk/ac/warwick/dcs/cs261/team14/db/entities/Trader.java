@@ -3,6 +3,7 @@ package uk.ac.warwick.dcs.cs261.team14.db.entities;
 import com.esotericsoftware.kryo.NotNull;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,6 +14,7 @@ import javax.persistence.Table;
 @Table(name = "trader")
 public class Trader {
     @Id
+    @GeneratedValue
     private int traderId;
 
     @NotNull

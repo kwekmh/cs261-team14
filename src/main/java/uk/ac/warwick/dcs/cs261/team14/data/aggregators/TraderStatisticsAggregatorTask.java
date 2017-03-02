@@ -49,11 +49,11 @@ public class TraderStatisticsAggregatorTask {
 
             for (Trade trade : tradeRepository.findByBuyerIdOrSellerIdAndTimeBetween(trader.getTraderId(), trader.getTraderId(), Timestamp.valueOf(start), Timestamp.valueOf(end))) {
                 if (trade.getBuyerId() == traderId) {
-                    sizeBought.put(trade.getSymbolId(), sizeBought.get(trade.getSymbolId()) + trade.getSize());
-                    valueBought.put(trade.getSymbolId(), valueBought.get(trade.getSymbolId()) + trade.getPrice());
+                    sizeBought.put(trade.getSymbolId(), sizeBought.get(trade.getSymbolId()) != null ? sizeBought.get(trade.getSymbolId()) + trade.getSize() : trade.getSize());
+                    valueBought.put(trade.getSymbolId(), valueBought.get(trade.getSymbolId()) != null ? valueBought.get(trade.getSymbolId()) + trade.getPrice() : trade.getPrice());
                 } else {
-                    sizeSold.put(trade.getSymbolId(), sizeSold.get(trade.getSymbolId()) + trade.getSize());
-                    valueSold.put(trade.getSymbolId(), valueSold.get(trade.getSymbolId()) + trade.getPrice());
+                    sizeSold.put(trade.getSymbolId(), sizeSold.get(trade.getSymbolId()) != null ? sizeSold.get(trade.getSymbolId()) + trade.getSize() : trade.getSize());
+                    valueSold.put(trade.getSymbolId(), valueSold.get(trade.getSymbolId()) != null ? valueSold.get(trade.getSymbolId()) + trade.getPrice() : trade.getPrice());
                 }
             }
 
@@ -64,7 +64,7 @@ public class TraderStatisticsAggregatorTask {
             ArrayList<TraderStatistics> traderStatisticsList = new ArrayList<>();
 
             for (int symbolId : sizeBought.keySet()) {
-                TraderStatistics traderStatistics = new TraderStatistics(traderId, symbolId, Timestamp.valueOf(start), sizeBought.get(symbolId), sizeSold.get(symbolId), valueBought.get(symbolId), valueSold.get(symbolId), isAnomalous);
+                TraderStatistics traderStatistics = new TraderStatistics(traderId, symbolId, Timestamp.valueOf(start), sizeBought.get(symbolId) != null ? sizeBought.get(symbolId) : 0, sizeSold.get(symbolId) != null ? sizeSold.get(symbolId) : 0, valueBought.get(symbolId) != null ? valueBought.get(symbolId) : 0.0, valueSold.get(symbolId) != null ? valueSold.get(symbolId) : 0.0, isAnomalous);
                 traderStatisticsList.add(traderStatistics);
             }
 

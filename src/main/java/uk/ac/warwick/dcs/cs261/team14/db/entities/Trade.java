@@ -1,6 +1,7 @@
 package uk.ac.warwick.dcs.cs261.team14.db.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -14,6 +15,7 @@ import java.sql.Timestamp;
 @Table(name = "trade")
 public class Trade implements AnomalousEvent {
     @Id
+    @GeneratedValue
     private int tradeId;
 
     @NotNull
