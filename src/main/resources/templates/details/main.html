@@ -55,6 +55,7 @@
                     </div> <!-- .dataContainer.notCentre -->
                 </div> <!-- #tradeDataTitle -->
                 <div id="tradeData">
+                    <input type="hidden" id="symbolId" th:value="${anomalousEvent.getSymbolId()}">
                     <div id="detailGraph" class="fullWidth">
                     </div> <!-- #detailGraph -->
                 </div> <!-- #tradeData -->
@@ -66,57 +67,65 @@
 <!-- PLOTLY GRAPH -->
 <script th:src="@{https://cdn.plot.ly/plotly-latest.min.js}"></script>
 <script th:inline="javascript">
-    /*<![CDATA[*/
-    var x = /*[[${rollingX}]]*/ [];
-    var y = /*[[${rollingY}]]*/ [];
+    function plot(x, y, anomalous_x, anomalous_y) {
+        var anomalous = {
+            x: anomalous_x,
+            y: anomalous_y,
+            mode: 'markers',
+            type: 'scatter',
+            name: 'Anomalous'
+        };
 
-    var anomalous_x = /*[[${anomalousX}]]*/ [];
-    var anomalous_y = /*[[${anomalousY}]]*/ [];
+        var normal = {
+            x: x,
+            y: y,
+            mode: 'lines',
+            type: 'scatter',
+            name: 'Normal'
+        };
 
-    var anomalous = {
-        x: anomalous_x,
-        y: anomalous_y,
-        mode: 'markers',
-        type: 'scatter',
-        name: 'Anomalous'
+        var data = [normal, anomalous];
+
+        var layout = {
+            margin: {
+                l: 25,
+                r: 10,
+                b: 30,
+                t: 10,
+                pad: 4
+            },
+            paper_bgcolor: 'transparent',
+            plot_bgcolor: '#494949',
+            font: {
+                family: 'Ubuntu, sans-serif',
+                color: '#fff'
+            },
+            xaxis: {
+                gridcolor: '#5E5E5E'
+            },
+            yaxis: {
+                gridcolor: '#5E5E5E'
+            },
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('detailGraph', data, layout);
+    }
+
+    var http = new XMLHttpRequest();
+
+    http.onreadystatechange = function () {
+        if (http.readyState == 4 && http.status == 200 ) {
+            var symbolData = JSON.parse(http.responseText);
+            plot(symbolData.rollingX, symbolData.rollingY, symbolData.anomalousX, symbolData.anomalousY);
+            document.getElementsByClassName('modebar')[0].style.display = "none";
+        }
     };
 
-    var normal = {
-        x: x,
-        y: y,
-        mode: 'lines',
-        type: 'scatter',
-        name: 'Normal'
-    };
+    var symbolId = document.getElementById('symbolId').value;
+    http.open('GET', '[(@{/api/getSymbolData/})]' + symbolId, true);
+    http.send();
 
-    var data = [normal, anomalous];
-
-    var layout = {
-        margin: {
-            l: 25,
-            r: 10,
-            b: 30,
-            t: 10,
-            pad: 4
-        },
-        paper_bgcolor: 'transparent',
-        plot_bgcolor: '#494949',
-        font: {
-            family: 'Ubuntu, sans-serif',
-            color: '#fff'
-        },
-        xaxis: {
-            gridcolor: '#5E5E5E'
-        },
-        yaxis: {
-            gridcolor: '#5E5E5E'
-        },
-        hovermode:'closest'
-    };
-
-    Plotly.newPlot('detailGraph', data, layout);
-
-    document.getElementsByClassName('modebar')[0].style.display = "none";
     /*]]>*/
 </script>
 </body>

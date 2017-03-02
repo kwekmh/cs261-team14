@@ -71,7 +71,7 @@ public class OnlineLearningTask {
             vals[4] = Integer.toString(trade.getSize());
             vals[5] = Integer.toString(trade.getCurrencyId());
             vals[6] = Integer.toString(trade.getSymbolId());
-            vals[7] = Integer.toString(symbolRepository.findBySymbolId(trade.getSymbolId()).getSectorId());
+            vals[7] = Integer.toString(symbolRepository.findOne(trade.getSymbolId()).getSectorId());
             vals[8] = Double.toString(trade.getBidPrice());
             vals[9] = Double.toString(trade.getAskPrice());
             vals[10] = Double.toString(trade.getPctPriceChange());

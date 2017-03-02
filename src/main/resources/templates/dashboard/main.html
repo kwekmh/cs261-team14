@@ -52,7 +52,7 @@
                     Latest Trading Activity
                 </div> <!-- #tradeDataTitle.dataContainer.notCentre -->
                 <div id="symbolDropdown">
-                    <select name="symbolSelector" class="symbolData">
+                    <select name="symbolSelector" id="symbolList">
                     </select>
                 </div> <!-- #symbolDropdown -->
             </div> <!-- #timeCatBar -->
@@ -116,8 +116,10 @@
     }
 
 //    Add symbols to dropdown
+    var symbolsUrl = '[(@{/api/getSymbols})]';
     var symbolList = ['All', 'III', 'ADN', 'ADM', 'AAL', 'ANTO', 'ARM', 'AHT', 'ABF', 'AZN', 'AV.', 'BAB', 'BA.', 'BARC', 'BDEV', 'BKG', 'BLT', 'BP', 'BATS', 'BLND', 'BT.A', 'BNZL', 'BRBY', 'CPI', 'CCL', 'CNA', 'CCH', 'CPG', 'CRH', 'DCC', 'DGE', 'DLG', 'DC.', 'EZJ', 'EXPN', 'FRES', 'GKN', 'GSK', 'GLEN', 'HMSO', 'HL', 'HIK', 'HSBA', 'IMB', 'ISAT', 'IHG', 'IAG', 'ITRK', 'INTU', 'ITV', 'JMAT', 'KGF', 'LAND', 'LGEN', 'LLOY', 'LSE', 'MKS', 'MERL', 'MNDI', 'NG', 'NXT', 'OML', 'PSON', 'PSN', 'PFG', 'PRU', 'RRS', 'RB', 'REL', 'REX', 'RIO', 'RR.', 'RBS', 'RDSA', 'RMG', 'RSA', 'SAB', 'SGE', 'SBRY', 'SDR', 'SVT', 'SHP', 'SKY', 'SN.', 'SMIN', 'SPD', 'SSE', 'STAN', 'SL', 'STJ', 'TW.', 'TSCO', 'TPK', 'TUI', 'ULVR', 'UU', 'VOD', 'WTB', 'WOS', 'WPG', 'WPP'];
-    var symbolSelector = document.getElementsByClassName('symbolData')[0];
+//    var symbolSelector = document.getElementsByClassName('symbolData')[0];
+    var symbolSelector = document.getElementById('symbolList');
 
     function assignOptions(textArray, selector) {
         for (var i = 0; i < textArray.length;  i++) {
@@ -127,10 +129,56 @@
         }
     }
 
-    assignOptions(symbolList, symbolSelector);
+//    assignOptions(symbolList, symbolSelector);
+
+    //    Update graph on symbol change
+    function updateSymbol() {
+        var http = new XMLHttpRequest();
+
+        http.onreadystatechange = function () {
+            if (http.readyState == 4 && http.status == 200 ) {
+                var symbolData = JSON.parse(http.responseText);
+                plot(symbolData.rollingX, symbolData.rollingY, symbolData.anomalousX, symbolData.anomalousY);
+                document.getElementsByClassName('modebar')[0].style.display = "none";
+            }
+        };
+
+        var symbolId = symbolSelector.value;
+        http.open('GET', '[(@{/api/getSymbolData/})]' + symbolId, true);
+        http.send();
+
+        /*
+        var newSymbolData = get_data_by_symbol(symbolSelector.value);
+        plot(newSymbolData.x, newSymbolData.y, newSymbolData.anomalous_x,newSymbolData. anomalous_y);
+        document.getElementsByClassName('modebar')[0].style.display = "none";
+        */
+    }
+
+    var http = new XMLHttpRequest();
+
+    http.onreadystatechange = function() {
+        if (http.readyState == 4 && http.status == 200) {
+            var symbols = JSON.parse(http.responseText);
+
+            for (var i = 0; i < symbols.length; i++) {
+                var currentOption = document.createElement('option');
+                currentOption.text = symbols[i].symbolName;
+                currentOption.value = symbols[i].symbolId;
+                symbolSelector.appendChild(currentOption);
+            }
+
+            // Set default selection
+            symbolSelector.getElementsByTagName('option')[0].selected = true;
+
+            updateSymbol();
+        }
+    };
+
+    http.open('GET', symbolsUrl, true);
+    http.send();
 
 //    Obtain data for new graph
-    function get_data_by_symbol(symbol_name) {
+    function get_data_by_symbol(symbol_id) {
         var jsonObj = { "x" : [], "y"  : [], "anomalous_x" : [], "anomalous_y" : []};
 
         if (symbol_name == 'All') {
@@ -144,16 +192,6 @@
 
         return jsonObj;
     }
-
-//    Update graph on symbol change
-    function updateSymbol() {
-        var newSymbolData = get_data_by_symbol(symbolSelector.value);
-        plot(newSymbolData.x, newSymbolData.y, newSymbolData.anomalous_x,newSymbolData. anomalous_y);
-        document.getElementsByClassName('modebar')[0].style.display = "none";
-    }
-
-//    Plot default graph
-    updateSymbol();
 
     symbolSelector.addEventListener('change', updateSymbol, false);
     /*]]>*/
