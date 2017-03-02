@@ -20,10 +20,10 @@ public class Trade implements AnomalousEvent {
     private Timestamp time;
 
     @NotNull
-    private String buyer;
+    private int buyerId;
 
     @NotNull
-    private String seller;
+    private int sellerId;
 
     @NotNull
     private double price;
@@ -60,10 +60,10 @@ public class Trade implements AnomalousEvent {
         this.tradeId = tradeId;
     }
 
-    public Trade(Timestamp time, String buyer, String seller, double price, int size, int currencyId, int symbolId, double bidPrice, double askPrice, double pctPriceChange, int categoryId, int isAnomalous) {
+    public Trade(Timestamp time, int buyerId, int sellerId, double price, int size, int currencyId, int symbolId, double bidPrice, double askPrice, double pctPriceChange, int categoryId, int isAnomalous) {
         this.time = time;
-        this.buyer = buyer;
-        this.seller = seller;
+        this.buyerId = buyerId;
+        this.sellerId = sellerId;
         this.price = price;
         this.size = size;
         this.currencyId = currencyId;
@@ -91,20 +91,20 @@ public class Trade implements AnomalousEvent {
         this.time = time;
     }
 
-    public String getBuyer() {
-        return buyer;
+    public int getBuyerId() {
+        return buyerId;
     }
 
-    public void setBuyer(String buyer) {
-        this.buyer = buyer;
+    public void setBuyerId(int buyerId) {
+        this.buyerId = buyerId;
     }
 
-    public String getSeller() {
-        return seller;
+    public int getSellerId() {
+        return sellerId;
     }
 
-    public void setSeller(String seller) {
-        this.seller = seller;
+    public void setSellerId(int sellerId) {
+        this.sellerId = sellerId;
     }
 
     public double getPrice() {

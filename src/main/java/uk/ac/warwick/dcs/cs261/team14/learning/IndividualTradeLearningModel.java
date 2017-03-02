@@ -52,6 +52,39 @@ public class IndividualTradeLearningModel implements LearningModel {
         return transformed;
     }
 
+    public Row createRow(Row input) {
+        SparkSession spark = SparkSession.builder().master("local").appName("uk.ac.warwick.dcs.cs261.team14.IndividualTradeLearningModel").getOrCreate();
+
+        List<Row> rows = new ArrayList<Row>();
+
+        rows.add(input);
+
+        Dataset<Row> df = spark.createDataFrame(rows, schema);
+
+        df = df.withColumn("time", df.col("time").cast(TimestampType));
+        df = df.withColumn("time", df.col("time").cast(IntegerType));
+        df = df.withColumn("buyer", df.col("buyer").cast(IntegerType));
+        df = df.withColumn("seller", df.col("seller").cast(IntegerType));
+        df = df.withColumn("price", df.col("price").cast(DoubleType));
+        df = df.withColumn("size", df.col("size").cast(IntegerType));
+        df = df.withColumn("currency", df.col("currency").cast(IntegerType));
+        df = df.withColumn("symbol", df.col("symbol").cast(IntegerType));
+        df = df.withColumn("sector", df.col("sector").cast(IntegerType));
+        df = df.withColumn("bid", df.col("bid").cast(DoubleType));
+        df = df.withColumn("ask", df.col("ask").cast(DoubleType));
+        df = df.withColumn("pct_price_change", df.col("pct_price_change").cast(DoubleType));
+
+        VectorAssembler assembler = new VectorAssembler()
+                .setInputCols(new String[] {"time","price","currency","symbol","sector","bid","ask","pct_price_change"})
+                .setOutputCol("features");
+
+        df = assembler.transform(df);
+
+        df.withColumn("is_anomalous", org.apache.spark.sql.functions.lit(0.0));
+
+        return df.first();
+    }
+
     public Row predictRow(Row input) {
         SparkSession spark = SparkSession.builder().master("local").appName("uk.ac.warwick.dcs.cs261.team14.IndividualTradeLearningModel").getOrCreate();
 
@@ -64,6 +97,8 @@ public class IndividualTradeLearningModel implements LearningModel {
         df = df.withColumn("time", df.col("time").cast(TimestampType));
         df = df.withColumn("time", df.col("time").cast(IntegerType));
         df = df.withColumn("price", df.col("price").cast(DoubleType));
+        df = df.withColumn("buyer", df.col("buyer").cast(IntegerType));
+        df = df.withColumn("seller", df.col("seller").cast(IntegerType));
         df = df.withColumn("size", df.col("size").cast(IntegerType));
         df = df.withColumn("currency", df.col("currency").cast(IntegerType));
         df = df.withColumn("symbol", df.col("symbol").cast(IntegerType));

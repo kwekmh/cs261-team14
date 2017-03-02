@@ -62,8 +62,8 @@ public class LiveStreamTask {
                 if (row != null) {
                     Trade trade = new Trade();
                     trade.setTime(Timestamp.valueOf(LocalDateTime.parse(row.get(11).toString(), formatter)));
-                    trade.setBuyer(row.getString(1));
-                    trade.setSeller(row.getString(2));
+                    trade.setBuyerId(row.getInt(1));
+                    trade.setSellerId(row.getInt(2));
                     trade.setPrice(row.getDouble(3));
                     trade.setSize(Integer.parseInt(row.get(4).toString()));
                     trade.setCurrencyId(row.getInt(5));

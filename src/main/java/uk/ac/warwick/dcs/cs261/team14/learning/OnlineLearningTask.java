@@ -65,8 +65,8 @@ public class OnlineLearningTask {
 
         for (Trade trade : tradeRepository.findByTimeBetween(Timestamp.valueOf(yesterday), Timestamp.valueOf(today))) {
             vals[0] = sdf.format(trade.getTime());
-            vals[1] = trade.getBuyer();
-            vals[2] = trade.getSeller();
+            vals[1] = Integer.toString(trade.getBuyerId());
+            vals[2] = Integer.toString(trade.getSellerId());
             vals[3] = Double.toString(trade.getPrice());
             vals[4] = Integer.toString(trade.getSize());
             vals[5] = Integer.toString(trade.getCurrencyId());
