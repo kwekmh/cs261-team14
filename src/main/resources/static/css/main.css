@@ -434,7 +434,7 @@ input[type="file"] {
 
 
 /* DROPDOWN */
-#orderByDropdown, #catDropdown {
+#orderByDropdown, #catDropdown, #symbolDropdown {
     float: right;
     height: 100%;
     padding: 0;
@@ -446,7 +446,7 @@ input[type="file"] {
     text-indent: 0;
 }
 
-#orderByDropdown:after, #catDropdown:after {
+#orderByDropdown:after, #catDropdown:after, #symbolDropdown:after {
     top: 50%;
     left: 85%;
     border: solid transparent;
@@ -462,7 +462,7 @@ input[type="file"] {
     z-index: 100;
 }
 
-#orderByDropdown select, #catDropdown select {
+#orderByDropdown select, #catDropdown select, #symbolDropdown select {
     padding: 5px 8px;
     width: 130%;
     border: none;
@@ -476,7 +476,7 @@ input[type="file"] {
     font-family: inherit;
 }
 
-#orderByDropdown select:focus, #catDropdown select:focus {
+#orderByDropdown select:focus, #catDropdown select:focus, #symbolDropdown select:focus {
     outline: none;
 }
 
