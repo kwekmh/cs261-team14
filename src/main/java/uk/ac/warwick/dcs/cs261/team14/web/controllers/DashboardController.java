@@ -108,9 +108,9 @@ public class DashboardController {
         return mv;
     }
 
-    @RequestMapping("/allTrades")
-    public ModelAndView allTrades() {
-        ModelAndView mv = new ModelAndView("allTrades/main");
+    @RequestMapping("/allAlerts")
+    public ModelAndView allAlerts() {
+        ModelAndView mv = new ModelAndView("allAlerts/main");
 
         return mv;
     }
