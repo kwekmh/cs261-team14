@@ -18,162 +18,36 @@
                 <div class="dataContainer notCentre">
                     Trading Activity
                 </div> <!-- .dataContainer.notCentre -->
-                <div id="orderByDropdown">
-                    <select name="orderBy">
-                        <option value="default">Order By:</option>
-                        <option value="time">Time</option>
-                        <option value="type">Type</option>
-                        <option value="price">Price</option>
-                    </select>
-                </div> <!-- #orderByDropdown -->
+                <!--<div id="orderByDropdown">-->
+                    <!--<select name="orderBy">-->
+                        <!--<option value="default">Order By:</option>-->
+                        <!--<option value="time">Time</option>-->
+                        <!--<option value="symbol">Symbol</option>-->
+                        <!--<option value="type">Type</option>-->
+                    <!--</select>-->
+                <!--</div> &lt;!&ndash; #orderByDropdown &ndash;&gt;-->
             </div> <!-- #allTradeDataTitle -->
             <div id="allTradeDataTable">
                 <table>
                     <thead>
                     <tr>
                         <th>Time</th>
-                        <th>Type</th>
                         <th>Symbol</th>
                         <th>Sector</th>
-                        <th>Price</th>
-                        <th>Size</th>
-                        <th>Buyer</th>
-                        <th>Seller</th>
-                        <th>Bid Price</th>
-                        <th>Ask Price</th>
-                        <th>Details</th>
+                        <th>Currency</th>
+                        <th>Type</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>01:03:34</td>
-                        <td>unknown</td>
-                        <td>symb</td>
-                        <td>sect</td>
-                        <td>5254.46</td>
-                        <td>325</td>
-                        <td>Bob</td>
-                        <td>Charles</td>
-                        <td>3424.15</td>
-                        <td>534.24</td>
-                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
-                    </tr>
-                    <tr>
-                        <td>01:03:34</td>
-                        <td>unknown</td>
-                        <td>symb</td>
-                        <td>sect</td>
-                        <td>5254.46</td>
-                        <td>325</td>
-                        <td>Bob</td>
-                        <td>Charles</td>
-                        <td>3424.15</td>
-                        <td>534.24</td>
-                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
-                    </tr>
-                    <tr>
-                        <td>01:03:34</td>
-                        <td>unknown</td>
-                        <td>symb</td>
-                        <td>sect</td>
-                        <td>5254.46</td>
-                        <td>325</td>
-                        <td>Bob</td>
-                        <td>Charles</td>
-                        <td>3424.15</td>
-                        <td>534.24</td>
-                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
-                    </tr>
-                    <tr>
-                        <td>01:03:34</td>
-                        <td>unknown</td>
-                        <td>symb</td>
-                        <td>sect</td>
-                        <td>5254.46</td>
-                        <td>325</td>
-                        <td>Bob</td>
-                        <td>Charles</td>
-                        <td>3424.15</td>
-                        <td>534.24</td>
-                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
-                    </tr>
-                    <tr>
-                        <td>01:03:34</td>
-                        <td>unknown</td>
-                        <td>symb</td>
-                        <td>sect</td>
-                        <td>5254.46</td>
-                        <td>325</td>
-                        <td>Bob</td>
-                        <td>Charles</td>
-                        <td>3424.15</td>
-                        <td>534.24</td>
-                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
-                    </tr>
-                    <tr>
-                        <td>01:03:34</td>
-                        <td>unknown</td>
-                        <td>symb</td>
-                        <td>sect</td>
-                        <td>5254.46</td>
-                        <td>325</td>
-                        <td>Bob</td>
-                        <td>Charles</td>
-                        <td>3424.15</td>
-                        <td>534.24</td>
-                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
-                    </tr>
-                    <tr>
-                        <td>01:03:34</td>
-                        <td>unknown</td>
-                        <td>symb</td>
-                        <td>sect</td>
-                        <td>5254.46</td>
-                        <td>325</td>
-                        <td>Bob</td>
-                        <td>Charles</td>
-                        <td>3424.15</td>
-                        <td>534.24</td>
-                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
-                    </tr>
-                    <tr>
-                        <td>01:03:34</td>
-                        <td>unknown</td>
-                        <td>symb</td>
-                        <td>sect</td>
-                        <td>5254.46</td>
-                        <td>325</td>
-                        <td>Bob</td>
-                        <td>Charles</td>
-                        <td>3424.15</td>
-                        <td>534.24</td>
-                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
-                    </tr>
-                    <tr>
-                        <td>01:03:34</td>
-                        <td>unknown</td>
-                        <td>symb</td>
-                        <td>sect</td>
-                        <td>5254.46</td>
-                        <td>325</td>
-                        <td>Bob</td>
-                        <td>Charles</td>
-                        <td>3424.15</td>
-                        <td>534.24</td>
-                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
-                    </tr>
-                    <tr>
-                        <td>01:03:34</td>
-                        <td>unknown</td>
-                        <td>symb</td>
-                        <td>sect</td>
-                        <td>5254.46</td>
-                        <td>325</td>
-                        <td>Bob</td>
-                        <td>Charles</td>
-                        <td>3424.15</td>
-                        <td>534.24</td>
-                        <td><a th:href="@{/details}" class="detailsIcon" title="View Details"></a></td>
+                    <tr th:each="anomalousEvent : ${anomalousEvents}" th:with="symbol=${symbolRepository.findOne(anomalousEvent.getSymbolId())}">
+                        <td th:text="${#dates.format(anomalousEvent.getTime(), 'yyyy-MM-dd HH:mm:ss')}">Time</td>
+                        <td th:text="${symbol.getSymbolName()}">Symbol</td>
+                        <td th:text="${sectorRepository.findOne(symbol.getSectorId()).getSectorName()}">Sector</td>
+                        <td th:text="${currencyRepository.findOne(anomalousEvent.getCurrencyId()).getCurrencyName()}">Currency</td>
+                        <td th:if="${anomalousEvent.getAnomalousEventType() == 1}">Individual Trade</td>
+                        <td th:if="${anomalousEvent.getAnomalousEventType() == 2}">EMA over 5 periods</td>
+                        <td><a class="button" th:href="@{/details/{type}/{id}(type=${anomalousEvent.getAnomalousEventType()},id=${anomalousEvent.getId()})}">Details</a></td>
                     </tr>
                     </tbody>
                 </table>

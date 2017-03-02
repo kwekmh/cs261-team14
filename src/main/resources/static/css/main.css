@@ -356,6 +356,10 @@ input[type="file"] {
     overflow: scroll;
 }
 
+#allTradeDataTable {
+    height: 100%;
+}
+
 #anomalyTable table, #tradeDataTable table, #allTradeDataTable table {
     width: 100%;
     text-align: center;
