@@ -41,16 +41,4 @@ public class Application {
     public TaskExecutor taskExecutor() {
         return new SimpleAsyncTaskExecutor();
     }
-
-    @Bean
-    public TomcatEmbeddedServletContainerFactory containerFactory() {
-        TomcatEmbeddedServletContainerFactory factory = new TomcatEmbeddedServletContainerFactory();
-        factory.addConnectorCustomizers(new TomcatConnectorCustomizer() {
-            @Override
-            public void customize(Connector connector) {
-                ((AbstractHttp11Protocol<?>) connector.getProtocolHandler()).setMaxSwallowSize(-1);
-            }
-        });
-        return factory;
-    }
 }
