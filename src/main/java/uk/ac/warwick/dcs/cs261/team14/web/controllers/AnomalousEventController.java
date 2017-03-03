@@ -53,46 +53,10 @@ public class AnomalousEventController {
 
         // TODO: Redirect user to error page if the id or type is wrong
 
-        // Preparation of values of the graphs
-
-        int symbolId = anomalousEvent.getSymbolId();
-
-        LocalDateTime date = anomalousEvent.getTime().toLocalDateTime().withHour(0).withMinute(0).withSecond(0).withNano(0);
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-
-        ArrayList<Pair<LocalDateTime, Double>> graphArrayList = graphHelper.generateHourlyAverageRollingPctPriceChangeBySymbol(symbolId, date);
-
-        String[] rollingX = new String[graphArrayList.size()];
-        double[] rollingY = new double[graphArrayList.size()];
-
-        for (int i = 0; i < graphArrayList.size(); i++) {
-            Pair<LocalDateTime, Double> pair = graphArrayList.get(i);
-            rollingX[i] = formatter.format(pair.getFirst());
-            rollingY[i] = pair.getSecond();
-        }
-
-        ArrayList<Pair<LocalDateTime, Trade>> anomalousArrayList = graphHelper.getAnomalousTradesBetweenForGraphWithHourBySymbol(symbolId, date);
-
-        String[] anomalousX = new String[anomalousArrayList.size()];
-        double[] anomalousY = new double[anomalousArrayList.size()];
-
-
-        for (int i = 0; i < anomalousArrayList.size(); i++) {
-            Pair<LocalDateTime, Trade> pair = anomalousArrayList.get(i);
-            anomalousX[i] = formatter.format(pair.getFirst());
-            anomalousY[i] = pair.getSecond().getPctPriceChange();
-        }
-
         mv.addObject("anomalousEvent", anomalousEvent);
         mv.addObject("symbolRepository", symbolRepository);
         mv.addObject("sectorRepository", sectorRepository);
         mv.addObject("currencyRepository", currencyRepository);
-
-        mv.addObject("rollingX", rollingX);
-        mv.addObject("rollingY", rollingY);
-        mv.addObject("anomalousX", anomalousX);
-        mv.addObject("anomalousY", anomalousY);
 
         return mv;
     }
