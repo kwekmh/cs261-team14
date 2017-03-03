@@ -47,14 +47,16 @@
                 </div> <!-- .modal-header -->
                 <div class="modal-body">
                     <h2>Upload Data File</h2>
+                    <form name="dataUpload" id="fileUpload" th:action="@{/upload}" enctype="multipart/form-data" method="post">
                     <label id="selectFileLabel">
-                        <input type="file" id="selectFile"/>
+                        <input type="file" name="file" id="selectFile"/>
                         Select File
                     </label>
+                    </form>
                     <p id="fileSelected">No file selected</p>
                 </div> <!-- .modal-body -->
                 <div class="modal-footer">
-                    <button>Upload and Analyse</button>
+                    <button id="uploadButton">Upload and Analyse</button>
                 </div> <!-- .modal-footer -->
             </div> <!-- .modal-content -->
         </div> <!-- #myModal.modal -->
