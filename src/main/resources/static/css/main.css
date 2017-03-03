@@ -386,6 +386,14 @@ input[type="file"] {
     border-bottom: 1px solid #5E5E5E;
 }
 
+#allTradeDataTable table {
+     height: 97%;
+ }
+
+#allTradeDataTable td, #allTradeDataTable th {
+    height: 5%;
+}
+
 #tradeData {
     overflow: auto;
     width: 100%;
