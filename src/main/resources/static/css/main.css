@@ -376,7 +376,7 @@ input[type="file"] {
     background-color: #3A3A3A;
 }
 
-#anomalyTable thead, #tradeDataTable thead, #allTradeDataTable thead {
+#anomalyTable thead, #tradeDataTable thead, #allTradeDataTable thead th {
     background-color: #2A2A2A;
 }
 
