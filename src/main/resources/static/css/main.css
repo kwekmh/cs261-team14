@@ -29,7 +29,7 @@ body {
     background-size: cover;
 }
 
-.allTrades {
+.allAlerts {
     background: url("../images/SidebarAllTrades.png");
     background-size: cover;
 }
@@ -362,6 +362,10 @@ input[type="file"] {
     overflow: scroll;
 }
 
+#allTradeDataTable {
+    height: 96.2%;
+}
+
 #anomalyTable table, #tradeDataTable table, #allTradeDataTable table {
     width: 100%;
     text-align: center;
@@ -386,6 +390,14 @@ input[type="file"] {
 
 #anomalyTable td, #tradeDataTable td, #allTradeDataTable td {
     border-bottom: 1px solid #5E5E5E;
+}
+
+#allTradeDataTable table {
+     height: 100%;
+ }
+
+#allTradeDataTable td, #allTradeDataTable th {
+    height: 4%;
 }
 
 #tradeData {
