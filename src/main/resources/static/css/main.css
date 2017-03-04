@@ -14,7 +14,7 @@ body {
 
 /* BASIC LAYOUT - SIDEBAR/MAIN AREA*/
 .sidebar {
-    position: absolute;
+    position: fixed;
     left: 0; top: 0; bottom: 0;
     width: 176px;
 }
@@ -30,7 +30,7 @@ body {
     background-size: cover;
 }
 
-.allTrades {
+.allAlerts {
     background: url("../images/SidebarAllTrades.png");
     background-size: cover;
 }
@@ -38,6 +38,7 @@ body {
 .main {
     position: absolute;
     left: 176px; top: 0; bottom: 0; right: 0;
+    z-index: -10;
 }
 
 
@@ -278,8 +279,16 @@ input[type="file"] {
 
 /* DASHBOARD */
 #dashboardFrame {
-    position: absolute;
-    left: 70px; top: 52px; bottom: 52px; right: 70px;
+    /*position: absolute;*/
+    display: block;
+    margin: 52px 70px 52px 70px;
+    /*left: 70px; top: 52px; bottom: 52px; right: 70px;*/
+}
+
+#dashboardMessage {
+    margin-bottom: 12px;
+    padding: 24px;
+    background-color: #1A1A1A;
 }
 
 #anomalyFrame {
@@ -354,6 +363,10 @@ input[type="file"] {
     overflow: scroll;
 }
 
+#allTradeDataTable {
+    height: 96.2%;
+}
+
 #anomalyTable table, #tradeDataTable table, #allTradeDataTable table {
     width: 100%;
     text-align: center;
@@ -378,6 +391,14 @@ input[type="file"] {
 
 #anomalyTable td, #tradeDataTable td, #allTradeDataTable td {
     border-bottom: 1px solid #5E5E5E;
+}
+
+#allTradeDataTable table {
+     height: 100%;
+ }
+
+#allTradeDataTable td, #allTradeDataTable th {
+    height: 4%;
 }
 
 #tradeData {
@@ -432,7 +453,7 @@ input[type="file"] {
 
 
 /* DROPDOWN */
-#orderByDropdown, #catDropdown {
+#orderByDropdown, #catDropdown, #symbolDropdown {
     float: right;
     height: 100%;
     padding: 0;
@@ -444,7 +465,7 @@ input[type="file"] {
     text-indent: 0;
 }
 
-#orderByDropdown:after, #catDropdown:after {
+#orderByDropdown:after, #catDropdown:after, #symbolDropdown:after {
     top: 50%;
     left: 85%;
     border: solid transparent;
@@ -460,7 +481,7 @@ input[type="file"] {
     z-index: 100;
 }
 
-#orderByDropdown select, #catDropdown select {
+#orderByDropdown select, #catDropdown select, #symbolDropdown select {
     padding: 5px 8px;
     width: 130%;
     border: none;
@@ -474,15 +495,23 @@ input[type="file"] {
     font-family: inherit;
 }
 
-#orderByDropdown select:focus, #catDropdown select:focus {
+#orderByDropdown select:focus, #catDropdown select:focus, #symbolDropdown select:focus {
     outline: none;
 }
 
 
 /* DETAILS */
 #detailsFrame {
-    position: absolute;
-    left: 70px; top: 52px; bottom: 52px; right: 70px;
+    /*position: absolute;*/
+    display: block;
+    margin: 52px 70px 52px 70px;
+    /*left: 70px; top: 52px; bottom: 52px; right: 70px;*/
+}
+
+#detailsMessage {
+    margin-bottom: 12px;
+    padding: 24px;
+    background-color: #1A1A1A;
 }
 
 #detailTopBar {
@@ -510,6 +539,26 @@ input[type="file"] {
     background-repeat: no-repeat;
     background-position: 10px center;
     background-size: 18px;
+}
+
+#falsePositive a:link {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+#falsePositive a:visited {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+#falsePositive a:hover {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+#falsePositive a:active {
+    color: #FFFFFF;
+    text-decoration: none;
 }
 
 #detailMainFrame {
@@ -603,6 +652,10 @@ input[type="file"] {
 }
 
 /* COMMON */
+
+.hidden {
+    display: none;
+}
 
 .button {
     background-color: #1A1A1A;

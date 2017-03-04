@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/main.css}">
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/allAlerts.css}">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400" rel="stylesheet">
+    <title>All Alerts</title>
+</head>
+
+<body>
+    <div th:replace="fragments/sidebar :: sidebar('allAlerts')">
+
+    </div> <!-- .sidebar.allAlerts -->
+    <div class="main">
+        <div id="allTradeDataFrame">
+            <div id="allTradeDataTitle">
+                <div class="dataContainer notCentre">
+                    Trading Activity
+                </div> <!-- .dataContainer.notCentre -->
+                <!--<div id="orderByDropdown">-->
+                    <!--<select name="orderBy">-->
+                        <!--<option value="default">Order By:</option>-->
+                        <!--<option value="time">Time</option>-->
+                        <!--<option value="symbol">Symbol</option>-->
+                        <!--<option value="type">Type</option>-->
+                    <!--</select>-->
+                <!--</div> &lt;!&ndash; #orderByDropdown &ndash;&gt;-->
+            </div> <!-- #allTradeDataTitle -->
+            <div id="allTradeDataTable">
+                <table id="myTable">
+                    <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Symbol</th>
+                        <th>Sector</th>
+                        <th>Currency</th>
+                        <th>Type</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                </table>
+            </div> <!-- #allTradeDataTable -->
+        </div> <!-- #allTradeDataFrame -->
+    </div> <!-- .main -->
+    <script th:src="@{/scripts/pagination.js}"></script>
+</body>
+
+</html>

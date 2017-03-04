@@ -49,6 +49,8 @@ public class IndividualTradeDataTransformer implements DataTransformer {
                     newVals[i] = vals[i];
                 }
                 newVals[i + 1] = vals[0];
+                newVals[1] = Integer.toString(dataTransformerMapping.getTraderIndex(newVals[1]));
+                newVals[2] = Integer.toString(dataTransformerMapping.getTraderIndex(newVals[2]));
                 newVals[5] = Integer.toString(dataTransformerMapping.getCurrencyIndex(newVals[5]));
                 newVals[6] = Integer.toString(dataTransformerMapping.getSymbolIndex(newVals[6]));
                 newVals[7] = Integer.toString(dataTransformerMapping.getSectorIndex(newVals[7]));

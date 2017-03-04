@@ -1,6 +1,7 @@
 package uk.ac.warwick.dcs.cs261.team14.db.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -14,16 +15,17 @@ import java.sql.Timestamp;
 @Table(name = "trade")
 public class Trade implements AnomalousEvent {
     @Id
+    @GeneratedValue
     private int tradeId;
 
     @NotNull
     private Timestamp time;
 
     @NotNull
-    private String buyer;
+    private int buyerId;
 
     @NotNull
-    private String seller;
+    private int sellerId;
 
     @NotNull
     private double price;
@@ -60,10 +62,10 @@ public class Trade implements AnomalousEvent {
         this.tradeId = tradeId;
     }
 
-    public Trade(Timestamp time, String buyer, String seller, double price, int size, int currencyId, int symbolId, double bidPrice, double askPrice, double pctPriceChange, int categoryId, int isAnomalous) {
+    public Trade(Timestamp time, int buyerId, int sellerId, double price, int size, int currencyId, int symbolId, double bidPrice, double askPrice, double pctPriceChange, int categoryId, int isAnomalous) {
         this.time = time;
-        this.buyer = buyer;
-        this.seller = seller;
+        this.buyerId = buyerId;
+        this.sellerId = sellerId;
         this.price = price;
         this.size = size;
         this.currencyId = currencyId;
@@ -91,20 +93,20 @@ public class Trade implements AnomalousEvent {
         this.time = time;
     }
 
-    public String getBuyer() {
-        return buyer;
+    public int getBuyerId() {
+        return buyerId;
     }
 
-    public void setBuyer(String buyer) {
-        this.buyer = buyer;
+    public void setBuyerId(int buyerId) {
+        this.buyerId = buyerId;
     }
 
-    public String getSeller() {
-        return seller;
+    public int getSellerId() {
+        return sellerId;
     }
 
-    public void setSeller(String seller) {
-        this.seller = seller;
+    public void setSellerId(int sellerId) {
+        this.sellerId = sellerId;
     }
 
     public double getPrice() {

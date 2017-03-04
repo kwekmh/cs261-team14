@@ -1,7 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `cs261` /*!40100 DEFAULT CHARACTER SET utf8 */;
-
-USE cs261;
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -74,6 +70,45 @@ CREATE TABLE `category` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `trader`
+--
+
+DROP TABLE IF EXISTS `trader`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `trader` (
+  `trader_id` int(11) NOT NULL AUTO_INCREMENT,
+  `trader_email_address` varchar(255) NOT NULL,
+  PRIMARY KEY (`trader_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `trader_statistics`
+--
+
+DROP TABLE IF EXISTS `trader_statistics`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `trader_statistics` (
+  `trader_statistics_id` int(11) NOT NULL AUTO_INCREMENT,
+  `trader_id` int(11) NOT NULL,
+  `symbol_id` int(11) NOT NULL,
+  `generated_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `aggregated_size_bought` int(11) NOT NULL,
+  `aggregated_size_sold` int(11) NOT NULL,
+  `aggregated_value_bought` double NOT NULL,
+  `aggregated_value_sold` double NOT NULL,
+  `is_anomalous` int(11) NOT NULL,
+  PRIMARY KEY (`trader_statistics_id`),
+  KEY `trader_statistics_trader_id_idx` (`trader_id`),
+  KEY `trader_statistics_symbol_id_idx` (`symbol_id`),
+  CONSTRAINT `trader_statistics_symbol_id` FOREIGN KEY (`symbol_id`) REFERENCES `symbol` (`symbol_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `trader_statistics_trader_id` FOREIGN KEY (`trader_id`) REFERENCES `trader` (`trader_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `trade`
 --
 
@@ -83,8 +118,8 @@ DROP TABLE IF EXISTS `trade`;
 CREATE TABLE `trade` (
   `trade_id` int(11) NOT NULL AUTO_INCREMENT,
   `time` datetime NOT NULL,
-  `buyer` varchar(255) NOT NULL,
-  `seller` varchar(255) NOT NULL,
+  `buyer_id` int(11) NOT NULL,
+  `seller_id` int(11) NOT NULL,
   `price` double NOT NULL,
   `size` int(11) NOT NULL,
   `currency_id` int(11) NOT NULL,
@@ -98,10 +133,14 @@ CREATE TABLE `trade` (
   KEY `currency_id_idx` (`currency_id`),
   KEY `symbol_id_idx` (`symbol_id`),
   KEY `category_id_idx` (`category_id`),
+  KEY `buyer_id_idx` (`buyer_id`),
+  KEY `seller_id_idx` (`seller_id`),
+  CONSTRAINT `buyer_id` FOREIGN KEY (`buyer_id`) REFERENCES `trader` (`trader_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `category_id` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `currency_id` FOREIGN KEY (`currency_id`) REFERENCES `currency` (`currency_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `seller_id` FOREIGN KEY (`seller_id`) REFERENCES `trader` (`trader_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `symbol_id` FOREIGN KEY (`symbol_id`) REFERENCES `symbol` (`symbol_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=250 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=92004 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -193,6 +232,16 @@ LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
 INSERT INTO `category` VALUES (1,'Default');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `trader`
+--
+
+LOCK TABLES `trader` WRITE;
+/*!40000 ALTER TABLE `trader` DISABLE KEYS */;
+INSERT INTO `trader` VALUES (1,'m.harding@vinvest.com'),(2,'w.tuffnell@janestreetcap.com'),(3,'a.j.johnson@johnsonandfinnemore.com'),(4,'carlee.c@invensys.com'),(5,'rudyard.smithies@citadel.com'),(6,'m.corrigan@jlb.com'),(7,'n.ainsworth@vinvest.com'),(8,'s.hedgewick@janestreetcap.com'),(9,'warford.benson@tibratrading.com'),(10,'t.barton@knightcapital.com'),(11,'l.lee@moma.com'),(12,'j.amstell@bridgewater.com'),(13,'j.freeman@sorrel.com'),(14,'m.hen@aspectcapital.com'),(15,'locke@rochdaleassets.com'),(16,'a.smith@fenchurchst.com'),(17,'n.a.choudhury@oxam.org'),(18,'larabourne@rochdaleassets.com'),(19,'a.braxton@vinvest.com'),(20,'s.benson@bridgewater.com'),(21,'manimal@jlb.com'),(22,'tabby.dowd@janestreetcap.com'),(23,'zach@invensys.com'),(24,'a.clare@sorrel.com'),(25,'m.atherton@scottishwidows.com'),(26,'s.withers@oxam.org'),(27,'s.chapman@jlb.com'),(28,'a.m.forex@fenchurchst.com'),(29,'p.greyling@fenchurchst.com'),(30,'w.hastings@bridgewater.com'),(31,'j.newbury@citadel.com'),(32,'d.bristol@moma.com'),(33,'thistle@janestreetcap.com'),(34,'a.afzal@rochdaleassets.com'),(35,'m.grein@tibratrading.com'),(36,'u.farooq@tibratrading.com'),(37,'k.c.cooper@aspectcapital.com'),(38,'w.cromwell@aspectcapital.com'),(39,'sam.goldwing@sorrel.com');
+/*!40000 ALTER TABLE `trader` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

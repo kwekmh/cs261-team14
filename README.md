@@ -13,7 +13,12 @@ For the initial setup, you would need to configure various properties such that 
 
 These options can be set in a file *user.properties* that should be placed under **src/main/resources/**. The corresponding directives to be set are:
 * cs261.learning.models.directory=C:\\\\CS261\\\\models
+* cs261.uploads.directory=C:\\\\CS261\\\\uploads
 * spring.datasource.url=jdbc:mysql://localhost/cs261
 * spring.datasource.username=username
 * spring.datasource.password=password
 * spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+
+If you want to allow larger file uploads, you need to set the following properties in *user.properties*:
+* spring.http.multipart.max-file-size=512MB
+* spring.http.multipart.max-request-size=512MB

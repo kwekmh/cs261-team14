@@ -2,10 +2,7 @@ package uk.ac.warwick.dcs.cs261.team14.db.entities;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -16,6 +13,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "symbol")
 public class Symbol {
     @Id
+    @GeneratedValue
     private int symbolId;
 
     @NotNull

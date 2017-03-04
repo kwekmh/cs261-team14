@@ -1,19 +1,18 @@
 package uk.ac.warwick.dcs.cs261.team14.web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import uk.ac.warwick.dcs.cs261.team14.db.entities.*;
+import uk.ac.warwick.dcs.cs261.team14.web.helpers.AnomalousEventJSONObject;
 import uk.ac.warwick.dcs.cs261.team14.web.helpers.GraphHelper;
-import uk.ac.warwick.dcs.cs261.team14.web.helpers.Pair;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by kwekmh on 27/02/17.
@@ -28,6 +27,9 @@ public class AnomalousEventController {
     private AggregateDataRepository aggregateDataRepository;
 
     @Autowired
+    private TraderStatisticsRepository traderStatisticsRepository;
+
+    @Autowired
     private SymbolRepository symbolRepository;
 
     @Autowired
@@ -37,10 +39,13 @@ public class AnomalousEventController {
     private CurrencyRepository currencyRepository;
 
     @Autowired
+    private DashboardController dashboardController;
+
+    @Autowired
     private GraphHelper graphHelper;
 
     @RequestMapping(value = "/details/{type}/{id}", method = RequestMethod.GET)
-    public ModelAndView details(@PathVariable int id, @PathVariable int type) {
+    public ModelAndView details(@PathVariable int type, @PathVariable int id) {
         ModelAndView mv = new ModelAndView("details/main");
 
         AnomalousEvent anomalousEvent = null;
@@ -53,47 +58,98 @@ public class AnomalousEventController {
 
         // TODO: Redirect user to error page if the id or type is wrong
 
-        // Preparation of values of the graphs
-
-        int symbolId = anomalousEvent.getSymbolId();
-
-        LocalDateTime date = anomalousEvent.getTime().toLocalDateTime().withHour(0).withMinute(0).withSecond(0).withNano(0);
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-
-        ArrayList<Pair<LocalDateTime, Double>> graphArrayList = graphHelper.generateHourlyAverageRollingPctPriceChangeBySymbol(symbolId, date);
-
-        String[] rollingX = new String[graphArrayList.size()];
-        double[] rollingY = new double[graphArrayList.size()];
-
-        for (int i = 0; i < graphArrayList.size(); i++) {
-            Pair<LocalDateTime, Double> pair = graphArrayList.get(i);
-            rollingX[i] = formatter.format(pair.getFirst());
-            rollingY[i] = pair.getSecond();
-        }
-
-        ArrayList<Pair<LocalDateTime, Trade>> anomalousArrayList = graphHelper.getAnomalousTradesBetweenForGraphWithHourBySymbol(symbolId, date);
-
-        String[] anomalousX = new String[anomalousArrayList.size()];
-        double[] anomalousY = new double[anomalousArrayList.size()];
-
-
-        for (int i = 0; i < anomalousArrayList.size(); i++) {
-            Pair<LocalDateTime, Trade> pair = anomalousArrayList.get(i);
-            anomalousX[i] = formatter.format(pair.getFirst());
-            anomalousY[i] = pair.getSecond().getPctPriceChange();
-        }
-
         mv.addObject("anomalousEvent", anomalousEvent);
         mv.addObject("symbolRepository", symbolRepository);
         mv.addObject("sectorRepository", sectorRepository);
         mv.addObject("currencyRepository", currencyRepository);
 
-        mv.addObject("rollingX", rollingX);
-        mv.addObject("rollingY", rollingY);
-        mv.addObject("anomalousX", anomalousX);
-        mv.addObject("anomalousY", anomalousY);
+        return mv;
+    }
+
+    @RequestMapping(value = "/markAsFalsePositive/{type}/{id}", method = RequestMethod.GET)
+    public ModelAndView markAsFalsePositive(@PathVariable int type, @PathVariable int id) {
+        boolean success = false;
+        if (type == 1) {
+            Trade trade = tradeRepository.findOne(id);
+            trade.setIsAnomalous(0);
+            tradeRepository.save(trade);
+            success = true;
+        } else if (type == 2) {
+            AggregateData aggregateData = aggregateDataRepository.findOne(id);
+            aggregateData.setIsAnomalous(0);
+            aggregateDataRepository.save(aggregateData);
+            success = true;
+        }
+
+        ModelAndView mv;
+
+        if (success) {
+            mv = dashboardController.main();
+            mv.addObject("message", "The event has been marked as a false positive successfully!");
+        } else {
+            mv = details(type, id);
+            mv.addObject("message", "There was an error while attempting to process your request!");
+        }
 
         return mv;
+    }
+
+    @RequestMapping("/allAlerts")
+    public ModelAndView allAlerts() {
+        ModelAndView mv = new ModelAndView("allAlerts/main");
+
+        return mv;
+    }
+
+    @RequestMapping(value = "/api/anomalousEvents/{page}", method = RequestMethod.GET)
+    public @ResponseBody AnomalousEventJSONObject[] getAnomalousEvents(@PathVariable int page) {
+        int rowCount = 24;
+        int total = rowCount * page;
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        // TODO: Optimise code in this section. Potentially requires restructuring of the SQL schema and consequently other methods
+
+        ArrayList<AnomalousEvent> anomalousEventsList = new ArrayList<>();
+
+        for (Trade trade : tradeRepository.findByIsAnomalousOrderByTimeDesc(1, new PageRequest(0, total))) {
+            anomalousEventsList.add(trade);
+        }
+
+        for (AggregateData aggregateData : aggregateDataRepository.findByIsAnomalousOrderByGeneratedDateDesc(1, new PageRequest(0, total))) {
+            anomalousEventsList.add(aggregateData);
+        }
+
+        for (TraderStatistics traderStatistics : traderStatisticsRepository.findByIsAnomalousOrderByGeneratedDatetime(1, new PageRequest(0, total))) {
+            anomalousEventsList.add(traderStatistics);
+        }
+
+        Collections.sort(anomalousEventsList, Comparator.comparing(AnomalousEvent::getTime).reversed());
+
+        AnomalousEventJSONObject[] anomalousEvents = new AnomalousEventJSONObject[anomalousEventsList.size() >= total ? rowCount : (anomalousEventsList.size() > (total - rowCount) ? anomalousEventsList.size() % rowCount : 0)];
+
+        for (int i = 0, j = (page - 1) * rowCount; i < anomalousEvents.length && j < anomalousEventsList.size(); i++, j++) {
+            AnomalousEvent anomalousEvent = anomalousEventsList.get(j);
+            AnomalousEventJSONObject obj = new AnomalousEventJSONObject();
+
+            Symbol symbol = symbolRepository.findOne(anomalousEvent.getSymbolId());
+
+            String currency = "GBX";
+
+            if (anomalousEvent instanceof Trade) {
+                currency = currencyRepository.findOne(((Trade) anomalousEvent).getCurrencyId()).getCurrencyName();
+            }
+
+            obj.setId(anomalousEvent.getId());
+            obj.setTime(formatter.format(anomalousEvent.getTime().toLocalDateTime()));
+            obj.setSymbol(symbol.getSymbolName());
+            obj.setSector(sectorRepository.findOne(symbol.getSectorId()).getSectorName());
+            obj.setCurrency(currency);
+            obj.setType(anomalousEvent.getAnomalousEventType());
+
+            anomalousEvents[i] = obj;
+        }
+
+        return anomalousEvents;
     }
 }
