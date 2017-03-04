@@ -19,7 +19,7 @@
         </div>
         <div id="detailTopBar">
             <p id="detailTitle">Anomalous Event:</p>
-            <div id="falsePositive"><a th:href="@{/markAsFalsePositive/{type}/{id}(type=${anomalousEvent.getAnomalousEventType()},id=${anomalousEvent.getId()})}">Mark as false positive</a></div>
+            <a id="falsePositive" th:href="@{/markAsFalsePositive/{type}/{id}(type=${anomalousEvent.getAnomalousEventType()},id=${anomalousEvent.getId()})}">Mark as false positive</a>
         </div> <!-- #detailTopBar -->
         <div id="detailMainFrame">
             <div id="timeCatBar">

@@ -541,24 +541,34 @@ input[type="file"] {
     background-size: 18px;
 }
 
-#falsePositive a:link {
+#falsePositive:link {
     color: #FFFFFF;
     text-decoration: none;
 }
 
-#falsePositive a:visited {
+#falsePositive:visited {
     color: #FFFFFF;
     text-decoration: none;
 }
 
-#falsePositive a:hover {
+#falsePositive:hover {
     color: #FFFFFF;
+    background-color: #5E5E5E;
     text-decoration: none;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-#falsePositive a:active {
+#falsePositive:active {
     color: #FFFFFF;
+    background-color: #5E5E5E;
     text-decoration: none;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 #detailMainFrame {
