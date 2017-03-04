@@ -1,7 +1,7 @@
 // get the table element
 var $table = document.getElementById("myTable"),
 // number of rows per page
-    $n = 19,
+    $n = 24,
 // number of rows of the table
     $rowCount = $table.rows.length,
 // get the first cell's tag name (in the first row)
@@ -15,7 +15,7 @@ var $table = document.getElementById("myTable"),
 // holds the first row if it has a (<TH>) & nothing if (<TD>)
     $th = ($hasHead?$table.rows[(0)].outerHTML:"");
 // count the number of pages
-var $pageCount = Math.ceil($rowCount / $n);
+var $pageCount = Math.ceil(($rowCount-1) / $n);
 // if we had one page only, then we have nothing to do ..
 if ($pageCount > 1) {
     // assign each row outHTML (tag name & innerHTML) to the array
@@ -39,6 +39,11 @@ function sort($p) {
 
     // now the table has a processed group of rows ..
     $table.innerHTML = $rows;
+    // If table not full, add empty row
+    // alert($tr.length-$s);
+    if(($tr.length-$s) < $n) {
+        $table.insertRow(-1);
+    }
     // create the pagination buttons
     document.getElementById("buttons").innerHTML = pageButtons($pageCount,$p);
     // CSS Stuff
