@@ -14,9 +14,12 @@
 </div> <!-- .sidebar.details -->
 <div class="main">
     <div id="detailsFrame">
+        <div id="detailsMessage" th:if="${message != null}">
+            <span th:text="${message}"></span>
+        </div>
         <div id="detailTopBar">
             <p id="detailTitle">Anomalous Event:</p>
-            <div id="falsePositive">Mark as false positive</div>
+            <div id="falsePositive"><a th:href="@{/markAsFalsePositive/{type}/{id}(type=${anomalousEvent.getAnomalousEventType()},id=${anomalousEvent.getId()})}">Mark as false positive</a></div>
         </div> <!-- #detailTopBar -->
         <div id="detailMainFrame">
             <div id="timeCatBar">

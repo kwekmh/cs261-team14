@@ -495,6 +495,12 @@ input[type="file"] {
     /*left: 70px; top: 52px; bottom: 52px; right: 70px;*/
 }
 
+#detailsMessage {
+    margin-bottom: 12px;
+    padding: 24px;
+    background-color: #1A1A1A;
+}
+
 #detailTopBar {
     width: 100%;
     border-bottom: 1px solid #5E5E5E;
@@ -520,6 +526,26 @@ input[type="file"] {
     background-repeat: no-repeat;
     background-position: 10px center;
     background-size: 18px;
+}
+
+#falsePositive a:link {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+#falsePositive a:visited {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+#falsePositive a:hover {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+#falsePositive a:active {
+    color: #FFFFFF;
+    text-decoration: none;
 }
 
 #detailMainFrame {

@@ -37,10 +37,13 @@ public class AnomalousEventController {
     private CurrencyRepository currencyRepository;
 
     @Autowired
+    private DashboardController dashboardController;
+
+    @Autowired
     private GraphHelper graphHelper;
 
     @RequestMapping(value = "/details/{type}/{id}", method = RequestMethod.GET)
-    public ModelAndView details(@PathVariable int id, @PathVariable int type) {
+    public ModelAndView details(@PathVariable int type, @PathVariable int id) {
         ModelAndView mv = new ModelAndView("details/main");
 
         AnomalousEvent anomalousEvent = null;
@@ -57,6 +60,34 @@ public class AnomalousEventController {
         mv.addObject("symbolRepository", symbolRepository);
         mv.addObject("sectorRepository", sectorRepository);
         mv.addObject("currencyRepository", currencyRepository);
+
+        return mv;
+    }
+
+    @RequestMapping(value = "/markAsFalsePositive/{type}/{id}", method = RequestMethod.GET)
+    public ModelAndView markAsFalsePositive(@PathVariable int type, @PathVariable int id) {
+        boolean success = false;
+        if (type == 1) {
+            Trade trade = tradeRepository.findOne(id);
+            trade.setIsAnomalous(0);
+            tradeRepository.save(trade);
+            success = true;
+        } else if (type == 2) {
+            AggregateData aggregateData = aggregateDataRepository.findOne(id);
+            aggregateData.setIsAnomalous(0);
+            aggregateDataRepository.save(aggregateData);
+            success = true;
+        }
+
+        ModelAndView mv;
+
+        if (success) {
+            mv = dashboardController.main();
+            mv.addObject("message", "The event has been marked as a false positive successfully!");
+        } else {
+            mv = details(type, id);
+            mv.addObject("message", "There was an error while attempting to process your request!");
+        }
 
         return mv;
     }
