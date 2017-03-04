@@ -43,10 +43,11 @@ function sort($p) {
     if ($p == $currentPage + 1 && $nextData.length > 0) {
         $table.innerHTML = '<thead><tr><th>Time</th><th>Symbol</th><th>Sector</th><th>Currency</th><th>Type</th><th></th></tr></thead>';
         var jsonRows = $nextData;
+        var $tableBody = $table.appendChild(document.createElement('tbody'));
         // Insert data
         for (var i = 0; i < jsonRows.length; i++) {
             var data = jsonRows[i];
-            var row = $table.insertRow();
+            var row = $tableBody.insertRow();
             var timeCell = row.insertCell(0);
             timeCell.innerHTML = data.time;
             var symbolCell = row.insertCell(1);
@@ -83,10 +84,11 @@ function sort($p) {
 
 
                 var jsonRows = JSON.parse(http.responseText);
+                var $tableBody = $table.appendChild(document.createElement('tbody'));
                 // Insert data
                 for (var i = 0; i < jsonRows.length; i++) {
                     var data = jsonRows[i];
-                    var row = $table.insertRow();
+                    var row = $tableBody.insertRow();
                     var timeCell = row.insertCell(0);
                     timeCell.innerHTML = data.time;
                     var symbolCell = row.insertCell(1);
