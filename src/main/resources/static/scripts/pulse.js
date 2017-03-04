@@ -24,7 +24,7 @@ function pulse(count, sound) {
 
 var tempPulser = document.getElementById("streamHook");
 
-var audio = new Audio('../sounds/alert1.mp3');
+var audio = new Audio('/sounds/alert1.mp3');
 
 tempPulser.onclick = function() {
     pulse(3,'on');
