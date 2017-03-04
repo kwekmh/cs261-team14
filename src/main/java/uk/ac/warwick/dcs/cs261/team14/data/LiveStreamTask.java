@@ -55,7 +55,7 @@ public class LiveStreamTask {
 
             String line;
 
-            DateTimeFormatter formatter  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
 
             while ((line = in.readLine()) != null) {
                 Row row = inputController.processLine(line);

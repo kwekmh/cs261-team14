@@ -1,19 +1,18 @@
 package uk.ac.warwick.dcs.cs261.team14.web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import uk.ac.warwick.dcs.cs261.team14.db.entities.*;
+import uk.ac.warwick.dcs.cs261.team14.web.helpers.AnomalousEventJSONObject;
 import uk.ac.warwick.dcs.cs261.team14.web.helpers.GraphHelper;
-import uk.ac.warwick.dcs.cs261.team14.web.helpers.Pair;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by kwekmh on 27/02/17.
@@ -26,6 +25,9 @@ public class AnomalousEventController {
 
     @Autowired
     private AggregateDataRepository aggregateDataRepository;
+
+    @Autowired
+    private TraderStatisticsRepository traderStatisticsRepository;
 
     @Autowired
     private SymbolRepository symbolRepository;
@@ -90,5 +92,64 @@ public class AnomalousEventController {
         }
 
         return mv;
+    }
+
+    @RequestMapping("/allAlerts")
+    public ModelAndView allAlerts() {
+        ModelAndView mv = new ModelAndView("allAlerts/main");
+
+        return mv;
+    }
+
+    @RequestMapping(value = "/api/anomalousEvents/{page}", method = RequestMethod.GET)
+    public @ResponseBody AnomalousEventJSONObject[] getAnomalousEvents(@PathVariable int page) {
+        int rowCount = 24;
+        int total = rowCount * page;
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        // TODO: Optimise code in this section. Potentially requires restructuring of the SQL schema and consequently other methods
+
+        ArrayList<AnomalousEvent> anomalousEventsList = new ArrayList<>();
+
+        for (Trade trade : tradeRepository.findByIsAnomalousOrderByTimeDesc(1, new PageRequest(0, total))) {
+            anomalousEventsList.add(trade);
+        }
+
+        for (AggregateData aggregateData : aggregateDataRepository.findByIsAnomalousOrderByGeneratedDateDesc(1, new PageRequest(0, total))) {
+            anomalousEventsList.add(aggregateData);
+        }
+
+        for (TraderStatistics traderStatistics : traderStatisticsRepository.findByIsAnomalousOrderByGeneratedDatetime(1, new PageRequest(0, total))) {
+            anomalousEventsList.add(traderStatistics);
+        }
+
+        Collections.sort(anomalousEventsList, Comparator.comparing(AnomalousEvent::getTime).reversed());
+
+        AnomalousEventJSONObject[] anomalousEvents = new AnomalousEventJSONObject[anomalousEventsList.size() >= total ? rowCount : (anomalousEventsList.size() > (total - rowCount) ? anomalousEventsList.size() % rowCount : 0)];
+
+        for (int i = 0, j = (page - 1) * rowCount; i < anomalousEvents.length && j < anomalousEventsList.size(); i++, j++) {
+            AnomalousEvent anomalousEvent = anomalousEventsList.get(j);
+            AnomalousEventJSONObject obj = new AnomalousEventJSONObject();
+
+            Symbol symbol = symbolRepository.findOne(anomalousEvent.getSymbolId());
+
+            String currency = "GBX";
+
+            if (anomalousEvent instanceof Trade) {
+                currency = currencyRepository.findOne(((Trade) anomalousEvent).getCurrencyId()).getCurrencyName();
+            }
+
+            obj.setId(anomalousEvent.getId());
+            obj.setTime(formatter.format(anomalousEvent.getTime().toLocalDateTime()));
+            obj.setSymbol(symbol.getSymbolName());
+            obj.setSector(sectorRepository.findOne(symbol.getSectorId()).getSectorName());
+            obj.setCurrency(currency);
+            obj.setType(anomalousEvent.getAnomalousEventType());
+
+            anomalousEvents[i] = obj;
+        }
+
+        return anomalousEvents;
     }
 }

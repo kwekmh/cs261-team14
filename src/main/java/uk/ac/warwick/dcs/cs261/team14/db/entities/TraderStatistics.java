@@ -13,7 +13,7 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name = "trader_statistics")
-public class TraderStatistics {
+public class TraderStatistics implements AnomalousEvent {
     @Id
     @GeneratedValue
     private int traderStatisticsId;
@@ -131,5 +131,17 @@ public class TraderStatistics {
 
     public void setIsAnomalous(int isAnomalous) {
         this.isAnomalous = isAnomalous;
+    }
+
+    public int getId() {
+        return getTraderStatisticsId();
+    }
+
+    public Timestamp getTime() {
+        return getGeneratedDatetime();
+    }
+
+    public int getAnomalousEventType() {
+        return 3;
     }
 }

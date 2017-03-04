@@ -188,13 +188,6 @@ public class DashboardController {
         }
     }
 
-    @RequestMapping("/allAlerts")
-    public ModelAndView allAlerts() {
-        ModelAndView mv = new ModelAndView("allAlerts/main");
-
-        return mv;
-    }
-
     public String getUploadsDirectory() {
        if (uploadsDirectory.indexOf(uploadsDirectory.length() - 1) != File.separatorChar) {
             return uploadsDirectory + File.separator;
