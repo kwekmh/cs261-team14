@@ -22,6 +22,7 @@ body {
 .dashboard {
     background: url("../images/SidebarDashboard.png");
     background-size: cover;
+    height: 900px;
 }
 
 .details {
