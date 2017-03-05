@@ -21,12 +21,12 @@ public class GraphHelper {
     @Autowired
     private AggregateDataRepository aggregateDataRepository;
 
-    public ArrayList<Pair<LocalDateTime, Double>> generateDailyAverageRollingPctPriceChange(LocalDateTime start, LocalDateTime end) {
+    public ArrayList<Pair<LocalDateTime, Double>> generateDailyAverageRollingPrice(LocalDateTime start, LocalDateTime end) {
         LocalDateTime current = start.withHour(0).withMinute(0).withSecond(0).withNano(0);
 
         LocalDateTime next = current.plusDays(1).withHour(23).withMinute(59).withSecond(59).withNano(999999999);
 
-        ArrayList<Pair<LocalDateTime, Double>> resultList = new ArrayList<Pair<LocalDateTime, Double>>();
+        ArrayList<Pair<LocalDateTime, Double>> resultList = new ArrayList<>();
 
         double sum = 0.0;
         int count = 0;
@@ -35,7 +35,7 @@ public class GraphHelper {
 
         while (current.compareTo(end) <= 0) {
             for (Trade trade : tradeRepository.findByTimeBetween(Timestamp.valueOf(current), Timestamp.valueOf(next))) {
-                sum += trade.getPctPriceChange();
+                sum += trade.getPrice();
                 count++;
             }
 
@@ -60,9 +60,9 @@ public class GraphHelper {
 
         LocalDateTime end = date.withHour(23).withMinute(59).withSecond(59).withNano(999999999);
 
-        ArrayList<Pair<LocalDateTime, Trade>> resultList = new ArrayList<Pair<LocalDateTime, Trade>>();
+        ArrayList<Pair<LocalDateTime, Trade>> resultList = new ArrayList<>();
 
-        for (Trade trade : tradeRepository.findByIsAnomalousAndTimeBetween(1, Timestamp.valueOf(start), Timestamp.valueOf(end))) {
+        for (Trade trade : tradeRepository.findByIsAnomalousGreaterThanAndTimeBetween(0, Timestamp.valueOf(start), Timestamp.valueOf(end))) {
             LocalDateTime time = trade.getTime().toLocalDateTime().withMinute(0).withSecond(0).withNano(0);
             resultList.add(new Pair<LocalDateTime, Trade>(time, trade));
         }
@@ -77,7 +77,7 @@ public class GraphHelper {
 
         ArrayList<Pair<LocalDateTime, Trade>> resultList = new ArrayList<Pair<LocalDateTime, Trade>>();
 
-        for (Trade trade : tradeRepository.findByIsAnomalousAndTimeBetween(1, Timestamp.valueOf(start), Timestamp.valueOf(end))) {
+        for (Trade trade : tradeRepository.findByIsAnomalousGreaterThanAndTimeBetween(0, Timestamp.valueOf(start), Timestamp.valueOf(end))) {
             LocalDateTime time = trade.getTime().toLocalDateTime().withHour(0).withMinute(0).withSecond(0).withNano(0);
             resultList.add(new Pair<LocalDateTime, Trade>(time, trade));
         }
@@ -85,14 +85,14 @@ public class GraphHelper {
         return resultList;
     }
 
-    public ArrayList<Pair<LocalDateTime, Double>> generateHourlyAverageRollingPctPriceChange(LocalDateTime date) {
+    public ArrayList<Pair<LocalDateTime, Double>> generateHourlyAverageRollingPrice(LocalDateTime date) {
         LocalDateTime current = date.withHour(0).withMinute(0).withSecond(0).withNano(0);
 
         LocalDateTime end = current.plusDays(1);
 
         LocalDateTime next = current.plusHours(1);
 
-        ArrayList<Pair<LocalDateTime, Double>> resultList = new ArrayList<Pair<LocalDateTime, Double>>();
+        ArrayList<Pair<LocalDateTime, Double>> resultList = new ArrayList<>();
 
         double sum = 0.0;
         int count = 0;
@@ -101,7 +101,7 @@ public class GraphHelper {
 
         while (current.compareTo(end) <= 0) {
             for (Trade trade : tradeRepository.findByTimeBetween(Timestamp.valueOf(current), Timestamp.valueOf(next))) {
-                sum += trade.getPctPriceChange();
+                sum += trade.getPrice();
                 count++;
             }
 
@@ -128,7 +128,7 @@ public class GraphHelper {
 
         ArrayList<Pair<LocalDateTime, Trade>> resultList = new ArrayList<Pair<LocalDateTime, Trade>>();
 
-        for (Trade trade : tradeRepository.findByIsAnomalousAndSymbolIdAndTimeBetween(1, symbolId, Timestamp.valueOf(start), Timestamp.valueOf(end))) {
+        for (Trade trade : tradeRepository.findByIsAnomalousGreaterThanAndSymbolIdAndTimeBetween(0, symbolId, Timestamp.valueOf(start), Timestamp.valueOf(end))) {
             LocalDateTime time = trade.getTime().toLocalDateTime().withMinute(0).withSecond(0).withNano(0);
             resultList.add(new Pair<LocalDateTime, Trade>(time, trade));
         }
@@ -136,14 +136,14 @@ public class GraphHelper {
         return resultList;
     }
 
-    public ArrayList<Pair<LocalDateTime, Double>> generateHourlyAverageRollingPctPriceChangeBySymbol(int symbolId, LocalDateTime date) {
+    public ArrayList<Pair<LocalDateTime, Double>> generateHourlyAverageRollingPriceBySymbol(int symbolId, LocalDateTime date) {
         LocalDateTime current = date.withHour(0).withMinute(0).withSecond(0).withNano(0);
 
         LocalDateTime end = current.plusDays(1);
 
         LocalDateTime next = current.plusHours(1);
 
-        ArrayList<Pair<LocalDateTime, Double>> resultList = new ArrayList<Pair<LocalDateTime, Double>>();
+        ArrayList<Pair<LocalDateTime, Double>> resultList = new ArrayList<>();
 
         double sum = 0.0;
         int count = 0;
@@ -152,7 +152,43 @@ public class GraphHelper {
 
         while (current.compareTo(end) <= 0) {
             for (Trade trade : tradeRepository.findBySymbolIdAndTimeBetween(symbolId, Timestamp.valueOf(current), Timestamp.valueOf(next))) {
-                sum += trade.getPctPriceChange();
+                sum += trade.getPrice();
+                count++;
+            }
+
+            if (count > 0) {
+                average = sum / count;
+
+                resultList.add(new Pair<LocalDateTime, Double>(current, average));
+
+                sum = 0.0;
+                count = 0;
+            }
+
+            current = current.plusHours(1);
+            next = next.plusHours(1);
+        }
+
+            return resultList;
+        }
+
+    public ArrayList<Pair<LocalDateTime, Double>> generateHourlyAverageRollingSizeBySymbol(int symbolId, LocalDateTime date) {
+        LocalDateTime current = date.withHour(0).withMinute(0).withSecond(0).withNano(0);
+
+        LocalDateTime end = current.plusDays(1);
+
+        LocalDateTime next = current.plusHours(1);
+
+        ArrayList<Pair<LocalDateTime, Double>> resultList = new ArrayList<>();
+
+        double sum = 0.0;
+        int count = 0;
+
+        double average;
+
+        while (current.compareTo(end) <= 0) {
+            for (Trade trade : tradeRepository.findBySymbolIdAndTimeBetween(symbolId, Timestamp.valueOf(current), Timestamp.valueOf(next))) {
+                sum += trade.getSize();
                 count++;
             }
 

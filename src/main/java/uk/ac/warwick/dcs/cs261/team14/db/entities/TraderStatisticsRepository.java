@@ -11,6 +11,6 @@ import javax.transaction.Transactional;
  */
 @Transactional
 public interface TraderStatisticsRepository extends CrudRepository<TraderStatistics, Integer> {
-    Iterable<TraderStatistics> findTop10ByIsAnomalousOrderByGeneratedDatetime(int isAnomalous);
-    Page<TraderStatistics> findByIsAnomalousOrderByGeneratedDatetime(int isAnonalous, Pageable pageable);
+    Iterable<TraderStatistics> findTop10ByIsAnomalousGreaterThanOrderByGeneratedDatetime(int isAnomalous);
+    Page<TraderStatistics> findByIsAnomalousGreaterThanOrderByGeneratedDatetime(int isAnonalous, Pageable pageable);
 }

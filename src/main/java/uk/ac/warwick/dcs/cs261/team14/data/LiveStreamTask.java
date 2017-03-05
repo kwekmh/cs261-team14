@@ -61,7 +61,7 @@ public class LiveStreamTask {
                 Row row = inputController.processLine(line);
                 if (row != null) {
                     Trade trade = new Trade();
-                    trade.setTime(Timestamp.valueOf(LocalDateTime.parse(row.get(11).toString(), formatter)));
+                    trade.setTime(Timestamp.valueOf(LocalDateTime.parse(row.get(10).toString(), formatter)));
                     trade.setBuyerId(row.getInt(1));
                     trade.setSellerId(row.getInt(2));
                     trade.setPrice(row.getDouble(3));
@@ -70,9 +70,8 @@ public class LiveStreamTask {
                     trade.setSymbolId(row.getInt(6));
                     trade.setBidPrice(row.getDouble(8));
                     trade.setAskPrice(row.getDouble(9));
-                    trade.setPctPriceChange(row.getDouble(10));
                     trade.setCategoryId(1);
-                    trade.setIsAnomalous((int) row.getDouble(13));
+                    trade.setIsAnomalous((int) row.getDouble(12));
                     tradeRepository.save(trade);
                 }
             }

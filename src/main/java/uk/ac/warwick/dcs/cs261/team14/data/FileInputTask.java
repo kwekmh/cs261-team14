@@ -74,7 +74,7 @@ public class FileInputTask {
 
                     logger.info(row.toString());
 
-                    LocalDateTime ldt = LocalDateTime.parse(row.get(11).toString(), formatter);
+                    LocalDateTime ldt = LocalDateTime.parse(row.get(10).toString(), formatter);
 
                     Trade trade = new Trade();
                     trade.setTime(Timestamp.valueOf(ldt));
@@ -86,9 +86,8 @@ public class FileInputTask {
                     trade.setSymbolId(row.getInt(6));
                     trade.setBidPrice(row.getDouble(8));
                     trade.setAskPrice(row.getDouble(9));
-                    trade.setPctPriceChange(row.getDouble(10));
                     trade.setCategoryId(1);
-                    trade.setIsAnomalous((int) row.getDouble(13));
+                    trade.setIsAnomalous((int) row.getDouble(12));
                     tradeRepository.save(trade);
 
                     LocalDateTime time = ldt.withMinute(0).withSecond(0).withNano(0);

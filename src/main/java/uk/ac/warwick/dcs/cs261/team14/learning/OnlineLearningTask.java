@@ -27,7 +27,7 @@ import java.util.List;
  */
 @Component
 public class OnlineLearningTask {
-    private String[] schemaFields = {"time", "buyer", "seller", "price", "size", "currency", "symbol", "sector", "bid", "ask", "pct_price_change", "is_anomalous" };
+    private String[] schemaFields = {"time", "buyer", "seller", "price", "size", "currency", "symbol", "sector", "bid", "ask", "is_anomalous" };
     private StructType schema;
 
     @Autowired
@@ -74,8 +74,7 @@ public class OnlineLearningTask {
             vals[7] = Integer.toString(symbolRepository.findOne(trade.getSymbolId()).getSectorId());
             vals[8] = Double.toString(trade.getBidPrice());
             vals[9] = Double.toString(trade.getAskPrice());
-            vals[10] = Double.toString(trade.getPctPriceChange());
-            vals[11] = Integer.toString(trade.getIsAnomalous());
+            vals[10] = Integer.toString(trade.getIsAnomalous());
 
             Row row = RowFactory.create(vals);
             rows.add(row);

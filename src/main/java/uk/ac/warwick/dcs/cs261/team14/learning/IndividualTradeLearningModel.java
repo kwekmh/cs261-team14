@@ -1,5 +1,6 @@
 package uk.ac.warwick.dcs.cs261.team14.learning;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.spark.ml.PipelineModel;
 import org.apache.spark.ml.classification.GBTClassificationModel;
 import org.apache.spark.ml.classification.GBTClassifier;
@@ -27,7 +28,10 @@ public class IndividualTradeLearningModel implements LearningModel {
     @Value("${cs261.learning.models.directory}")
     private String modelsDirectory;
 
-    private String[] schemaFields = {"time", "buyer", "seller", "price", "size", "currency", "symbol", "sector", "bid", "ask", "pct_price_change", "orig_time" };
+    @Value("${cs261.learning.checkpoints.directory}")
+    private String checkpointsDirectory;
+
+    private String[] schemaFields = {"time", "buyer", "seller", "price", "size", "currency", "symbol", "sector", "bid", "ask", "orig_time" };
     private StructType schema;
 
     public IndividualTradeLearningModel() {
@@ -42,6 +46,8 @@ public class IndividualTradeLearningModel implements LearningModel {
 
     public Dataset<Row> predict(Dataset<Row> rows) {
         SparkSession spark = SparkSession.builder().master("local").appName("uk.ac.warwick.dcs.cs261.team14.IndividualTradeLearningModel").getOrCreate();
+
+        spark.sparkContext().setCheckpointDir(checkpointsDirectory);
 
         Dataset<Row> df = rows.withColumn("time", rows.col("time").cast(IntegerType));
 
@@ -72,14 +78,7 @@ public class IndividualTradeLearningModel implements LearningModel {
         df = df.withColumn("sector", df.col("sector").cast(IntegerType));
         df = df.withColumn("bid", df.col("bid").cast(DoubleType));
         df = df.withColumn("ask", df.col("ask").cast(DoubleType));
-        df = df.withColumn("pct_price_change", df.col("pct_price_change").cast(DoubleType));
-
-        VectorAssembler assembler = new VectorAssembler()
-                .setInputCols(new String[] {"time","price","currency","symbol","sector","bid","ask","pct_price_change"})
-                .setOutputCol("features");
-
-        df = assembler.transform(df);
-
+        df = df.withColumn("features", org.apache.spark.sql.functions.lit(0.0));
         df = df.withColumn("is_anomalous", org.apache.spark.sql.functions.lit(0.0));
 
         return df.first();
@@ -87,6 +86,8 @@ public class IndividualTradeLearningModel implements LearningModel {
 
     public Row predictRow(Row input) {
         SparkSession spark = SparkSession.builder().master("local").appName("uk.ac.warwick.dcs.cs261.team14.IndividualTradeLearningModel").getOrCreate();
+
+        spark.sparkContext().setCheckpointDir(checkpointsDirectory);
 
         List<Row> rows = new ArrayList<Row>();
 
@@ -96,19 +97,18 @@ public class IndividualTradeLearningModel implements LearningModel {
 
         df = df.withColumn("time", df.col("time").cast(TimestampType));
         df = df.withColumn("time", df.col("time").cast(IntegerType));
-        df = df.withColumn("price", df.col("price").cast(DoubleType));
         df = df.withColumn("buyer", df.col("buyer").cast(IntegerType));
         df = df.withColumn("seller", df.col("seller").cast(IntegerType));
+        df = df.withColumn("price", df.col("price").cast(DoubleType));
         df = df.withColumn("size", df.col("size").cast(IntegerType));
         df = df.withColumn("currency", df.col("currency").cast(IntegerType));
         df = df.withColumn("symbol", df.col("symbol").cast(IntegerType));
         df = df.withColumn("sector", df.col("sector").cast(IntegerType));
         df = df.withColumn("bid", df.col("bid").cast(DoubleType));
         df = df.withColumn("ask", df.col("ask").cast(DoubleType));
-        df = df.withColumn("pct_price_change", df.col("pct_price_change").cast(DoubleType));
 
         VectorAssembler assembler = new VectorAssembler()
-                .setInputCols(new String[] {"time","price","currency","symbol","sector","bid","ask","pct_price_change"})
+                .setInputCols(new String[] {"time","buyer","seller","price","currency","symbol","sector","bid","ask"})
                 .setOutputCol("features");
 
         df = assembler.transform(df);
@@ -122,11 +122,15 @@ public class IndividualTradeLearningModel implements LearningModel {
         return transformed.first();
     }
 
-        public void learn(Dataset<Row> df) {
+    public void learn(Dataset<Row> df) {
         SparkSession spark = SparkSession.builder().master("local").appName("uk.ac.warwick.dcs.cs261.team14.IndividualTradeLearningModel").getOrCreate();
+
+        spark.sparkContext().setCheckpointDir(checkpointsDirectory);
 
         df = df.withColumn("time", df.col("time").cast(TimestampType));
         df = df.withColumn("time", df.col("time").cast(IntegerType));
+        df = df.withColumn("buyer", df.col("buyer").cast(IntegerType));
+        df = df.withColumn("seller", df.col("seller").cast(IntegerType));
         df = df.withColumn("price", df.col("price").cast(DoubleType));
         df = df.withColumn("size", df.col("size").cast(IntegerType));
         df = df.withColumn("currency", df.col("currency").cast(IntegerType));
@@ -134,26 +138,26 @@ public class IndividualTradeLearningModel implements LearningModel {
         df = df.withColumn("sector", df.col("sector").cast(IntegerType));
         df = df.withColumn("bid", df.col("bid").cast(DoubleType));
         df = df.withColumn("ask", df.col("ask").cast(DoubleType));
-        df = df.withColumn("pct_price_change", df.col("pct_price_change").cast(DoubleType));
         df = df.withColumn("is_anomalous", df.col("is_anomalous").cast(IntegerType));
 
         VectorAssembler assembler = new VectorAssembler()
-                .setInputCols(new String[] {"time","price","currency","symbol","sector","bid","ask","pct_price_change"})
+                .setInputCols(new String[] {"time","buyer","seller","price","currency","symbol","sector","bid","ask"})
                 .setOutputCol("features");
 
         df = assembler.transform(df);
 
-        String modelPath = getModelPath(modelsDirectory) + "2";
+        String modelPath = getModelPath(modelsDirectory);
 
         GBTClassifier gbt = new GBTClassifier()
                 .setLabelCol("is_anomalous")
                 .setFeaturesCol("features")
-                .setMaxIter(100);
-
+                .setMaxIter(300);
 
         GBTClassificationModel model = gbt.fit(df);
 
         try {
+            // TODO: Ensure that no contention or race conditions can occur while attempting to delete the current model
+            FileUtils.deleteDirectory(new File(modelPath));
             model.save(modelPath);
         } catch (Exception e) {
             e.printStackTrace();

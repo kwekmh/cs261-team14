@@ -61,9 +61,12 @@
                 </div> <!-- #symbolDropdown -->
             </div> <!-- #timeCatBar -->
             <div id="tradeData">
-                <div id="tradeDataGraph" class="fullWidth">
-                    <div id="tradeDataGraphPlotly"></div>
-                </div> <!-- #tradeDataGraph -->
+                <div id="tradePriceDataGraph" class="tradeDataGraph fullWidth">
+                    <div id="tradePriceDataGraphPlotly"></div>
+                </div> <!-- #tradePriceDataGraph -->
+                <div id="tradeSizeDataGraph" class="tradeDataGraph fullWidth">
+                    <div id="tradeSizeDataGraphPlotly"></div>
+                </div> <!-- #tradeSizeDataGraph -->
             </div> <!-- #tradeData -->
         </div> <!-- #tradeDataFrame -->
     </div> <!-- #dashboardFrame -->
@@ -74,7 +77,7 @@
 <!-- <script th:src="@{/scripts/plotlyGraph.js}"></script> -->
 <script th:inline="javascript">
     /*<![CDATA[*/
-    function plot(x, y, anomalous_x, anomalous_y) {
+    function plot(x, y, anomalous_x, anomalous_y, graph) {
         var anomalous = {
             x: anomalous_x,
             y: anomalous_y,
@@ -113,10 +116,11 @@
             yaxis: {
                 gridcolor: '#5E5E5E'
             },
-            hovermode: 'closest'
+            hovermode: 'closest',
+            autosize: true
         };
 
-        Plotly.newPlot('tradeDataGraphPlotly', data, layout);
+        Plotly.newPlot(graph, data, layout);
     }
 
 //    Add symbols to dropdown
@@ -137,19 +141,31 @@
 
     //    Update graph on symbol change
     function updateSymbol() {
-        var http = new XMLHttpRequest();
+        var priceHttp = new XMLHttpRequest();
+        var sizeHttp = new XMLHttpRequest();
 
-        http.onreadystatechange = function () {
-            if (http.readyState == 4 && http.status == 200 ) {
-                var symbolData = JSON.parse(http.responseText);
-                plot(symbolData.rollingX, symbolData.rollingY, symbolData.anomalousX, symbolData.anomalousY);
+        priceHttp.onreadystatechange = function () {
+            if (priceHttp.readyState == 4 && priceHttp.status == 200 ) {
+                var symbolData = JSON.parse(priceHttp.responseText);
+                plot(symbolData.rollingX, symbolData.rollingY, symbolData.anomalousX, symbolData.anomalousY, 'tradePriceDataGraphPlotly');
+                document.getElementsByClassName('modebar')[0].style.display = "none";
+            }
+        };
+
+        sizeHttp.onreadystatechange = function () {
+            if (sizeHttp.readyState == 4 && sizeHttp.status == 200 ) {
+                var symbolData = JSON.parse(sizeHttp.responseText);
+                plot(symbolData.rollingX, symbolData.rollingY, symbolData.anomalousX, symbolData.anomalousY, 'tradeSizeDataGraphPlotly');
                 document.getElementsByClassName('modebar')[0].style.display = "none";
             }
         };
 
         var symbolId = symbolSelector.value;
-        http.open('GET', '[(@{/api/getSymbolData/})]' + symbolId, true);
-        http.send();
+        priceHttp.open('GET', '[(@{/api/getSymbolPriceData/})]' + symbolId, true);
+        priceHttp.send();
+
+        sizeHttp.open('GET', '[(@{/api/getSymbolSizeData/})]' + symbolId, true);
+        sizeHttp.send();
 
         /*
         var newSymbolData = get_data_by_symbol(symbolSelector.value);
