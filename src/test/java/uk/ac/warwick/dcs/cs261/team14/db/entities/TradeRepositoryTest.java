@@ -29,6 +29,17 @@ public class TradeRepositoryTest {
     }
 
     @Test
+    public void returnsCorrectTrade() {
+        Trade trade = tradeRepository.findOne(1);
+        assertTrue(trade != null ? trade.getTradeId() == 1 : true);
+    }
+
+    @Test
+    public void doesNotReturnInvalidTrade() {
+        assertTrue(tradeRepository.findOne(-1) == null);
+    }
+
+    @Test
     public void returnsAnomalousResults() {
         assertTrue(tradeRepository.findByIsAnomalousGreaterThanOrderByTimeDesc(0, new PageRequest(0, 20)).getContent().stream().allMatch(t -> t.getIsAnomalous() > 0));
     }
