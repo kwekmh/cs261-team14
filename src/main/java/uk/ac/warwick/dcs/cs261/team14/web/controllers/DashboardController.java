@@ -131,7 +131,7 @@ public class DashboardController {
         }
     }
 
-        @RequestMapping(value = "/api/getSymbolSizeData/{symbolId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/getSymbolSizeData/{symbolId}", method = RequestMethod.GET)
     public @ResponseBody GraphData getSymbolSizeData(@PathVariable int symbolId) {
         // Preparation of values of the graphs
 
