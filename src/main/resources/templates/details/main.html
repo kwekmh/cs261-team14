@@ -27,14 +27,6 @@
                     <img src="../../static/images/icons/timeIcon.svg" id="timeIcon" alt="Time Icon" th:attr="src=@{/images/icons/timeIcon.svg}">
                     <div id="timeText" th:text="${#dates.format(anomalousEvent.getTime(), 'yyyy-MM-dd HH:mm:ss')}">18:28:44</div>
                 </div> <!-- #timeBar.dataContainer.notCentre -->
-                <div id="catDropdown">
-                    <select name="categorise">
-                        <option value="default">Categorise</option>
-                        <option value="time">Fat Finger</option>
-                        <option value="type">Pump and Dump</option>
-                        <option value="price">Volume Spike</option>
-                    </select>
-                </div> <!-- #catDropdown -->
             </div> <!-- #timeCatBar -->
             <div id="detailTradeInfo" th:with="symbol=${symbolRepository.findOne(anomalousEvent.getSymbolId())}">
                 <div class="detailTradeInfoLine"><strong>Symbol: </strong><span th:text="${symbol.getSymbolName()}"></span></div>
