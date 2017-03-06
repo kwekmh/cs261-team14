@@ -13,6 +13,7 @@ For the initial setup, you would need to configure various properties such that 
 
 These options can be set in a file *user.properties* that should be placed under **src/main/resources/**. The corresponding directives to be set are:
 * cs261.learning.models.directory=C:\\\\CS261\\\\models
+* cs261.learning.checkpoints.directory=C:\\\\CS261\\\\checkpoints
 * cs261.uploads.directory=C:\\\\CS261\\\\uploads
 * spring.datasource.url=jdbc:mysql://localhost/cs261
 * spring.datasource.username=username

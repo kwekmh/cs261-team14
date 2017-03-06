@@ -126,7 +126,6 @@ CREATE TABLE `trade` (
   `symbol_id` int(11) NOT NULL,
   `bid_price` double NOT NULL,
   `ask_price` double NOT NULL,
-  `pct_price_change` double NOT NULL,
   `category_id` int(11) NOT NULL,
   `is_anomalous` int(11) NOT NULL,
   PRIMARY KEY (`trade_id`),

@@ -46,10 +46,6 @@
                 <div class="detailTradeInfoLine" th:if="${anomalousEvent.getAnomalousEventType() == 1}"><strong>Ask Price:</strong> <span th:text="${anomalousEvent.getAskPrice()}"></span></div>
                 <div class="detailTradeInfoLine" th:if="${anomalousEvent.getAnomalousEventType() == 1}"><strong>Price:</strong> <span th:text="${anomalousEvent.getPrice()}"></span></div>
                 <div class="detailTradeInfoLine" th:if="${anomalousEvent.getAnomalousEventType() == 2}"><strong>Type:</strong> EMA over 5 periods</div>
-                <br>
-                <div class="detailTradeInfoSubHeader">Indicators</div>
-                <div class="detailTradeInfoLine" th:if="${anomalousEvent instanceof T(uk.ac.warwick.dcs.cs261.team14.db.entities.Trade) && anomalousEvent.getAnomalousEventType() == 1}"><strong>Price change over past 5 trades (%): </strong><span th:text="${anomalousEvent.getPctPriceChange()}"></span></div>
-                <div class="detailTradeInfoLine" th:if="${anomalousEvent instanceof T(uk.ac.warwick.dcs.cs261.team14.db.entities.AggregateData) && anomalousEvent.getAnomalousEventType() == 2}"><strong>Exponential moving average (EMA) over 5 periods: </strong><span  th:text="${anomalousEvent.getValue()}"></span></div>
             </div>
             <div id="detailVisualisation">
                 <div class="detailDataTitle">
@@ -57,10 +53,12 @@
                         Data Visualisation
                     </div> <!-- .dataContainer.notCentre -->
                 </div> <!-- #tradeDataTitle -->
+                <input type="hidden" id="symbolId" th:value="${anomalousEvent.getSymbolId()}">
                 <div id="tradeData">
-                    <input type="hidden" id="symbolId" th:value="${anomalousEvent.getSymbolId()}">
-                    <div id="detailGraph" class="fullWidth">
-                    </div> <!-- #detailGraph -->
+                    <div id="detailPriceGraph" class="detailGraph fullWidth">
+                    </div> <!-- #detailPriceGraph -->
+                    <div id="detailSizeGraph" class="detailGraph fullWidth">
+                    </div> <!-- #detailSizeGraph -->
                 </div> <!-- #tradeData -->
             </div> <!-- #tradeDataFrame -->
         </div> <!-- #detailVisulaisation -->
@@ -70,7 +68,7 @@
 <!-- PLOTLY GRAPH -->
 <script th:src="@{https://cdn.plot.ly/plotly-latest.min.js}"></script>
 <script th:inline="javascript">
-    function plot(x, y, anomalous_x, anomalous_y) {
+    function plot(x, y, anomalous_x, anomalous_y, graph) {
         var anomalous = {
             x: anomalous_x,
             y: anomalous_y,
@@ -109,25 +107,38 @@
             yaxis: {
                 gridcolor: '#5E5E5E'
             },
-            hovermode: 'closest'
+            hovermode: 'closest',
+            autosize: true
         };
 
-        Plotly.newPlot('detailGraph', data, layout);
+        Plotly.newPlot(graph, data, layout);
     }
 
-    var http = new XMLHttpRequest();
+    var priceHttp = new XMLHttpRequest();
+    var sizeHttp = new XMLHttpRequest();
 
-    http.onreadystatechange = function () {
-        if (http.readyState == 4 && http.status == 200 ) {
-            var symbolData = JSON.parse(http.responseText);
-            plot(symbolData.rollingX, symbolData.rollingY, symbolData.anomalousX, symbolData.anomalousY);
+    priceHttp.onreadystatechange = function () {
+        if (priceHttp.readyState == 4 && priceHttp.status == 200 ) {
+            var symbolData = JSON.parse(priceHttp.responseText);
+            plot(symbolData.rollingX, symbolData.rollingY, symbolData.anomalousX, symbolData.anomalousY, 'detailPriceGraph');
+            document.getElementsByClassName('modebar')[0].style.display = "none";
+        }
+    };
+
+    sizeHttp.onreadystatechange = function () {
+        if (sizeHttp.readyState == 4 && sizeHttp.status == 200 ) {
+            var symbolData = JSON.parse(sizeHttp.responseText);
+            plot(symbolData.rollingX, symbolData.rollingY, symbolData.anomalousX, symbolData.anomalousY, 'detailSizeGraph');
             document.getElementsByClassName('modebar')[0].style.display = "none";
         }
     };
 
     var symbolId = document.getElementById('symbolId').value;
-    http.open('GET', '[(@{/api/getSymbolData/})]' + symbolId, true);
-    http.send();
+    priceHttp.open('GET', '[(@{/api/getSymbolPriceData/})]' + symbolId, true);
+    priceHttp.send();
+
+    sizeHttp.open('GET', '[(@{/api/getSymbolSizeData/})]' + symbolId, true);
+    sizeHttp.send();
 
     /*]]>*/
 </script>

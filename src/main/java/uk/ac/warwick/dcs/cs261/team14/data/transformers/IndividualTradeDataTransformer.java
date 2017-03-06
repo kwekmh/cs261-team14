@@ -19,7 +19,7 @@ import java.util.List;
 
 @Component
 public class IndividualTradeDataTransformer implements DataTransformer {
-    private String[] schemaFields = {"time", "buyer", "seller", "price", "size", "currency", "symbol", "sector", "bid", "ask", "pct_price_change", "orig_time" };
+    private String[] schemaFields = { "time", "buyer", "seller", "price", "size", "currency", "symbol", "sector", "bid", "ask", "orig_time" };
     private StructType schema;
 
     @Autowired
@@ -48,14 +48,12 @@ public class IndividualTradeDataTransformer implements DataTransformer {
                 for (i = 0; i < vals.length; i++) {
                     newVals[i] = vals[i];
                 }
-                newVals[i + 1] = vals[0];
+                newVals[i] = vals[0];
                 newVals[1] = Integer.toString(dataTransformerMapping.getTraderIndex(newVals[1]));
                 newVals[2] = Integer.toString(dataTransformerMapping.getTraderIndex(newVals[2]));
                 newVals[5] = Integer.toString(dataTransformerMapping.getCurrencyIndex(newVals[5]));
                 newVals[6] = Integer.toString(dataTransformerMapping.getSymbolIndex(newVals[6]));
                 newVals[7] = Integer.toString(dataTransformerMapping.getSectorIndex(newVals[7]));
-                double priceChangeOverLastFive = getPriceChangeOverLastFive(Double.parseDouble(vals[3]), dataTransformerMapping.getSymbolIndex(vals[6]));
-                newVals[i] = Double.toString(priceChangeOverLastFive);
                 row = RowFactory.create(newVals);
             } catch (NumberFormatException e) {
                 e.printStackTrace();

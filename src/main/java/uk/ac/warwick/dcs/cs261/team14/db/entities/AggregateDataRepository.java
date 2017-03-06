@@ -14,6 +14,6 @@ import java.io.Serializable;
 @Transactional
 public interface AggregateDataRepository extends CrudRepository<AggregateData, Integer>, Serializable {
     AggregateData findTop1ByTypeIdAndSymbolIdOrderByGeneratedDateDesc(int typeId, int symbolId);
-    Iterable<AggregateData> findTop10ByIsAnomalousOrderByGeneratedDateDesc(int isAnomalous);
-    Page<AggregateData> findByIsAnomalousOrderByGeneratedDateDesc(int isAnomalous, Pageable pageable);
+    Iterable<AggregateData> findTop10ByIsAnomalousGreaterThanOrderByGeneratedDateDesc(int isAnomalous);
+    Page<AggregateData> findByIsAnomalousGreaterThanOrderByGeneratedDateDesc(int isAnomalous, Pageable pageable);
 }

@@ -60,15 +60,13 @@ public class DashboardController {
     public ModelAndView main() {
         ModelAndView mv = new ModelAndView("dashboard/main");
 
-        int isAnomalous = 1;
-
         ArrayList<AnomalousEvent> anomalousEventsList = new ArrayList<AnomalousEvent>();
 
-        for (Trade trade : tradeRepository.findTop10ByIsAnomalousOrderByTimeDesc(isAnomalous)) {
+        for (Trade trade : tradeRepository.findTop10ByIsAnomalousGreaterThanOrderByTimeDesc(0)) {
             anomalousEventsList.add(trade);
         }
 
-        for (AggregateData aggregateData : aggregateDataRepository.findTop10ByIsAnomalousOrderByGeneratedDateDesc(isAnomalous)) {
+        for (AggregateData aggregateData : aggregateDataRepository.findTop10ByIsAnomalousGreaterThanOrderByGeneratedDateDesc(0)) {
             anomalousEventsList.add(aggregateData);
         }
 
@@ -91,8 +89,8 @@ public class DashboardController {
         return mv;
     }
 
-    @RequestMapping(value = "/api/getSymbolData/{symbolId}", method = RequestMethod.GET)
-    public @ResponseBody GraphData getSymbolData(@PathVariable int symbolId) {
+    @RequestMapping(value = "/api/getSymbolPriceData/{symbolId}", method = RequestMethod.GET)
+    public @ResponseBody GraphData getSymbolPriceData(@PathVariable int symbolId) {
         // Preparation of values of the graphs
 
         Symbol symbol = symbolRepository.findOne(symbolId);
@@ -102,7 +100,7 @@ public class DashboardController {
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 
-            ArrayList<Pair<LocalDateTime, Double>> graphArrayList = graphHelper.generateHourlyAverageRollingPctPriceChangeBySymbol(symbolId, now);
+            ArrayList<Pair<LocalDateTime, Double>> graphArrayList = graphHelper.generateHourlyAverageRollingPriceBySymbol(symbolId, now);
 
             String[] rollingX = new String[graphArrayList.size()];
             double[] rollingY = new double[graphArrayList.size()];
@@ -122,7 +120,49 @@ public class DashboardController {
             for (int i = 0; i < anomalousArrayList.size(); i++) {
                 Pair<LocalDateTime, Trade> pair = anomalousArrayList.get(i);
                 anomalousX[i] = formatter.format(pair.getFirst());
-                anomalousY[i] = pair.getSecond().getPctPriceChange();
+                anomalousY[i] = pair.getSecond().getPrice();
+            }
+
+            GraphData graphData = new GraphData(rollingX, rollingY, anomalousX, anomalousY);
+
+            return graphData;
+        } else {
+            return null;
+        }
+    }
+
+        @RequestMapping(value = "/api/getSymbolSizeData/{symbolId}", method = RequestMethod.GET)
+    public @ResponseBody GraphData getSymbolSizeData(@PathVariable int symbolId) {
+        // Preparation of values of the graphs
+
+        Symbol symbol = symbolRepository.findOne(symbolId);
+
+        if (symbol != null) {
+            LocalDateTime now = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+            ArrayList<Pair<LocalDateTime, Double>> graphArrayList = graphHelper.generateHourlyAverageRollingSizeBySymbol(symbolId, now);
+
+            String[] rollingX = new String[graphArrayList.size()];
+            double[] rollingY = new double[graphArrayList.size()];
+
+            for (int i = 0; i < graphArrayList.size(); i++) {
+                Pair<LocalDateTime, Double> pair = graphArrayList.get(i);
+                rollingX[i] = formatter.format(pair.getFirst());
+                rollingY[i] = pair.getSecond();
+            }
+
+            ArrayList<Pair<LocalDateTime, Trade>> anomalousArrayList = graphHelper.getAnomalousTradesBetweenForGraphWithHourBySymbol(symbolId, now);
+
+            String[] anomalousX = new String[anomalousArrayList.size()];
+            double[] anomalousY = new double[anomalousArrayList.size()];
+
+
+            for (int i = 0; i < anomalousArrayList.size(); i++) {
+                Pair<LocalDateTime, Trade> pair = anomalousArrayList.get(i);
+                anomalousX[i] = formatter.format(pair.getFirst());
+                anomalousY[i] = pair.getSecond().getSize();
             }
 
             GraphData graphData = new GraphData(rollingX, rollingY, anomalousX, anomalousY);

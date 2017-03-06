@@ -112,15 +112,15 @@ public class AnomalousEventController {
 
         ArrayList<AnomalousEvent> anomalousEventsList = new ArrayList<>();
 
-        for (Trade trade : tradeRepository.findByIsAnomalousOrderByTimeDesc(1, new PageRequest(0, total))) {
+        for (Trade trade : tradeRepository.findByIsAnomalousGreaterThanOrderByTimeDesc(0, new PageRequest(0, total))) {
             anomalousEventsList.add(trade);
         }
 
-        for (AggregateData aggregateData : aggregateDataRepository.findByIsAnomalousOrderByGeneratedDateDesc(1, new PageRequest(0, total))) {
+        for (AggregateData aggregateData : aggregateDataRepository.findByIsAnomalousGreaterThanOrderByGeneratedDateDesc(0, new PageRequest(0, total))) {
             anomalousEventsList.add(aggregateData);
         }
 
-        for (TraderStatistics traderStatistics : traderStatisticsRepository.findByIsAnomalousOrderByGeneratedDatetime(1, new PageRequest(0, total))) {
+        for (TraderStatistics traderStatistics : traderStatisticsRepository.findByIsAnomalousGreaterThanOrderByGeneratedDatetime(0, new PageRequest(0, total))) {
             anomalousEventsList.add(traderStatistics);
         }
 

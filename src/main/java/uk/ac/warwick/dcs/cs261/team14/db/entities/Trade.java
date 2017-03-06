@@ -46,9 +46,6 @@ public class Trade implements AnomalousEvent {
     private double askPrice;
 
     @NotNull
-    private double pctPriceChange;
-
-    @NotNull
     private int categoryId;
 
     @NotNull
@@ -62,7 +59,7 @@ public class Trade implements AnomalousEvent {
         this.tradeId = tradeId;
     }
 
-    public Trade(Timestamp time, int buyerId, int sellerId, double price, int size, int currencyId, int symbolId, double bidPrice, double askPrice, double pctPriceChange, int categoryId, int isAnomalous) {
+    public Trade(Timestamp time, int buyerId, int sellerId, double price, int size, int currencyId, int symbolId, double bidPrice, double askPrice, int categoryId, int isAnomalous) {
         this.time = time;
         this.buyerId = buyerId;
         this.sellerId = sellerId;
@@ -72,7 +69,6 @@ public class Trade implements AnomalousEvent {
         this.symbolId = symbolId;
         this.bidPrice = bidPrice;
         this.askPrice = askPrice;
-        this.pctPriceChange = pctPriceChange;
         this.categoryId = categoryId;
         this.isAnomalous = isAnomalous;
     }
@@ -155,14 +151,6 @@ public class Trade implements AnomalousEvent {
 
     public void setAskPrice(double askPrice) {
         this.askPrice = askPrice;
-    }
-
-    public double getPctPriceChange() {
-        return pctPriceChange;
-    }
-
-    public void setPctPriceChange(double pctPriceChange) {
-        this.pctPriceChange = pctPriceChange;
     }
 
     public int getCategoryId() {
