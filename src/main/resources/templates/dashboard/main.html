@@ -219,11 +219,45 @@
 </script>
 <script th:inline="javascript">
     /*<![CDATA[*/
+
+    // Implement dashboard message close functionality
     var messageClose = document.getElementById('messageClose');
     var message = document.getElementById('dashboardMessage');
     messageClose.onclick = function() {
         message.className = "hidden";
+    };
+
+    // Implement polling for new anomaly to update table
+    function newAnomalyFound() {
+
+        // QUERY BACKEND TO CHECK FOR NEW ANOMALY
+
+        return true;
     }
+
+    function updateAnomalyTable() {
+
+        // QUERY BACKEND FOR DATA TO UPDATE TABLE
+        // GRAB FROM ALL ALERTS FOR TESTING
+
+    }
+
+    // Poll for new anomaly every n milliseconds
+    var n = 5000;
+    function poll() {
+        if (newAnomalyFound()) {
+            updateAnomalyTable();
+
+            // QUERY BACKEND TO UPDATE ${message} VALUE TO "A new anomaly has been found!"
+            // GRAB FROM UPLOAD MODAL FOR TESTING
+
+            // Display notification icon
+            pulse(3, 'on');
+        }
+        setTimeout(poll, n);
+    }
+    setTimeout(poll, n);
+
     /*]]>*/
 </script>
 </body>
