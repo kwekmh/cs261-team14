@@ -34,6 +34,10 @@ public class InputController implements Serializable {
 
     }
 
+    public Row getAsRow(String input) {
+        return individualTradeDataPipelineModel.getAsRow(input);
+    }
+
     public Row processLine(String input) {
         return individualTradeDataPipelineModel.processLine(input);
     }
