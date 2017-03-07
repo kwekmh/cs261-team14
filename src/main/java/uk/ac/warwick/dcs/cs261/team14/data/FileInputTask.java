@@ -1,5 +1,6 @@
 package uk.ac.warwick.dcs.cs261.team14.data;
 
+import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,12 +15,15 @@ import uk.ac.warwick.dcs.cs261.team14.data.pipeline.InputController;
 import uk.ac.warwick.dcs.cs261.team14.data.transformers.DataTransformerMapping;
 import uk.ac.warwick.dcs.cs261.team14.db.entities.Trade;
 import uk.ac.warwick.dcs.cs261.team14.db.entities.TradeRepository;
+import uk.ac.warwick.dcs.cs261.team14.learning.IndividualTradeLearningModel;
 
 import javax.annotation.PostConstruct;
 import java.io.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -35,6 +39,9 @@ public class FileInputTask {
 
     @Autowired
     TraderStatisticsAggregatorTask traderStatisticsAggregatorTask;
+
+    @Autowired
+    IndividualTradeLearningModel individualTradeLearningModel;
 
     @Autowired
     private TradeRepository tradeRepository;
@@ -66,15 +73,31 @@ public class FileInputTask {
             String line;
 
             DateTimeFormatter formatter  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+            DateTimeFormatter secondaryFormatter  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+            ArrayList<Row> rows = new ArrayList<>();
 
             while ((line = reader.readLine()) != null) {
-                Row row = inputController.processLine(line);
+                Row raw = inputController.getAsRow(line);
 
-                if (row != null) {
+                if (raw != null) {
+                    rows.add(raw);
+                }
+            }
 
-                    logger.info(row.toString());
+            Dataset<Row> predictions = individualTradeLearningModel.predictList(rows);
 
-                    LocalDateTime ldt = LocalDateTime.parse(row.get(10).toString(), formatter);
+            logger.info("Saving predicted records to database");
+
+            for (Row row : predictions.collectAsList()) {
+                try {
+                    LocalDateTime ldt;
+
+                    try {
+                        ldt = LocalDateTime.parse(row.get(10).toString(), formatter);
+                    } catch (DateTimeParseException e) {
+                        ldt = LocalDateTime.parse(row.get(10).toString(), secondaryFormatter);
+                    }
 
                     Trade trade = new Trade();
                     trade.setTime(Timestamp.valueOf(ldt));
@@ -92,13 +115,18 @@ public class FileInputTask {
 
                     LocalDateTime time = ldt.withMinute(0).withSecond(0).withNano(0);
                     times.add(time);
+                } catch (Exception e) { // In case we encounter any problems with this row, we want to continue with the remaining rows
+                    e.printStackTrace();
                 }
-
             }
 
+            logger.info("Predicted records written to database successfully");
+
+            logger.info("Aggregating traders' statistics");
             for (LocalDateTime time : times) {
                 traderStatisticsAggregatorTask.aggregateHourly(time);
             }
+            logger.info("Traders' statistics aggregated and saved to the database");
         } catch (IOException e) {
             e.printStackTrace();
         }
