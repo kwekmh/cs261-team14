@@ -116,6 +116,7 @@ public class IndividualTradeDataPipelineModel implements DataPipelineModel {
             } else {
                 logger.info("Unknown indexes, creating new");
                 Row row = individualTradeDataTransformer.transform(input);
+                logger.info(row.toString());
                 DateTimeFormatter formatter  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
                 DateTimeFormatter secondaryFormatter  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -129,16 +130,16 @@ public class IndividualTradeDataPipelineModel implements DataPipelineModel {
 
                 Trade trade = new Trade();
                 trade.setTime(Timestamp.valueOf(ldt));
-                trade.setBuyerId(row.getInt(1));
-                trade.setSellerId(row.getInt(2));
-                trade.setPrice(row.getDouble(3));
+                trade.setBuyerId(Integer.parseInt(row.get(1).toString()));
+                trade.setSellerId(Integer.parseInt(row.get(2).toString()));
+                trade.setPrice(Double.parseDouble(row.get(3).toString()));
                 trade.setSize(Integer.parseInt(row.get(4).toString()));
-                trade.setCurrencyId(row.getInt(5));
-                trade.setSymbolId(row.getInt(6));
-                trade.setBidPrice(row.getDouble(8));
-                trade.setAskPrice(row.getDouble(9));
+                trade.setCurrencyId(Integer.parseInt(row.get(5).toString()));
+                trade.setSymbolId(Integer.parseInt(row.get(6).toString()));
+                trade.setBidPrice(Double.parseDouble(row.get(8).toString()));
+                trade.setAskPrice(Double.parseDouble(row.get(9).toString()));
                 trade.setCategoryId(1);
-                trade.setIsAnomalous((int) row.getDouble(12));
+                trade.setIsAnomalous(0);
                 tradeRepository.save(trade);
 
                 return null;
