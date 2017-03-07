@@ -235,4 +235,13 @@ public class DashboardController {
             return uploadsDirectory;
         }
     }
+
+    //Not sure how necessayr this is rather than a javascript update to span text
+    @GetMapping("/updateMessageForAnomaly")
+    public ModelAndView updateMessageForAnomaly() {
+        ModelAndView mv = main();
+        mv.addObject("message", "A new anomaly has been found!");
+
+        return mv;
+    }
 }

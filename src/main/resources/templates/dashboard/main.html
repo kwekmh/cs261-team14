@@ -16,7 +16,7 @@
     <div id="dashboardFrame">
         <div id="dashboardMessage" th:class="${message == null} ? 'hidden'">
             <span class="close" id="messageClose">&times;</span>
-            <span th:text="${message}"></span>
+            <span id="messageSpan" th:text="${message}"></span>
         </div>
         <div id="anomalyFrame">
             <div id="anomalyTitle">
@@ -249,7 +249,17 @@
             updateAnomalyTable();
 
             // QUERY BACKEND TO UPDATE ${message} VALUE TO "A new anomaly has been found!"
-            // GRAB FROM UPLOAD MODAL FOR TESTING
+
+            // IS AJAX EVEN NECESSARY HERE?
+            $.ajax({
+                type: "GET",
+                url: "/updateMessageForAnomaly",
+                success: function() {
+                    var mess = document.getElementById("messageSpan");
+                    mess.innerHTML = "A new anomaly has been found!";
+                    message.className = "";
+                }
+            });
 
             // Display notification icon
             pulse(3, 'on');
