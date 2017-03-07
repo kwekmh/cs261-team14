@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import uk.ac.warwick.dcs.cs261.team14.data.FileInputTask;
 import uk.ac.warwick.dcs.cs261.team14.db.entities.*;
+import uk.ac.warwick.dcs.cs261.team14.web.helpers.AnomalousEventJSONObject;
 import uk.ac.warwick.dcs.cs261.team14.web.helpers.GraphData;
 import uk.ac.warwick.dcs.cs261.team14.web.helpers.GraphHelper;
 import uk.ac.warwick.dcs.cs261.team14.web.helpers.Pair;
@@ -37,6 +38,9 @@ public class DashboardController {
 
     @Autowired
     private AggregateDataRepository aggregateDataRepository;
+
+    @Autowired
+    private TraderStatisticsRepository traderStatisticsRepository;
 
     @Autowired
     private SymbolRepository symbolRepository;
@@ -89,6 +93,51 @@ public class DashboardController {
         return mv;
     }
 
+    @RequestMapping(value = "/api/getLatestAnomalousEvents", method = RequestMethod.GET)
+    public @ResponseBody AnomalousEventJSONObject[] getLatestAnomalousEvents() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        ArrayList<AnomalousEvent> anomalousEventsList = new ArrayList<AnomalousEvent>();
+
+        for (Trade trade : tradeRepository.findTop10ByIsAnomalousGreaterThanOrderByTimeDesc(0)) {
+            anomalousEventsList.add(trade);
+        }
+
+        for (AggregateData aggregateData : aggregateDataRepository.findTop10ByIsAnomalousGreaterThanOrderByGeneratedDateDesc(0)) {
+            anomalousEventsList.add(aggregateData);
+        }
+
+        for (TraderStatistics traderStatistics : traderStatisticsRepository.findTop10ByIsAnomalousGreaterThanOrderByGeneratedDatetime(0)) {
+            anomalousEventsList.add(traderStatistics);
+        }
+
+        Collections.sort(anomalousEventsList, Comparator.comparing(AnomalousEvent::getTime).reversed());
+
+        int size = anomalousEventsList.size() < 10 ? anomalousEventsList.size() : 10;
+
+        AnomalousEventJSONObject[] anomalousEvents = new AnomalousEventJSONObject[size];
+
+        // Only take up to the top 10 results of the interspersed events
+        for (int i = 0; i < size; i++) {
+            AnomalousEventJSONObject jsonObject = new AnomalousEventJSONObject();
+
+            AnomalousEvent event = anomalousEventsList.get(i);
+
+            Symbol symbol = symbolRepository.findOne(event.getSymbolId());
+
+            jsonObject.setId(event.getId());
+            jsonObject.setTime(formatter.format(event.getTime().toLocalDateTime()));
+            jsonObject.setSymbol(symbol.getSymbolName());
+            jsonObject.setSector(sectorRepository.findOne(symbol.getSectorId()).getSectorName());
+            jsonObject.setCurrency("GBX");
+            jsonObject.setType(event.getAnomalousEventType());
+
+            anomalousEvents[i] = jsonObject;
+        }
+
+        return anomalousEvents;
+    }
+
     @RequestMapping(value = "/api/getSymbolPriceData/{symbolId}", method = RequestMethod.GET)
     public @ResponseBody GraphData getSymbolPriceData(@PathVariable int symbolId) {
         // Preparation of values of the graphs
@@ -131,7 +180,7 @@ public class DashboardController {
         }
     }
 
-        @RequestMapping(value = "/api/getSymbolSizeData/{symbolId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/getSymbolSizeData/{symbolId}", method = RequestMethod.GET)
     public @ResponseBody GraphData getSymbolSizeData(@PathVariable int symbolId) {
         // Preparation of values of the graphs
 

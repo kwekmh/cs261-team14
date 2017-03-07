@@ -45,7 +45,7 @@
                         Data Visualisation
                     </div> <!-- .dataContainer.notCentre -->
                 </div> <!-- #tradeDataTitle -->
-                <input type="hidden" id="symbolId" th:value="${anomalousEvent.getSymbolId()}">
+                <input type="hidden" id="anomalousEventId" th:value="${anomalousEvent.getId()}">
                 <div id="tradeData">
                     <div id="detailPriceGraph" class="detailGraph fullWidth">
                     </div> <!-- #detailPriceGraph -->
@@ -125,11 +125,11 @@
         }
     };
 
-    var symbolId = document.getElementById('symbolId').value;
-    priceHttp.open('GET', '[(@{/api/getSymbolPriceData/})]' + symbolId, true);
+    var anomalousEventId = document.getElementById('anomalousEventId').value;
+    priceHttp.open('GET', '[(@{/api/getAnomalousTradePriceData/})]' + anomalousEventId, true);
     priceHttp.send();
 
-    sizeHttp.open('GET', '[(@{/api/getSymbolSizeData/})]' + symbolId, true);
+    sizeHttp.open('GET', '[(@{/api/getAnomalousTradeSizeData/})]' + anomalousEventId, true);
     sizeHttp.send();
 
     /*]]>*/

@@ -14,6 +14,7 @@ import org.apache.spark.sql.types.StructType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,8 @@ public class IndividualTradeLearningModel implements LearningModel {
     private String[] schemaFields = {"time", "buyer", "seller", "price", "size", "currency", "symbol", "sector", "bid", "ask", "orig_time" };
     private StructType schema;
 
+    private GBTClassificationModel model;
+
     public IndividualTradeLearningModel() {
         List<StructField> fields = new ArrayList<StructField>();
         for (String fieldName : schemaFields) {
@@ -42,6 +45,17 @@ public class IndividualTradeLearningModel implements LearningModel {
         }
 
         schema = DataTypes.createStructType(fields);
+    }
+
+    @PostConstruct
+    public void init() {
+        SparkSession spark = SparkSession.builder().master("local").appName("uk.ac.warwick.dcs.cs261.team14.IndividualTradeLearningModel").getOrCreate();
+
+        spark.sparkContext().setCheckpointDir(checkpointsDirectory);
+
+        String modelPath = getModelPath(modelsDirectory);
+
+        model = GBTClassificationModel.load(modelPath);
     }
 
     public Dataset<Row> predict(Dataset<Row> rows) {
@@ -113,13 +127,39 @@ public class IndividualTradeLearningModel implements LearningModel {
 
         df = assembler.transform(df);
 
-        String modelPath = getModelPath(modelsDirectory);
-
-        GBTClassificationModel model = GBTClassificationModel.load(modelPath);
-
         Dataset<Row> transformed = model.transform(df);
 
         return transformed.first();
+    }
+
+        public Dataset<Row> predictList(ArrayList<Row> rows) {
+        SparkSession spark = SparkSession.builder().master("local").appName("uk.ac.warwick.dcs.cs261.team14.IndividualTradeLearningModel").getOrCreate();
+
+        spark.sparkContext().setCheckpointDir(checkpointsDirectory);
+
+        Dataset<Row> df = spark.createDataFrame(rows, schema);
+
+        df = df.withColumn("time", df.col("time").cast(TimestampType));
+        df = df.withColumn("time", df.col("time").cast(IntegerType));
+        df = df.withColumn("buyer", df.col("buyer").cast(IntegerType));
+        df = df.withColumn("seller", df.col("seller").cast(IntegerType));
+        df = df.withColumn("price", df.col("price").cast(DoubleType));
+        df = df.withColumn("size", df.col("size").cast(IntegerType));
+        df = df.withColumn("currency", df.col("currency").cast(IntegerType));
+        df = df.withColumn("symbol", df.col("symbol").cast(IntegerType));
+        df = df.withColumn("sector", df.col("sector").cast(IntegerType));
+        df = df.withColumn("bid", df.col("bid").cast(DoubleType));
+        df = df.withColumn("ask", df.col("ask").cast(DoubleType));
+
+        VectorAssembler assembler = new VectorAssembler()
+                .setInputCols(new String[] {"time","buyer","seller","price","currency","symbol","sector","bid","ask"})
+                .setOutputCol("features");
+
+        df = assembler.transform(df);
+
+        Dataset<Row> transformed = model.transform(df);
+
+        return transformed;
     }
 
     public void learn(Dataset<Row> df) {
@@ -154,6 +194,8 @@ public class IndividualTradeLearningModel implements LearningModel {
                 .setMaxIter(300);
 
         GBTClassificationModel model = gbt.fit(df);
+
+        this.model = model;
 
         try {
             // TODO: Ensure that no contention or race conditions can occur while attempting to delete the current model
