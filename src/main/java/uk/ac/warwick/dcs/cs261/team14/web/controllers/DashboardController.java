@@ -95,7 +95,7 @@ public class DashboardController {
 
     @RequestMapping(value = "/api/getLatestAnomalousEvents", method = RequestMethod.GET)
     public @ResponseBody AnomalousEventJSONObject[] getLatestAnomalousEvents() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         ArrayList<AnomalousEvent> anomalousEventsList = new ArrayList<AnomalousEvent>();
 

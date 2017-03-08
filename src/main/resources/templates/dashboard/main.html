@@ -38,7 +38,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="anomalousEvent : ${anomalousEvents}" th:with="symbol=${symbolRepository.findOne(anomalousEvent.getSymbolId())}">
+                    <tr th:each="anomalousEvent : ${anomalousEvents}" th:with="symbol=${symbolRepository.findOne(anomalousEvent.getSymbolId())}" th:id="${anomalousEvent.getId()}">
                         <td th:text="${#dates.format(anomalousEvent.getTime(), 'yyyy-MM-dd HH:mm:ss')}">Time</td>
                         <td th:text="${symbol.getSymbolName()}">Symbol</td>
                         <td th:text="${sectorRepository.findOne(symbol.getSectorId()).getSectorName()}">Sector</td>
@@ -228,42 +228,66 @@
     };
 
     // Implement polling for new anomaly to update table
+    var $newData = {};
+
     function newAnomalyFound() {
 
-        // QUERY BACKEND TO CHECK FOR NEW ANOMALY
+        var http = new XMLHttpRequest();
+        var $top = Number($('table').find('tbody tr:first').attr('id'));
 
-        return true;
+        http.onreadystatechange = function () {
+            if (http.readyState == 4 && http.status == 200 ) {
+                $newData = JSON.parse(http.responseText);
+                if ($newData[0].id != $top) {
+                    updateAnomalyTable();
+                }
+            }
+        };
+
+        http.open('GET', '/api/getLatestAnomalousEvents', true);
+        http.send();
+
     }
 
     function updateAnomalyTable() {
 
         // QUERY BACKEND FOR DATA TO UPDATE TABLE
         // GRAB FROM ALL ALERTS FOR TESTING
+        $('tbody').empty();
+        var tr;
+        for (var i = 0; i < $newData.length; i++) {
+            tr = $('<tr id="' + $newData[i].id + '" />');
+            tr.append("<td>" + $newData[i].time + "</td>");
+            tr.append("<td>" + $newData[i].symbol + "</td>");
+            tr.append("<td>" + $newData[i].sector + "</td>");
+            tr.append("<td>" + $newData[i].currency + "</td>");
+            tr.append("<td>" + ($newData[i].type == 1 ? "Individual Trade" : "EMA over 5 periods") + "</td>");
+            tr.append("<td><a class='button' href='/details/" + $newData[i].type + "/" + $newData[i].id +"'>Details</a></td>");
+            $('tbody').append(tr);
+        }
+
+        // QUERY BACKEND TO UPDATE ${message} VALUE TO "A new anomaly has been found!"
+        // IS AJAX EVEN NECESSARY HERE?
+        $.ajax({
+            type: "GET",
+            url: "/updateMessageForAnomaly",
+            success: function() {
+                var mess = document.getElementById("messageSpan");
+                mess.innerHTML = "A new anomaly has been found!";
+                message.className = "";
+            }
+        });
+
+        // Display notification icon
+        pulse(3, 'on');
 
     }
 
     // Poll for new anomaly every n milliseconds
     var n = 5000;
     function poll() {
-        if (newAnomalyFound()) {
-            updateAnomalyTable();
+        newAnomalyFound();
 
-            // QUERY BACKEND TO UPDATE ${message} VALUE TO "A new anomaly has been found!"
-
-            // IS AJAX EVEN NECESSARY HERE?
-            $.ajax({
-                type: "GET",
-                url: "/updateMessageForAnomaly",
-                success: function() {
-                    var mess = document.getElementById("messageSpan");
-                    mess.innerHTML = "A new anomaly has been found!";
-                    message.className = "";
-                }
-            });
-
-            // Display notification icon
-            pulse(3, 'on');
-        }
         setTimeout(poll, n);
     }
     setTimeout(poll, n);
