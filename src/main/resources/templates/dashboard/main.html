@@ -10,12 +10,13 @@
 
 <body>
 <div th:replace="fragments/sidebar :: sidebar('dashboard')">
-    
+
 </div> <!-- .sidebar.dashboard -->
 <div class="main">
     <div id="dashboardFrame">
-        <div id="dashboardMessage" th:if="${message != null}">
-            <span th:text="${message}"></span>
+        <div id="dashboardMessage" th:class="${message == null} ? 'hidden'">
+            <span class="close" id="messageClose">&times;</span>
+            <span id="messageSpan" th:text="${message}"></span>
         </div>
         <div id="anomalyFrame">
             <div id="anomalyTitle">
@@ -37,7 +38,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="anomalousEvent : ${anomalousEvents}" th:with="symbol=${symbolRepository.findOne(anomalousEvent.getSymbolId())}">
+                    <tr th:each="anomalousEvent : ${anomalousEvents}" th:with="symbol=${symbolRepository.findOne(anomalousEvent.getSymbolId())}" th:id="${anomalousEvent.getId()}">
                         <td th:text="${#dates.format(anomalousEvent.getTime(), 'yyyy-MM-dd HH:mm:ss')}">Time</td>
                         <td th:text="${symbol.getSymbolName()}">Symbol</td>
                         <td th:text="${sectorRepository.findOne(symbol.getSectorId()).getSectorName()}">Sector</td>
@@ -123,10 +124,10 @@
         Plotly.newPlot(graph, data, layout);
     }
 
-//    Add symbols to dropdown
+    //    Add symbols to dropdown
     var symbolsUrl = '[(@{/api/getSymbols})]';
     var symbolList = ['All', 'III', 'ADN', 'ADM', 'AAL', 'ANTO', 'ARM', 'AHT', 'ABF', 'AZN', 'AV.', 'BAB', 'BA.', 'BARC', 'BDEV', 'BKG', 'BLT', 'BP', 'BATS', 'BLND', 'BT.A', 'BNZL', 'BRBY', 'CPI', 'CCL', 'CNA', 'CCH', 'CPG', 'CRH', 'DCC', 'DGE', 'DLG', 'DC.', 'EZJ', 'EXPN', 'FRES', 'GKN', 'GSK', 'GLEN', 'HMSO', 'HL', 'HIK', 'HSBA', 'IMB', 'ISAT', 'IHG', 'IAG', 'ITRK', 'INTU', 'ITV', 'JMAT', 'KGF', 'LAND', 'LGEN', 'LLOY', 'LSE', 'MKS', 'MERL', 'MNDI', 'NG', 'NXT', 'OML', 'PSON', 'PSN', 'PFG', 'PRU', 'RRS', 'RB', 'REL', 'REX', 'RIO', 'RR.', 'RBS', 'RDSA', 'RMG', 'RSA', 'SAB', 'SGE', 'SBRY', 'SDR', 'SVT', 'SHP', 'SKY', 'SN.', 'SMIN', 'SPD', 'SSE', 'STAN', 'SL', 'STJ', 'TW.', 'TSCO', 'TPK', 'TUI', 'ULVR', 'UU', 'VOD', 'WTB', 'WOS', 'WPG', 'WPP'];
-//    var symbolSelector = document.getElementsByClassName('symbolData')[0];
+    //    var symbolSelector = document.getElementsByClassName('symbolData')[0];
     var symbolSelector = document.getElementById('symbolList');
 
     function assignOptions(textArray, selector) {
@@ -137,7 +138,7 @@
         }
     }
 
-//    assignOptions(symbolList, symbolSelector);
+    //    assignOptions(symbolList, symbolSelector);
 
     //    Update graph on symbol change
     function updateSymbol() {
@@ -168,10 +169,10 @@
         sizeHttp.send();
 
         /*
-        var newSymbolData = get_data_by_symbol(symbolSelector.value);
-        plot(newSymbolData.x, newSymbolData.y, newSymbolData.anomalous_x,newSymbolData. anomalous_y);
-        document.getElementsByClassName('modebar')[0].style.display = "none";
-        */
+         var newSymbolData = get_data_by_symbol(symbolSelector.value);
+         plot(newSymbolData.x, newSymbolData.y, newSymbolData.anomalous_x,newSymbolData. anomalous_y);
+         document.getElementsByClassName('modebar')[0].style.display = "none";
+         */
     }
 
     var http = new XMLHttpRequest();
@@ -197,7 +198,7 @@
     http.open('GET', symbolsUrl, true);
     http.send();
 
-//    Obtain data for new graph
+    //    Obtain data for new graph
     function get_data_by_symbol(symbol_id) {
         var jsonObj = { "x" : [], "y"  : [], "anomalous_x" : [], "anomalous_y" : []};
 
@@ -214,6 +215,83 @@
     }
 
     symbolSelector.addEventListener('change', updateSymbol, false);
+    /*]]>*/
+</script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    // Implement dashboard message close functionality
+    var messageClose = document.getElementById('messageClose');
+    var message = document.getElementById('dashboardMessage');
+    messageClose.onclick = function() {
+        message.className = "hidden";
+    };
+
+    // Implement polling for new anomaly to update table
+    var $newData = {};
+
+    function newAnomalyFound() {
+
+        var http = new XMLHttpRequest();
+        var $top = Number($('table').find('tbody tr:first').attr('id'));
+
+        http.onreadystatechange = function () {
+            if (http.readyState == 4 && http.status == 200 ) {
+                $newData = JSON.parse(http.responseText);
+                if ($newData[0].id != $top) {
+                    updateAnomalyTable();
+                }
+            }
+        };
+
+        http.open('GET', '/api/getLatestAnomalousEvents', true);
+        http.send();
+
+    }
+
+    function updateAnomalyTable() {
+
+        // QUERY BACKEND FOR DATA TO UPDATE TABLE
+        // GRAB FROM ALL ALERTS FOR TESTING
+        $('tbody').empty();
+        var tr;
+        for (var i = 0; i < $newData.length; i++) {
+            tr = $('<tr id="' + $newData[i].id + '" />');
+            tr.append("<td>" + $newData[i].time + "</td>");
+            tr.append("<td>" + $newData[i].symbol + "</td>");
+            tr.append("<td>" + $newData[i].sector + "</td>");
+            tr.append("<td>" + $newData[i].currency + "</td>");
+            tr.append("<td>" + ($newData[i].type == 1 ? "Individual Trade" : "EMA over 5 periods") + "</td>");
+            tr.append("<td><a class='button' href='/details/" + $newData[i].type + "/" + $newData[i].id +"'>Details</a></td>");
+            $('tbody').append(tr);
+        }
+
+        // QUERY BACKEND TO UPDATE ${message} VALUE TO "A new anomaly has been found!"
+        // IS AJAX EVEN NECESSARY HERE?
+        $.ajax({
+            type: "GET",
+            url: "/updateMessageForAnomaly",
+            success: function() {
+                var mess = document.getElementById("messageSpan");
+                mess.innerHTML = "A new anomaly has been found!";
+                message.className = "";
+            }
+        });
+
+        // Display notification icon
+        pulse(3, 'on');
+
+    }
+
+    // Poll for new anomaly every n milliseconds
+    var n = 5000;
+    function poll() {
+        newAnomalyFound();
+
+        setTimeout(poll, n);
+    }
+    setTimeout(poll, n);
+
     /*]]>*/
 </script>
 </body>
