@@ -94,7 +94,8 @@ body {
 #dataButtons {
     position: absolute;
     bottom: 0;
-    height: 87px;
+    /*height: 87px;*/
+    height: 43px;
     width: 100%;
 }
 

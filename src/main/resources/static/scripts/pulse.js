@@ -22,10 +22,10 @@ function pulse(count, sound) {
     $("#alertIcon").fadeOut();
 }
 
-var tempPulser = document.getElementById("streamHook");
+//var tempPulser = document.getElementById("streamHook");
 
 var audio = new Audio('/sounds/alert1.mp3');
 
-tempPulser.onclick = function() {
-    pulse(3,'on');
-};
+//tempPulser.onclick = function() {
+//    pulse(3,'on');
+//};
