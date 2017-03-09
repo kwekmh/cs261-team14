@@ -442,6 +442,9 @@ input[type="file"] {
     overflow: scroll;
 }
 
+#symbolDropdown option {
+    background-color: #3A3A3A;
+}
 
 /* ALL TRADES */
 #allTradeDataFrame {
