@@ -122,7 +122,7 @@ public class IndividualTradeLearningModel implements LearningModel {
         df = df.withColumn("ask", df.col("ask").cast(DoubleType));
 
         VectorAssembler assembler = new VectorAssembler()
-                .setInputCols(new String[] {"time","buyer","seller","price","currency","symbol","sector","bid","ask"})
+                .setInputCols(new String[] {"time","buyer","seller","price","size","currency","symbol","sector","bid","ask"})
                 .setOutputCol("features");
 
         df = assembler.transform(df);
@@ -152,7 +152,7 @@ public class IndividualTradeLearningModel implements LearningModel {
         df = df.withColumn("ask", df.col("ask").cast(DoubleType));
 
         VectorAssembler assembler = new VectorAssembler()
-                .setInputCols(new String[] {"time","buyer","seller","price","currency","symbol","sector","bid","ask"})
+                .setInputCols(new String[] {"time","buyer","seller","price","size","currency","symbol","sector","bid","ask"})
                 .setOutputCol("features");
 
         df = assembler.transform(df);
@@ -181,7 +181,7 @@ public class IndividualTradeLearningModel implements LearningModel {
         df = df.withColumn("is_anomalous", df.col("is_anomalous").cast(IntegerType));
 
         VectorAssembler assembler = new VectorAssembler()
-                .setInputCols(new String[] {"time","buyer","seller","price","currency","symbol","sector","bid","ask"})
+                .setInputCols(new String[] {"time","buyer","seller","price","size","currency","symbol","sector","bid","ask"})
                 .setOutputCol("features");
 
         df = assembler.transform(df);
