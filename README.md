@@ -6,7 +6,7 @@
 * Apache Spark 2.1.0 (https://spark.apache.org/)
 * MySQL Server (https://www.mysql.com/)
 
-## <a name="initial"></a>Initial setup
+## <a name="initial"></a>Initial Setup
 
 It is imperative that you install and configure the prerequisites correctly as per the instructions on their websites. You need to make sure that all the environment variables are set for Apache Spark and Apache Maven.
 
